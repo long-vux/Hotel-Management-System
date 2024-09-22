@@ -1,0 +1,3 @@
+dotnet new webapi -o api
+# run a project
+dotnet watch run
