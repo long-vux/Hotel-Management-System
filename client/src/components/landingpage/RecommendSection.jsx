@@ -19,6 +19,7 @@ const RecommendSection = () => {
             className="object-cover w-full h-full"
           />
         </div>
+
         <div id="image3" className="col-start-5 col-span-4 row-start-1 row-span-4 w-full h-full">
           <img
             src={process.env.PUBLIC_URL + '/assets/hotel_facilities/gym.jpg'}
@@ -26,6 +27,7 @@ const RecommendSection = () => {
             className="object-cover w-full h-full"
           />
         </div>
+        
         <div id="image4" className="col-start-5 col-span-4 row-start-5 row-span-4 flex items-center justify-center bg-gray-100 p-8 w-full h-full">
           <div className="text-center">
             <h2 className="text-[35px] font-italiana">Our Services</h2>
