@@ -27,11 +27,11 @@ const RecommendSection = () => {
             className="object-cover w-full h-full"
           />
         </div>
-        
+
         <div id="image4" className="col-start-5 col-span-4 row-start-5 row-span-4 flex items-center justify-center bg-gray-100 p-8 w-full h-full">
           <div className="text-center">
             <h2 className="text-[35px] font-italiana">Our Services</h2>
-            <p className="text-[25px] leading-7 mt-[10px]">Indulge in the epitome of hospitality at our world-class resort.</p>
+            <p className="text-[25px] leading-7 mt-[10px]">Indulge in the epitome of hospitality at our world-class hotel.</p>
           </div>
         </div>
         <div id="image5" className="col-start-5 col-span-4 row-start-9 row-span-4 w-full h-full">

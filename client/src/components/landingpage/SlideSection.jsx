@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../layout/Header.jsx'
+import NavigationBar from '../layout/NavigationBar.jsx'
 import Search from './Search.jsx'
 
 const SlideSection = () => {
@@ -12,7 +12,7 @@ const SlideSection = () => {
         backgroundRepeat: 'no-repeat',
       }}>
 
-      <Header />
+      <NavigationBar theme="dark" />
       <div className='absolute bottom-[-65px] left-1/2 transform -translate-x-1/2'>
         <Search />
       </div>

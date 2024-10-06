@@ -13,11 +13,11 @@ const Footer = () => {
           <div className='footer-navigation-link flex flex-row w-1/2'>
             <ul className='contact-usa gap-2 flex flex-col w-8/12'>
               <li className='header font-bold'>Contact Us</li>
-              <li>Email: Nguyennguyen8343@gmail.com</li>
+              <li> Email: Nguyennguyen8343@gmail.com</li>
               <li>Phone: 0329868603</li>
               <li>Toll-free: 1800 588 801</li>
               <li className='w-1/2'>
-                Address: Phuoc Thuan, Xuyen Moc District, Ba Ria – Vung Tau
+                Address: Phuoc Thuan, Xuyen Moc District, Ba Ria - Vung Tau
                 Province, Vietnam
               </li>
             </ul>

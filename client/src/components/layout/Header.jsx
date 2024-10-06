@@ -1,19 +1,36 @@
-import React from 'react';
-
-const Header = () => {
+import React from 'react'
+import NavigationBar from './NavigationBar'
+import AddIcCallRoundedIcon from '@mui/icons-material/AddIcCallRounded'
+import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver'
+import BedIcon from '@mui/icons-material/Bed'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+export default function Header () {
   return (
-    <div className='relative h-[100px] flex items-center justify-around gap-[300px] text-white'>
-      <h1 className='text-[36px] font-italiana'>The Grand</h1> {/* Update this line */}
-      <div className='flex items-center justify-center'>
-        <ul className='flex items-center justify-center gap-[100px] text-[24px]'>
-          <li>Home</li>
-          <li>Room</li>
-          <li>My Stays</li>
-          <li>About us</li>
+    <div>
+      <div className='flex  justify-between bg-blue-900 w-full mx-auto p-4 px-10 text-white font-inter'>
+        {/* Cusomer care */}
+        <ul className='flex gap-10 font-medium'>
+          <li className='center gap-2'>
+            <AddIcCallRoundedIcon /> 0329868603
+          </li>
+          <li className='center gap-2'>
+            <RecordVoiceOverIcon /> Chat with us
+          </li>
+        </ul>
+
+        {/* Customer related */}
+        <ul className='flex gap-10 font-medium'>
+          <li className='center gap-2'>
+            <a href='/'>
+              <BedIcon /> My Stay
+            </a>
+          </li>
+          <li className='center gap-2'>
+            <AccountCircleIcon /> Nguyen
+          </li>
         </ul>
       </div>
+      <NavigationBar />
     </div>
-  );
+  )
 }
-
-export default Header;
