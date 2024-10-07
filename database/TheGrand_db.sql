@@ -28,6 +28,7 @@ CREATE TABLE Employee (
     PhoneNumber VARCHAR(50) UNIQUE,
     Address TEXT,
     Avatar TEXT,
+	EmployeeStatus VARCHAR(255) CHECK (EmployeeStatus IN ('Active', 'Inactive', 'On leave')),
     Salary DECIMAL(10, 2) CHECK (Salary >= 0),
     RoleID VARCHAR(10),                            -- Added RoleID to associate with Role
     FOREIGN KEY (RoleID) REFERENCES Role(RoleID)  -- Foreign key constraint
@@ -95,7 +96,7 @@ CREATE TABLE Amenities (
 CREATE TABLE Payment (
     PaymentID VARCHAR(10) PRIMARY KEY,             
     PaymentMethod VARCHAR(50) NOT NULL,
-    PaymentStatus VARCHAR(50) NOT NULL,
+    PaymentStatus VARCHAR(50) NOT NULL CHECK (PaymentStatus IN ('Pending', 'Successful', 'Failed')),
     PaymentDate DATE NOT NULL,
     TotalAmount DECIMAL(10, 2) CHECK (TotalAmount >= 0),
     BookingID VARCHAR(10),
