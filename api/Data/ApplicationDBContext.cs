@@ -13,5 +13,6 @@ namespace api.Data
 
         }
         public DbSet<Customer> Customers { get; set; }
+        public  DbSet<Comment> Comment { get; set; }
     }
 }

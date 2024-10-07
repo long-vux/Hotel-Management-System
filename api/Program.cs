@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
 
