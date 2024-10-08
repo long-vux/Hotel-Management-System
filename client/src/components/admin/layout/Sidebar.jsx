@@ -1,62 +1,79 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import KingBedIcon from '@mui/icons-material/KingBed';
-import PaymentIcon from '@mui/icons-material/Payment';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Dashboard, PeopleOutline, KingBed, Payment, CalendarMonth, Logout } from '@mui/icons-material';
 
 const Sidebar = () => {
+
+  const activeStyle = "bg-[#dbe9f5] border-r-4 border-black";
+  const inactiveStyle = "text-gray-700";
+
   return (
-    <div className="sidebar">
-      <h2>Admin Panel</h2>
-      <nav>
-        <ul>
-          <li>
-            <NavLink exact to="/admin/dashboard" activeClassName="active">
-              <DashboardIcon />
-              Dashboard
-            </NavLink>
-          </li>
-          <li>
-            <NavLink exact to="/admin/guest-stay" activeClassName="active">
-              <PeopleOutlineIcon />
-              Guests & Stays
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/reservation" activeClassName="active">
-              <CalendarMonthIcon />
-              Reservation
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/room" activeClassName="active">
-              <KingBedIcon />
-              Room
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/employee" activeClassName="active">
-              <PeopleOutlineIcon />
-              Employee
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/payment" activeClassName="active">
-              <PaymentIcon />
-            Payment
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/admin/logout" activeClassName="active">
-              <LogoutIcon />
-              Logout
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
+    <div className="sidebar h-full flex flex-col justify-between">
+      <ul className=' h-full m-4 text-[16px] flex flex-col gap-1'>
+        <li>
+          <NavLink
+            exact
+            to="/admin/dashboard"
+            className={({ isActive }) => `flex items-center gap-4 p-2   ${isActive ? activeStyle : inactiveStyle} `}
+          >
+            <Dashboard />
+            <span>Dashboard</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            exact
+            to="/admin/guest-stay"
+            className={({ isActive }) => `flex items-center gap-4 p-2 ${isActive ? activeStyle : inactiveStyle} `}
+          >
+            <PeopleOutline />
+            <span>Guests & Stays</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/admin/reservation"
+            className={({ isActive }) => `flex items-center gap-4 p-2 ${isActive ? activeStyle : inactiveStyle} `}
+          >
+            <CalendarMonth />
+            <span>Reservation</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/admin/room"
+            className={({ isActive }) => `flex items-center gap-4 p-2 ${isActive ? activeStyle : inactiveStyle} `}
+          >
+            <KingBed />
+            <span>Room</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/admin/employee"
+            className={({ isActive }) => `flex items-center gap-4 p-2 ${isActive ? activeStyle : inactiveStyle} `}
+          >
+            <PeopleOutline />
+            <span>Employee</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/admin/payment"
+            className={({ isActive }) => `flex items-center gap-4 p-2 ${isActive ? activeStyle : inactiveStyle} `}
+          >
+            <Payment />
+            <span>Payment</span>
+          </NavLink>
+        </li>
+      </ul>
+      <NavLink
+        to="/admin/logout"
+        className='flex items-center gap-4 p-6 pl-8'
+      >
+        <Logout />
+        <span>Log out</span>
+      </NavLink>
     </div>
   );
 };
