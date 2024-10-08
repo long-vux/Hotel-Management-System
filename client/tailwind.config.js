@@ -4,7 +4,17 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}", // Adjust the paths according to your project structure
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        'layout': 'auto 1fr auto', // Header, Main content, Footer
+      },
+      gridTemplateColumns: {
+        'layout': '250px 1fr', // Sidebar, Main content
+      },
+      fontFamily: {
+        'italiana': ['Italiana', 'serif'],
+      },
+    },
   },
   plugins: [],
 };
