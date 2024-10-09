@@ -4,7 +4,7 @@ import { Login } from '@mui/icons-material';
 const CardOverview = () => {
     return (
         <div className='w-[180px] h-[120px] bg-white rounded-md flex flex-col justify-between m-1 p-2 font-inter' >
-            <div className='w-full h-full flex items-center justify-between '>
+            <div className='w-full flex items-center justify-between '>
                 <Login />
                 <h1 className='text-[14px] text-red-500'>12%</h1>
             </div>
