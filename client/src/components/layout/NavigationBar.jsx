@@ -3,7 +3,7 @@ import React from 'react';
 const NavigationBar = ({ theme }) => {
   return (
     <div
-      className={`relative h-[100px] flex items-center justify-around gap-[300px] bg-transparent ${
+      className={`relative h-[80px] flex items-center justify-around gap-[300px] bg-transparent ${
         theme === 'dark' ? 'text-white' : 'text-black shadow-md'
       }`}
     >

@@ -7,7 +7,7 @@ import Footer from '../components/layout/Footer.jsx'
 const LandingPage = () => {
   return (
     <div className='flex flex-col gap-[70px]'>
-        <Slide/> 
+        <Slide landingPage={true}/> 
         <Discovery/>
         <Explore/>
         <Recommend/>
