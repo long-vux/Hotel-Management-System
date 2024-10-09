@@ -4,12 +4,12 @@ import Footer from './Footer' // Assuming Footer component is defined
 
 export default function Layout ({ children }) {
   return (
-    <div className='min-h-screen flex flex-col gap-10'>
+    <div className='min-h-screen flex flex-col'>
       {/* Header */}
       <Header />
 
       {/* Main Content */}
-      <main className='container mx-auto px-4'>{children}</main>
+      <main className=''>{children}</main>
 
       {/* Footer */}
       <Footer />
