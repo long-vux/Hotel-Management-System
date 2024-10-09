@@ -1,9 +1,133 @@
 import React from 'react'
 import CardOverview from '../components/admin/dashboard/CardOverview'
+import CustomerList from '../components/admin/dashboard/CustomerList'
+
+const guestData = [
+  {
+    guestName: 'John Doe',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-01',
+    roomType: 'Single',
+    allocatedRoom: '#A101',
+    dueAmount: '2999$'
+  },
+  {
+    guestName: 'Jane Doe',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Single',
+    allocatedRoom: '#C092',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Harry Potter',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-01',
+    roomType: 'Single',
+    allocatedRoom: '#A101',
+    dueAmount: '3999$'
+  },
+  {
+    guestName: 'Hermione Granger',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Single',
+    allocatedRoom: '#B032',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Ron Weasley',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Single',
+    allocatedRoom: '#A101',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Draco Malfoy',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Single',
+    allocatedRoom: '#B032',
+    dueAmount: '4900  $'
+  },
+  {
+    guestName: 'Ginny Weasley',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Single',
+    allocatedRoom: '#C092',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Luna Lovegood',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-09',
+    roomType: 'Single',
+    allocatedRoom: '#A101',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Neville Longbottom',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-09',
+    roomType: 'Single',
+    allocatedRoom: '#B032',
+  },
+  {
+    guestName: 'Fred Weasley',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Single',
+    allocatedRoom: '#C092',
+    dueAmount: '1900$'
+  },
+  {
+    guestName: 'George Weasley',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-09',
+    roomType: 'Single',
+    allocatedRoom: '#A101',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Ron Weasley',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Double',
+    allocatedRoom: '#B032',
+    dueAmount: '1600$'
+  },
+  {
+    guestName: 'Harry Potter',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-09',
+    roomType: 'Single',
+    allocatedRoom: '#C092',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Harry Potter',
+    checkIn: '2024-01-01',
+    checkOut: '_',
+    roomType: 'Double',
+    allocatedRoom: '#A101',
+    dueAmount: '1200$'
+  },
+  {
+    guestName: 'Harry Potter',
+    checkIn: '2024-01-01',
+    checkOut: '2024-01-09',
+    roomType: 'Double',
+    allocatedRoom: '#B032',
+    dueAmount: '1200$'
+  }
+]
+
 
 const Dashboard = () => {
   return (
-    <div className='w-full h-[500px] flex flex-row justify-between font-inter'>
+    <div className='w-full h-[510px] flex flex-row justify-between font-inter gap-[8px]'>
       <div className='w-[60%]'>
         <h1 id='overview' className='text-[16px] font-bold'>Overview</h1>
         <div className='flex flex-col gap-[10px]'>
@@ -20,154 +144,32 @@ const Dashboard = () => {
             <img src={process.env.PUBLIC_URL + '/assets/hotel_facilities/building1.jpg'} alt='room' className='w-[140px] h-[100px]' />
             <img src={process.env.PUBLIC_URL + '/assets/hotel_facilities/building1.jpg'} alt='room' className='w-[140px] h-[100px]' />
           </div>
-          <div class="relative overflow-x-auto ml-1">
+          <div class="relative overflow-x-auto ml-1 ">
             <h1 className='text-[16px] font-bold pb-1'>Guest List</h1>
-            <table class="text-left bg-white rounded-md">
+            <table class="text-left bg-white rounded-md w-full pr-[20px]">
               <thead class="">
                 <tr>
-                  <th scope="col" class="px-4 py-2 text-[15px]">
+                  <th class="px-4 py-2 text-[14px]">
                     Guest Name
                   </th>
-                  <th scope="col" class="px-4 py-2 text-[15px]">
+                  <th scope="col" class="px-4 py-2 text-[14px]">
                     Check in
                   </th>
-                  <th scope="col" class="px-4 py-2 text-[15px]">
+                  <th scope="col" class="px-4 py-2 text-[14px]">
                     Check out
                   </th>
-                  <th scope="col" class="px-4 py-2 text-[15px]">
+                  <th scope="col" class="px-4 py-2 text-[14px]">
                     Room Type
                   </th>
-                  <th scope="col" class="px-4 py-2 text-[15px]">
+                  <th scope="col" class="px-4 py-2 text-[14px]">
                     Aloocated Room
                   </th>
-                  <th scope="col" class="px-4 py-2 text-[15px]">
+                  <th scope="col" class="px-4 py-2 text-[14px]">
                     Due Amount
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-
-              </tbody>
+              <CustomerList guestData={guestData} />
             </table>
           </div>
 
@@ -175,14 +177,14 @@ const Dashboard = () => {
       </div>
       <div className='w-[40%] mt-[5px] ml-[5px]'>
         <img src={process.env.PUBLIC_URL + '/assets/hotel_facilities/building1.jpg'} alt='room' className='w-full h-[100px] border-1 border-gray-300 object-cover' />
-        <div className='flex flex-col gap-[2px]'>
+        <div className='flex flex-col gap-[4px]'>
           <h1 id='quick-action' className='text-[16px] font-bold pt-2'>Quick action</h1>
           <div className='flex flex-col justify-between bg-white rounded-md p-2'>
             <div className='flex flex-row gap-[10px] w-full text-center '>
-              <h1 className='text-[18px] font-bold w-[50%] h-[35px] bg-[#1D4567] text-white leading-9 rounded-md'>Check In</h1>
-              <h1 className='text-[18px] font-bold w-[50%] h-[35px] text-black border-[1px] leading-9 border-gray-400 rounded-md'>Check Out</h1>
+              <button className='text-[18px] font-bold w-[50%] h-[35px] bg-[#1D4567] text-white leading-9 rounded-md'>Check In</button>
+              <button className='text-[18px] font-bold w-[50%] h-[35px] text-black border-[1px] leading-9 border-gray-400 rounded-md'>Check Out</button>
             </div>
-            <div className=' flex flex-col gap-[12px] w-full h-full bg-[#F1F1F1] p-2 mt-2 rounded-md'>
+            <div className=' flex flex-col gap-[13px] w-full h-full bg-[#F1F1F1] p-2 mt-2 rounded-md'>
               <div className='flex flex-col text-[14px] font-bold'>
                 <h1>Phone number</h1>
                 <div className='w-full flex flex-row gap-[10px]'>
@@ -239,7 +241,7 @@ const Dashboard = () => {
                 </div>
                 <div className='w-full h-[1px] bg-gray-400 pt-0'></div>
               </div>
-              <div className='flex justify-end '> 
+              <div className='flex justify-end '>
                 <button className='w-[100px] font-bold h-[30px] bg-[#1D4567] text-white rounded-md'>Check in</button>
               </div>
             </div>
