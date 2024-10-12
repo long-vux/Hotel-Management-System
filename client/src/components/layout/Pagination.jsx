@@ -14,13 +14,13 @@ const Pagination = ({
   }
 
   return (
-<div className="pagination flex flex-row gap-2">
+<div className="pagination flex  flex-row gap-2">
   {pages.map((page, index) => {
     return (
       <button
         key={index}
         onClick={() => setCurrentPage(page)}
-        className={`border rounded-md text-[16px] p-4 h-0 w-0 center hover:border-black transition-colors duration-300 ${
+        className={`border center font-inter rounded-md text-[16px] p-4 h-0 w-0 center hover:border-black transition-colors duration-300 ${
           page === currentPage ? 'bg-black text-white' : ''
         }`}
       >

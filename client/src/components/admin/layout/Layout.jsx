@@ -12,11 +12,11 @@ const Layout = ({ children }) => {
       <aside className="bg-white rounded-md ml-2 row-start-2 row-end-3 col-start-1 col-end-2">
         <Sidebar />
       </aside>
-      <main className="rounded-md mr-2 row-start-2 row-end-3 col-start-2 col-end-3 pb-[100px]">
+      <main className="rounded-md mr-2 row-start-2 row-end-3 col-start-2 col-end-3 bg-[#F1F1F1] ">
         {children}
       </main>
-      <footer className="bg-white rounded-md mx-2 row-start-3 row-end-4 col-span-2 pt-[100px]">
-        <div className="w-3/5 mx-auto">
+      <footer className="bg-white rounded-md mx-2 row-start-3 row-end-4 col-span-2">
+        <div className="px-5 mx-auto">
           <Footer />
         </div>
       </footer>

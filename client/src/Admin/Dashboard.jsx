@@ -126,46 +126,7 @@ const Dashboard = () => {
                     $2999
                   </td>
                 </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
-                <tr class="bg-white text-black">
-                  <th scope="row" class="px-4 py-2 font-medium ">
-                    John Doe
-                  </th>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    2024-01-01
-                  </td>
-                  <td class="px-4 py-1">
-                    Single
-                  </td>
-                  <td class="px-4 py-1">
-                    #A101
-                  </td>
-                  <td class="px-4 py-1">
-                    $2999
-                  </td>
-                </tr>
+              
 
               </tbody>
             </table>
