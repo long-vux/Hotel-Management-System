@@ -112,7 +112,7 @@ const guestData = [
 
 const GuestStay = () => {
   return (
-    <div className='w-full h-[510px] flex flex-col'>
+    <div className='w-full flex flex-col'>
 
       <h1 id='quick-action' className='text-[16px] font-bold'>Guest And Stays</h1>
       <div className='w-full flex flex-row items-center justify-between'>
