@@ -21,7 +21,16 @@ body {
   align-items: center;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.element::-webkit-scrollbar {
+  display: none;
+}
 
+/* Hide scrollbar for IE, Edge and Firefox */
+.element {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
 /* pagination */
 
 .pagination .button.active{

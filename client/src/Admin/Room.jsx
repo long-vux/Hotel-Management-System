@@ -6,404 +6,1732 @@ import AddRoomModalButton from '../components/admin/rooms/AddRoom_Modal_Button'
 const Room = () => {
   const rooms = [
     {
-      allocated: '#001',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#002',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#003',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#004',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#005',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#006',
-      image: '/assets/hotel_room/room2.jpg',
-      title: 'Superior Room',
-      price: '150',
-      type: '1 king bed',
-      status: 'Available'
-    },
-    {
-      allocated: '#007',
-      image: '/assets/hotel_room/room2.jpg',
-      title: 'Superior Room',
-      price: '150',
-      type: '1 king bed',
-      status: 'Booked'
-    },
-    {
-      allocated: '#008',
-      image: '/assets/hotel_room/room2.jpg',
-      title: 'Superior Room',
-      price: '150',
-      type: '1 king bed',
-      status: 'Available'
-    },
-    {
-      allocated: '#009',
+      roomId: 'RM001',
+      roomNo: '#001',
       image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Booked'
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Available',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#010',
+      roomId: 'RM002',
+      roomNo: '#002',
       image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Booked',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#011',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#012',
+      roomId: 'RM003',
+      roomNo: '#003',
       image: '/assets/hotel_room/room1.jpg',
       title: 'Deluxe Family Room',
-      price: '200',
+      price: 200,
       type: '2 king beds',
-      status: 'Available'
+      status: 'Booked',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#013',
+      roomId: 'RM004',
+      roomNo: '#004',
       image: '/assets/hotel_room/room1.jpg',
       title: 'Deluxe Family Room',
-      price: '200',
+      price: 200,
       type: '2 king beds',
-      status: 'Available'
+      status: 'Maintenance',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#014',
+      roomId: 'RM005',
+      roomNo: '#005',
+      image: '/assets/hotel_room/room1.jpg',
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Available',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM006',
+      roomNo: '#006',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Booked'
+      status: 'Available',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#015',
+      roomId: 'RM007',
+      roomNo: '#007',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Available'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#016',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#017',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#018',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#019',
+      roomId: 'RM008',
+      roomNo: '#008',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Available'
+      status: 'Available',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#020',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#021',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#022',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Booked'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#023',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#024',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#025',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#026',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Available'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#027',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#028',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#029',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Booked'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#030',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#031',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#032',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#033',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Available'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#034',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#035',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#036',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Booked'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#037',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#038',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#039',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#040',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Available'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#041',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#042',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#043',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Booked'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#044',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Booked'
-    },
-    {
-      allocated: '#045',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Maintenance'
-    },
-    {
-      allocated: '#046',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#047',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Available'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     },
     {
-      allocated: '#048',
-      image: '/assets/hotel_room/room3.jpg',
-      title: 'Standard Room',
-      price: '100',
-      type: '2 twin beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#049',
-      image: '/assets/hotel_room/room1.jpg',
-      title: 'Deluxe Family Room',
-      price: '200',
-      type: '2 king beds',
-      status: 'Available'
-    },
-    {
-      allocated: '#050',
+      roomId: 'RM050',
+      roomNo: '#050',
       image: '/assets/hotel_room/room2.jpg',
       title: 'Superior Room',
-      price: '150',
+      price: 150,
       type: '1 king bed',
-      status: 'Booked'
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM001',
+      roomNo: '#001',
+      image: '/assets/hotel_room/room1.jpg',
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Available',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM002',
+      roomNo: '#002',
+      image: '/assets/hotel_room/room1.jpg',
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Booked',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM003',
+      roomNo: '#003',
+      image: '/assets/hotel_room/room1.jpg',
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Booked',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM004',
+      roomNo: '#004',
+      image: '/assets/hotel_room/room1.jpg',
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Maintenance',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM005',
+      roomNo: '#005',
+      image: '/assets/hotel_room/room1.jpg',
+      title: 'Deluxe Family Room',
+      price: 200,
+      type: '2 king beds',
+      status: 'Available',
+      capacity: 4,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM006',
+      roomNo: '#006',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Available',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM007',
+      roomNo: '#007',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM008',
+      roomNo: '#008',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Available',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
+    },
+    {
+      roomId: 'RM050',
+      roomNo: '#050',
+      image: '/assets/hotel_room/room2.jpg',
+      title: 'Superior Room',
+      price: 150,
+      type: '1 king bed',
+      status: 'Booked',
+      capacity: 2,
+      amenities: [
+        'Free Wi-Fi',
+        'Breakfast',
+        'Air conditioning',
+        'Balcony',
+        'TV',
+        'Mini-bar'
+      ]
     }
   ]
 

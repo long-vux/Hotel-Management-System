@@ -6,10 +6,10 @@ const Carousel = ({ images }) => {
     <Carousel>
       {images.map((image, i) => (
         <img
-          key={i} // Or image.id if you have unique IDs
+          key={i} 
           src={
             `https://via.placeholder.com/500x300?text=Image+${i + 1}`
-          } // Placeholder if image is null or undefined
+          }
           alt={`Image ${i + 1}`}
           style={{ width: '100%', height: '300px', objectFit: 'cover' }}
         />

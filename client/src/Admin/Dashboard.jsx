@@ -127,7 +127,7 @@ const guestData = [
 
 const Dashboard = () => {
   return (
-    <div className='w-full h-[510px] flex flex-row justify-between font-inter gap-[8px]'>
+    <div className='w-full  flex flex-row justify-between font-inter gap-[8px]'>
       <div className='w-[60%]'>
         <h1 id='overview' className='text-[16px] font-bold'>Overview</h1>
         <div className='flex flex-col gap-[10px]'>
