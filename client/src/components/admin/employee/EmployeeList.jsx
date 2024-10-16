@@ -35,7 +35,7 @@ const EmployeeList = ({ employeeData = [] }) => {  // Provide default empty arra
           ))}
         </tbody>
  
-      <div className='mb-4 ml-3'>
+      <div className='mb-4 mt-2 ml-3'>
         <Pagination
           totalPosts={employeeData.length}
           postsPerPage={postsPerPage}

@@ -1,6 +1,9 @@
 import React from 'react'
 import EmployeeList from '../components/admin/employee/EmployeeList'
-
+import Fab from '@mui/material/Fab'
+import AddIcon from '@mui/icons-material/Add'
+import EmployeeDetails from '../components/admin/employee/EmployeeDetails'
+import AddEmployeeModal from '../components/admin/employee/addEmployeeModal'
 
 const Employee = () => {
   const data = [
@@ -305,11 +308,18 @@ const Employee = () => {
       EmailAddress: 'harper.king@hotel.com'
     }
   ]
+
+
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   
 
   return (
     <div className='flex flex-col  w-full'>
       <h1 className=' text-[25px] font-medium'>Employee</h1>
+
       <table class='text-left bg-white rounded-md w-full pr-[20px]'>
         <thead class=''>
           <tr>
@@ -344,6 +354,18 @@ const Employee = () => {
         </thead>
         <EmployeeList employeeData={data} />
       </table>
+
+      <Fab
+        onClick={handleOpen}
+        color='primary'
+        aria-label='add'
+        style={{ position: 'fixed', bottom: '20px', right: '30px' }}
+      >
+        <AddIcon />
+      </Fab>
+
+    <AddEmployeeModal open={open} handleClose={handleClose}/>
+
     </div>
   )
 }
