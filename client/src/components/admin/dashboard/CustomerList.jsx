@@ -23,7 +23,7 @@ const CustomerList = ({ guestData }) => {
           dueAmount={guest.dueAmount}
         />
       ))}
-      <div className='mb-4 ml-3'>
+      <div className='my-4 ml-3'>
         <Pagination totalPosts={guestData.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
     </tbody>
