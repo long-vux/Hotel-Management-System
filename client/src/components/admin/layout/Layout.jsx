@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
       <main className='rounded-md mr-2 row-start-2 col-start-2 col-end-3'>
         {children}
       </main>
-      <footer className='bg-white rounded-md mx-2 row-start-3 col-span-2 pt-[100px]'>
+      <footer className='bg-white rounded-md mx-2 row-start-3 col-span-2 mt-[20px]'>
         <div className='w-3/5 mx-auto'>
           <Footer />
         </div>
