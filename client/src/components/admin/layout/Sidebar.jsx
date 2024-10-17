@@ -8,25 +8,12 @@ import {
   CalendarMonth,
   Logout
 } from '@mui/icons-material'
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import {
-  Dashboard,
-  PeopleOutline,
-  KingBed,
-  Payment,
-  CalendarMonth,
-  Logout
-} from '@mui/icons-material'
 
 const Sidebar = () => {
   const activeStyle = 'bg-[#dbe9f5] border-r-4 border-black'
   const inactiveStyle = 'text-gray-700'
-  const activeStyle = 'bg-[#dbe9f5] border-r-4 border-black'
-  const inactiveStyle = 'text-gray-700'
 
   return (
-    <div className='sidebar h-full flex flex-col justify-between'>
     <div className='sidebar h-full flex flex-col justify-between'>
       <ul className=' h-full m-4 text-[16px] flex flex-col gap-1'>
         <li>
@@ -122,8 +109,5 @@ const Sidebar = () => {
     </div>
   )
 }
-  )
-}
 
-export default Sidebar
 export default Sidebar

@@ -189,7 +189,7 @@ const reservationData = [
 
 const Reservation = () => {
   return (
-    <div className='w-full h-[505px] flex flex-col mb-[100px]'>
+    <div className='w-full h-[505px] flex flex-col mb-[130px]'>
       <h1 id='quick-action' className='text-[24px] font-bold'>Reservation</h1>
       <div className='w-full flex flex-row items-center justify-between'>
         <div className='flex flex-row items-center gap-[10px] '>
@@ -204,43 +204,23 @@ const Reservation = () => {
         <table class="text-left bg-white rounded-md w-full">
           <thead class="">
             <tr className='text-[16px]'>
-              <th scope="col" class="pl-4 py-2">
-                ID
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Guest Name
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Email
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Phone Number
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Room Type
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Total Amount
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Status  
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Check in / out dates
-              </th>
-              <th scope="col" class="px-4 py-2">
-                Created At
-              </th>
-              <th scope="col" class="px-9 py-2">
-                Action
-              </th>
+              <th scope="col" class="pl-4 py-2">ID</th>
+              <th scope="col" class="px-4 py-2">Guest Name</th>
+              <th scope="col" class="px-4 py-2">Email</th>
+              <th scope="col" class="px-4 py-2">Phone Number</th>
+              <th scope="col" class="px-4 py-2">Room Type</th>  
+              <th scope="col" class="px-4 py-2">Total Amount</th>
+              <th scope="col" class="px-4 py-2">Status</th>
+              <th scope="col" class="px-4 py-2">Check in / out dates</th>
+              <th scope="col" class="px-4 py-2">Created At</th>
+              <th scope="col" class="px-9 py-2">Action</th>
             </tr>
           </thead>
-            <ReservationList reservationData={reservationData} />
+          <ReservationList reservationData={reservationData} />
         </table>
       </div>
     </div>
   )
 }
 
-export default Reservation
+export default Reservation  

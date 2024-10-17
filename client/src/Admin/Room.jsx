@@ -2,9 +2,6 @@ import React from 'react'
 import RoomCardListAdmin from '../components/admin/rooms/RoomCardList_admin'
 import RoomFiltering from '../components/admin/rooms/Room_filtering'
 import AddRoomModalButton from '../components/admin/rooms/AddRoom_Modal_Button'
-import RoomCardListAdmin from '../components/admin/rooms/RoomCardList_admin'
-import RoomFiltering from '../components/admin/rooms/Room_filtering'
-import AddRoomModalButton from '../components/admin/rooms/AddRoom_Modal_Button'
 
 const Room = () => {
   const rooms = [
