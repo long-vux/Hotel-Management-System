@@ -129,7 +129,7 @@ const Dashboard = () => {
   return (
     <div className='w-full  flex flex-row justify-between font-inter gap-[8px]'>
       <div className='w-[60%]'>
-        <h1 id='overview' className='text-[16px] font-bold'>Overview</h1>
+        <h1 id='overview' className='text-[20px] font-bold'>Overview</h1>
         <div className='flex flex-col gap-[10px]'>
           <div className='w-full flex rounded-md '>
             <CardOverview />
@@ -145,7 +145,7 @@ const Dashboard = () => {
             <img src={process.env.PUBLIC_URL + '/assets/hotel_facilities/building1.jpg'} alt='room' className='w-[140px] h-[100px]' />
           </div>
           <div class="relative overflow-x-auto ml-1 ">
-            <h1 className='text-[16px] font-bold pb-1'>Guest List</h1>
+            <h1 className='text-[20px] font-bold pb-1'>Guest List</h1>
             <table class="text-left bg-white rounded-md w-full pr-[20px]">
               <thead class="">
                 <tr>
@@ -178,7 +178,7 @@ const Dashboard = () => {
       <div className='w-[40%] mt-[5px] ml-[5px]'>
         <img src={process.env.PUBLIC_URL + '/assets/hotel_facilities/building1.jpg'} alt='room' className='w-full h-[100px] border-1 border-gray-300 object-cover' />
         <div className='flex flex-col gap-[4px]'>
-          <h1 id='quick-action' className='text-[16px] font-bold pt-2'>Quick action</h1>
+          <h1 id='quick-action' className='text-[20px] font-bold pt-2'>Quick action</h1>
           <div className='flex flex-col justify-between bg-white rounded-md p-2'>
             <div className='flex flex-row gap-[10px] w-full text-center '>
               <button className='text-[18px] font-bold w-[50%] h-[35px] bg-[#1D4567] text-white leading-9 rounded-md'>Check In</button>

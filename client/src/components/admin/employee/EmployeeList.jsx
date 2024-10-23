@@ -13,28 +13,27 @@ const EmployeeList = ({ employeeData = [] }) => {  // Provide default empty arra
 
   return (
     <>
-      
-        <tbody>
-          {currentPosts.map((employee, index) => (
-            <EmployeeRow
-              key={index}
-              EmployeeID={employee.EmployeeID}
-              FirstName={employee.FirstName}
-              LastName={employee.LastName}
-              Gender={employee.Gender}
-              DateOfBirth={employee.DateOfBirth}
-              Email={employee.EmailAddress}
-              PhoneNumber={employee.PhoneNumber}
-              Address={employee.Address}
-              Avatar={employee.Avatar}
-              EmployeeStatus={employee.EmployeeStatus}
-              Salary={employee.Salary}
-              Role={employee.Role}
-              Department={employee.Department}
-            />
-          ))}
-        </tbody>
- 
+      <tbody>
+        {currentPosts.map((employee, index) => (
+          <EmployeeRow
+            key={index}
+            EmployeeID={employee.EmployeeID}
+            FirstName={employee.FirstName}
+            LastName={employee.LastName}
+            Gender={employee.Gender}
+            DateOfBirth={employee.DateOfBirth}
+            Email={employee.EmailAddress}
+            PhoneNumber={employee.PhoneNumber}
+            Address={employee.Address}
+            Avatar={employee.Avatar}
+            EmployeeStatus={employee.EmployeeStatus}
+            Salary={employee.Salary}
+            Role={employee.Role}
+            Department={employee.Department}
+          />
+        ))}
+      </tbody>
+
       <div className='mb-4 mt-2 ml-3'>
         <Pagination
           totalPosts={employeeData.length}

@@ -22,7 +22,7 @@ const CustomerList = ({ guestData }) => {
           allocatedRoom={guest.allocatedRoom}
         />
       ))}
-      <div className='mb-3 ml-3'>
+      <div className='my-4 ml-4'>
         <Pagination totalPosts={guestData.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
     </tbody>
