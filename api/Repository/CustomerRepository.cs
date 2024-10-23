@@ -4,19 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Customer;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository(ApplicationDBContext context) : ICustomerRepository
     {
-        private readonly ApplicationDBContext _context;
-        public CustomerRepository(ApplicationDBContext context)
-        {
-            _context = context;
-        }
+        private readonly ApplicationDBContext _context = context;
 
         public async Task<Customer> CreateAsync(Customer customerModel)
         {
@@ -37,17 +34,23 @@ namespace api.Repository
             return customerModel;
         }
 
-        public async Task<List<Customer>> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync(QueryObject query)
         {
-            return await _context.Customers.ToListAsync();;
+            var customers = _context.Customers.Include(c => c.Comments).AsQueryable();
+            
+            if(!string.IsNullOrEmpty(query.CustomerName))
+            {
+                customers = customers.Where(c => c.FirstName.Contains(query.CustomerName) || c.LastName.Contains(query.CustomerName));
+            }
+            return await customers.ToListAsync();
         }
 
         public async Task<Customer?> GetByIdAsync(int id)
         {
-            return await _context.Customers.FindAsync(id); 
+            return await _context.Customers.Include(c => c.Comments).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Customer?> UpdateAsync(int id, UpdateCustomerRequestDto customerDto)
+        public async Task<Customer?> UpdateAsync(int id, UpdateCustomerDto customerDto)
         {
             var existingCustomer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
             if(existingCustomer == null)
@@ -66,6 +69,12 @@ namespace api.Repository
         
             await _context.SaveChangesAsync();
             
-            return existingCustomer;        }
+            return existingCustomer;        
+        }
+
+        public Task<bool> CustomerExists(int id)
+        {
+            return _context.Customers.AnyAsync(s => s.Id == id);
+        }
     }
 }

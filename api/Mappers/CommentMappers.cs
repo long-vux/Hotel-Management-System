@@ -20,5 +20,15 @@ namespace api.Mappers
                 CustomerId = commentModel.CustomerId
             };
         }
+
+        public static Comment ToCommentFromCreate(this CreateCommentDto commentDto, int customerId)
+        {
+            return new Comment
+            {
+                Title = commentDto.Title,
+                Content = commentDto.Content,
+                CustomerId = customerId
+            };
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Customer;
+using api.Dtos.Comment;
 using api.Models;
 
 namespace api.Mappers
@@ -21,10 +22,11 @@ namespace api.Mappers
                 Address = customerModel.Address,
                 City = customerModel.City,
                 Country = customerModel.Country,
+                Comments = customerModel.Comments.Select(c => c.ToCommentDto()).ToList(),
             };
         }
 
-        public static Customer ToCustomerFromCreateDto(this CreateCustomerRequestDto customerDto) {
+        public static Customer ToCustomerFromCreateDto(this CreateCustomerDto customerDto) {
             return new Customer
             {
                 FirstName = customerDto.FirstName,
