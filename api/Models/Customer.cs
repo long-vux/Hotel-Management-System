@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Comment;
 
 namespace api.Models
 {
@@ -16,6 +17,7 @@ namespace api.Models
         public required string City { get; set; }
         public required string Country { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public List<Comment> Comments { get; set; } = [];
+
     }
 }
-

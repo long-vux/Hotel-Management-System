@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos.Comment;
 
 namespace api.Dtos.Customer
 {
@@ -16,5 +17,6 @@ namespace api.Dtos.Customer
         public required string City { get; set; }
         public required string Country { get; set; }
         public DateTime RegistrationDate { get; set; }
-    }
+        public List<CommentDto> Comments { get; set; } = [];
+    } 
 }
