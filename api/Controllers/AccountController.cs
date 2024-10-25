@@ -37,23 +37,19 @@ namespace api.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName != null && u.UserName.ToLower() == loginDto.Username.ToLower());
+                var email = loginDto.Email ?? string.Empty;
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email != null && u.Email.ToLower() == email.ToLower());
 
-                if (user == null)
-                {
-                    return Unauthorized("Invalid username or password");
-                }
+                if (user == null) 
+                    return Unauthorized("Email not registered");
 
                 var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-                if (!result.Succeeded)
-                {
-                    return Unauthorized("Username not found and/or password is incorrect");
-                }
+                if (!result.Succeeded) 
+                    return Unauthorized("Password is incorrect");
 
                 return Ok(new NewUserDto
                 {
-                    Username = user.UserName ?? string.Empty,
                     Email = user.Email ?? string.Empty,
                     Token = _tokenService.CreateToken(user),
                 });
@@ -75,8 +71,10 @@ namespace api.Controllers
 
                 var appUser = new AppUser
                 {
-                    UserName = registerDto.Username,
-                    Email = registerDto.Email,
+                    UserName = registerDto.Email ?? string.Empty,
+                    Email = registerDto.Email ?? string.Empty,
+                    FirstName = registerDto.FirstName ?? string.Empty,
+                    LastName = registerDto.LastName ?? string.Empty,
                 };
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
@@ -88,7 +86,6 @@ namespace api.Controllers
                     {
                         return Ok(new NewUserDto
                         {
-                            Username = appUser.UserName ?? string.Empty,
                             Email = appUser.Email ?? string.Empty,
                             Token = _tokenService.CreateToken(appUser)
                         });
@@ -112,5 +109,4 @@ namespace api.Controllers
             }
         }
     }
-
 }
