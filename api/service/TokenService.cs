@@ -9,6 +9,7 @@ using api.Interfaces;
 using api.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace api.service
 {
@@ -16,20 +17,28 @@ namespace api.service
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+        private readonly UserManager<AppUser> _userManager;
 
-        public TokenService(IConfiguration config)
+        public TokenService(IConfiguration config, UserManager<AppUser> userManager)
         {
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"] ?? string.Empty));
+            _userManager = userManager;
         }
 
-        public string CreateToken(AppUser user)
+        public async Task<string> CreateToken(AppUser user)
         {
+            var name = user.FirstName + " " + user.LastName ?? string.Empty;
+
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.UserName ?? string.Empty),
+                new (JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+                new (JwtRegisteredClaimNames.GivenName, user.UserName ?? string.Empty),
+                new (JwtRegisteredClaimNames.NameId, user.Id),
             };
+
+            var roles = await _userManager.GetRolesAsync(user);
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -46,6 +55,6 @@ namespace api.service
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }   
+        }
     }
 }

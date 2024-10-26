@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace api.Models
+{
+    public class Employee
+    {
+        public int Id { get; set; }
+        public required string FirstName { get; set; } = string.Empty;
+        public required string LastName { get; set; } = string.Empty;
+        public required string Salary { get; set; } = string.Empty;
+        public required string PhoneNumber { get; set; } = string.Empty;
+        public required string Email { get; set; } = string.Empty;
+        public required bool IsWoman { get; set; } 
+        public required string ImagePath { get; set; } = string.Empty; // Store the image file path, not the file itself
+    }
+}
+

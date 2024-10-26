@@ -34,13 +34,13 @@ namespace api.Repository
             return customerModel;
         }
 
-        public async Task<List<Customer>> GetAllAsync(QueryObject query)
+        public async Task<List<Customer>> GetAllAsync(CustomerQueryObject query)
         {
             var customers = _context.Customers.Include(c => c.Comments).AsQueryable();
             
-            if(!string.IsNullOrEmpty(query.CustomerName))
+            if(!string.IsNullOrEmpty(query.Name))
             {
-                customers = customers.Where(c => c.FirstName.Contains(query.CustomerName) || c.LastName.Contains(query.CustomerName));
+                customers = customers.Where(c => c.FirstName.Contains(query.Name) || c.LastName.Contains(query.Name));
             }
             return await customers.ToListAsync();
         }

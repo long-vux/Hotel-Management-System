@@ -48,10 +48,17 @@ namespace api.Controllers
                 if (!result.Succeeded) 
                     return Unauthorized("Password is incorrect");
 
-                return Ok(new NewUserDto
+                var roles = await _userManager.GetRolesAsync(user);
+                
+                var token = await _tokenService.CreateToken(user); // Await the token creation
+
+                return Ok(new
                 {
                     Email = user.Email ?? string.Empty,
-                    Token = _tokenService.CreateToken(user),
+                    FirstName = user.FirstName ?? string.Empty,
+                    LastName = user.LastName ?? string.Empty,
+                    Role = roles.FirstOrDefault() ?? string.Empty,
+                    Token = token
                 });
             }
             catch (Exception ex)
@@ -81,13 +88,16 @@ namespace api.Controllers
 
                 if (createdUser.Succeeded)
                 {
-                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                    var roleResult = await _userManager.AddToRoleAsync(appUser, "Employee");
+                    
                     if (roleResult.Succeeded)
                     {
+                        var token = await _tokenService.CreateToken(appUser); // Await the token creation
+
                         return Ok(new NewUserDto
                         {
                             Email = appUser.Email ?? string.Empty,
-                            Token = _tokenService.CreateToken(appUser)
+                            Token = token
                         });
                     }
                     else

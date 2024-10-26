@@ -10,7 +10,7 @@ namespace api.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task<List<Customer>> GetAllAsync(QueryObject query);
+        Task<List<Customer>> GetAllAsync(CustomerQueryObject query);
         Task<Customer?> GetByIdAsync(int id); // use ? because FirstOrDefault() can be returned null
         Task<Customer> CreateAsync(Customer customerModel);
         Task<Customer?> UpdateAsync(int id, UpdateCustomerDto customerDto);

@@ -20,30 +20,30 @@ namespace api.Controllers
         private readonly ICustomerRepository _customerRepo = customerRepo;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
+        public async Task<IActionResult> GetAll([FromQuery] CustomerQueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-                
+
             // _context.Customers -> customers data
             var customers = await _customerRepo.GetAllAsync(query);
-            
+
             var customerDtos = customers.Select(s => s.ToCustomerDto()).ToList();
-;
+            ;
             return Ok(customerDtos);
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
-        {   
+        {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-                
+
             var customer = await _customerRepo.GetByIdAsync(id);
 
             if (customer == null)
                 return NotFound();
-                
+
             return Ok(customer.ToCustomerDto());
         }
 
@@ -66,12 +66,12 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-                
+
             var customerModel = await _customerRepo.UpdateAsync(id, updateDto);
 
-            if(customerModel == null)
+            if (customerModel == null)
                 return NotFound();
-            
+
             return Ok(customerModel.ToCustomerDto());
         }
 
@@ -81,10 +81,10 @@ namespace api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-                
+
             var customerModel = await _customerRepo.DeleteAsync(id);
 
-            if(customerModel == null) 
+            if (customerModel == null)
                 return NotFound();
 
             return NoContent();
