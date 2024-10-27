@@ -88,9 +88,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
-    // options.Password.RequireLowercase = true;
-    // options.Password.RequireUppercase = true;
-    // options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 6;
 })
 .AddEntityFrameworkStores<ApplicationDBContext>();
@@ -100,6 +97,8 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 
 var app = builder.Build();
 
@@ -127,9 +126,9 @@ app.MapControllers();
 app.Run();
 
 // Method to seed roles
-async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
+static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
 {
-    var roles = new[] { "EMPLOYEE", "MANAGER" };
+    var roles = new[] { "EMPLOYEE", "MANAGER", "ASSISTANT" };
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))

@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace api.Models
 {
@@ -12,7 +9,6 @@ namespace api.Models
         public required string Content { get; set; } = string.Empty;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int? CustomerId { get; set; }
-        public Customer? Customer { get; set; }
     }
 }
 

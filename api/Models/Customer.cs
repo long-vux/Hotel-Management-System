@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using api.Dtos.Comment;
-
 namespace api.Models
 {
     public class Customer
@@ -11,13 +5,12 @@ namespace api.Models
         public int Id { get; set; }
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public required string Email { get; set; }
+        public required string IdentityNumber { get; set; }
+        public required string IdentityType { get; set; }
         public required string PhoneNumber { get; set; }
-        public required string Address { get; set; }
-        public required string City { get; set; }
-        public required string Country { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public List<Comment> Comments { get; set; } = [];
 
+        // One-to-Many with Booking
+        public List<Booking> Bookings { get; set; } = [];
     }
 }

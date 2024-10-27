@@ -72,9 +72,9 @@ namespace api.Repository
             return existingCustomer;        
         }
 
-        public Task<bool> CustomerExists(int id)
+        public async Task<bool> CustomerExists(int id)
         {
-            return _context.Customers.AnyAsync(s => s.Id == id);
+            return await _context.Customers.AnyAsync(s => s.Id == id);
         }
     }
 }
