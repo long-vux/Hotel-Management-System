@@ -8,9 +8,6 @@ namespace api.Models
         public required string IdentityNumber { get; set; }
         public required string IdentityType { get; set; }
         public required string PhoneNumber { get; set; }
-        public DateTime RegistrationDate { get; set; }
-
-        // One-to-Many with Booking
         public List<Booking> Bookings { get; set; } = [];
     }
 }

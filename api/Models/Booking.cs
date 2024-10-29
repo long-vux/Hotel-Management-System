@@ -13,9 +13,10 @@ namespace api.Models
         public required Customer Customer { get; set; }
 
         // One-to-One with Payment
-        public required Payment Payment { get; set; }
+        public Payment Payment { get; set; } = null!;
 
-        // Many-to-Many with Room
-        public List<Room> Rooms { get; set; } = [];
+        // Foreign key and navigation property
+        public int RoomId { get; set; } 
+        public required Room Room { get; set; } 
     }
 }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Customer;
 using api.Helpers;
@@ -36,7 +32,7 @@ namespace api.Repository
 
         public async Task<List<Customer>> GetAllAsync(CustomerQueryObject query)
         {
-            var customers = _context.Customers.Include(c => c.Comments).AsQueryable();
+            var customers = _context.Customers.Include(c => c.Bookings).AsQueryable();
             
             if(!string.IsNullOrEmpty(query.Name))
             {
@@ -47,26 +43,21 @@ namespace api.Repository
 
         public async Task<Customer?> GetByIdAsync(int id)
         {
-            return await _context.Customers.Include(c => c.Comments).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Customers.Include(c => c.Bookings).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Customer?> UpdateAsync(int id, UpdateCustomerDto customerDto)
         {
             var existingCustomer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
-            if(existingCustomer == null)
-            {
-                return null;
-            }
+            
+            if(existingCustomer == null) return null;
 
             existingCustomer.FirstName = customerDto.FirstName;
             existingCustomer.LastName = customerDto.LastName;
-            existingCustomer.Email = customerDto.Email;
             existingCustomer.PhoneNumber = customerDto.PhoneNumber;
-            existingCustomer.Address = customerDto.Address;
-            existingCustomer.City = customerDto.City;
-            existingCustomer.Country = customerDto.Country;
-            existingCustomer.RegistrationDate = customerDto.RegistrationDate;
-        
+            existingCustomer.IdentityNumber = customerDto.IdentityNumber;
+            existingCustomer.IdentityType = customerDto.IdentityType;
+
             await _context.SaveChangesAsync();
             
             return existingCustomer;        

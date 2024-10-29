@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
 using api.Data;
-using api.Dtos.Employee;
-using api.Helpers;
+using api.Dtos.Booking;
 using api.Interfaces;
-using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,64 +15,54 @@ namespace api.Repository
             return await _context.Bookings.AnyAsync(b => b.Id == id);
         }
 
-        // public async Task<Booking> CreateAsync(Booking bookingModel)
-        // {
-        //     await _context.Bookings.AddAsync(bookingModel);
-        //     await _context.SaveChangesAsync();
-        //     return bookingModel;
-        // }
+        public async Task<Booking?> GetByIdAsync(int id)
+        {
+            return await _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.Customer)
+                .FirstOrDefaultAsync(b => b.Id == id);
+        }
 
-        // public async Task<Employee?> DeleteAsync(int id)
-        // {
-        //     var booking = await _context.Bookings.FindAsync(id);
-        //     if (booking == null)
-        //         return null;
-        //     _context.Bookings.Remove(booking);
-        //     await _context.SaveChangesAsync();
-        //     return booking;
-        // }
+        public async Task<List<Booking>> GetAllAsync()
+        {
+            var bookings = _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.Customer)
+                .AsQueryable();
 
-        // public async Task<List<Employee>> GetAllAsync(EmployeeQueryObject query)
-        // {
-        //     var bookings = _context.Bookings.AsQueryable();
-        //     var name = bookings.Select(e => e.GuestName);
+            return await bookings.ToListAsync();
+        }
 
-        //     if (query.Id != null)
-        //         bookings = bookings.Where(e => e.Id == query.Id);
-        //     if (!string.IsNullOrEmpty(query.Name))
-        //         bookings = bookings.Where(e => name.Contains(query.Name));
-        //     if (!string.IsNullOrEmpty(query.Email))
-        //         bookings = bookings.Where(e => e.Email.Contains(query.Email));
-        //     if (!string.IsNullOrEmpty(query.Phone))
-        //         bookings = bookings.Where(e => e.PhoneNumber.Contains(query.Phone));
+        public async Task<Booking> CreateAsync(Booking bookingModel)
+        {
+            await _context.Bookings.AddAsync(bookingModel);
+            await _context.SaveChangesAsync();
+            return bookingModel;
+        }
 
-        //     return await bookings.ToListAsync();
-        // }
+        public async Task<Booking?> UpdateAsync(int id, UpdateBookingDto bookingDto)
+        {
+            var existingBooking = await _context.Bookings.FirstOrDefaultAsync(x => x.Id == id);
+            if (existingBooking == null)
+                return null;
 
-        // public async Task<Employee?> GetByIdAsync(int id)
-        // {
-        //     return await _context.Bookings.FindAsync(id);
-        // }
+            existingBooking.GuestNumber = bookingDto.GuestNumber;
+            existingBooking.CheckInDate = bookingDto.CheckInDate;
+            existingBooking.CheckOutDate = bookingDto.CheckOutDate;
 
-        // public async Task<Employee?> UpdateAsync(int id, Employee employeeModel)
-        // {
-        //     var existingBooking = await _context.Bookings.FirstOrDefaultAsync(x => x.Id == id);
-        //     if (existingBooking == null)
-        //         return null;
-    
-        //     existingBooking.GuestNumber = bookingModel.GuestNumber;
-        //     existingBooking.CheckInDate = bookingModel.CheckInDate;
-        //     existingBooking.CheckOutDate = bookingModel.CheckOutDate;
+            await _context.SaveChangesAsync();
+            return existingBooking;
+        }
 
-        //     if (!string.IsNullOrEmpty(bookingModel.ImagePath))
-        //     {
-        //         existingEmployee.ImagePath = employeeModel.ImagePath;
-        //     }
-
-        //     await _context.SaveChangesAsync();
-        //     return existingEmployee;
-        // }
-
+        public async Task<Booking?> DeleteAsync(int id)
+        {
+            var booking = await _context.Bookings.FindAsync(id);
+            if (booking == null)
+                return null;
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+            return booking;
+        }
     }
 }
 

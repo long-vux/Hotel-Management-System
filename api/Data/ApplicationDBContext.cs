@@ -8,12 +8,10 @@ namespace api.Data
     public class ApplicationDBContext(DbContextOptions dbContextOptions) : IdentityDbContext<AppUser>(dbContextOptions)
     {
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Amenity> Amenities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +22,20 @@ namespace api.Data
                 .HasOne(b => b.Payment)
                 .WithOne(p => p.Booking)
                 .HasForeignKey<Payment>(p => p.BookingId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .IsRequired();
+            // .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Customer)
+                .WithMany(c => c.Bookings)
+                .HasForeignKey(b => b.CustomerId);
+
+            // One-to-Many between Booking and Room
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Room)
+                .WithMany(r => r.Bookings)
+                .HasForeignKey(b => b.RoomId)
+                .OnDelete(DeleteBehavior.Cascade); // Optional: configure cascade delete if needed
 
             // This configuration tells EF Core how to define composite keys for Identity entities.
             modelBuilder.Entity<IdentityUserLogin<string>>()

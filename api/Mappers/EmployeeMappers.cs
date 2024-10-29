@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Dtos.Employee;
 using api.Models;
 
@@ -21,6 +17,7 @@ namespace api.Mappers
                 Salary = employeeModel.Salary,
                 IsWoman = employeeModel.IsWoman,
                 ImagePath = employeeModel.ImagePath,
+                Department = employeeModel.Department,
             };
         }
 
@@ -34,19 +31,7 @@ namespace api.Mappers
                 Salary = employeeDto.Salary,
                 IsWoman = employeeDto.IsWoman,
                 ImagePath = string.Empty,
-            };
-        }
-
-        public static Employee ToEmployeeFromUpdateDto(this UpdateEmployeeDto employeeDto) {
-            return new Employee
-            {
-                FirstName = employeeDto.FirstName,
-                LastName = employeeDto.LastName,
-                Email = employeeDto.Email,
-                PhoneNumber = employeeDto.PhoneNumber,
-                Salary = employeeDto.Salary,
-                IsWoman = employeeDto.IsWoman,
-                ImagePath = string.Empty,
+                Department = employeeDto.Department,
             };
         }
     }

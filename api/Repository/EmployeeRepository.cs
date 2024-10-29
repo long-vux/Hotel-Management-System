@@ -1,9 +1,7 @@
-using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Employee;
 using api.Helpers;
 using api.Interfaces;
-using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,28 +50,40 @@ namespace api.Repository
             return await _context.Employees.FindAsync(id);
         }
 
-        public async Task<Employee?> UpdateAsync(int id, Employee employeeModel)
+        public async Task<Employee?> UpdateAsync(int id, UpdateEmployeeDto employeeModel)
         {
             var existingEmployee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
             if (existingEmployee == null)
                 return null;
 
-            existingEmployee.FirstName = employeeModel.FirstName;
-            existingEmployee.LastName = employeeModel.LastName;
-            existingEmployee.Email = employeeModel.Email;
-            existingEmployee.PhoneNumber = employeeModel.PhoneNumber;
-            existingEmployee.Salary = employeeModel.Salary;
-            existingEmployee.IsWoman = employeeModel.IsWoman;
+            // Update only the fields that are provided
+            if (!string.IsNullOrEmpty(employeeModel.FirstName))
+                existingEmployee.FirstName = employeeModel.FirstName;
+
+            if (!string.IsNullOrEmpty(employeeModel.LastName))
+                existingEmployee.LastName = employeeModel.LastName;
+
+            if (!string.IsNullOrEmpty(employeeModel.Email))
+                existingEmployee.Email = employeeModel.Email;
+
+            if (!string.IsNullOrEmpty(employeeModel.PhoneNumber))
+                existingEmployee.PhoneNumber = employeeModel.PhoneNumber;
+
+            if (employeeModel.Salary != null) // Assuming Salary can be null
+                existingEmployee.Salary = employeeModel.Salary;
+
+            if (employeeModel.IsWoman != null) // Assuming IsWoman is a nullable boolean
+                existingEmployee.IsWoman = employeeModel.IsWoman ?? false;
 
             if (!string.IsNullOrEmpty(employeeModel.ImagePath))
-            {
                 existingEmployee.ImagePath = employeeModel.ImagePath;
-            }
+
+            if (!string.IsNullOrEmpty(employeeModel.Department))
+                existingEmployee.Department = employeeModel.Department;
 
             await _context.SaveChangesAsync();
             return existingEmployee;
         }
-
     }
 }
 

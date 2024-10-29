@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Employee;
 using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
-using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -104,8 +99,6 @@ namespace api.Controllers
       if (existingEmployee == null)
         return NotFound("Employee not found");
 
-      var employee = employeeDto.ToEmployeeFromUpdateDto();
-
       if (employeeDto.Image != null)
       {
         // Validate the file type
@@ -141,7 +134,7 @@ namespace api.Controllers
               System.IO.File.Delete(oldImagePath);
           }
 
-          employee.ImagePath = $"/images/employees/{sanitizedFileName}";
+          employeeDto.ImagePath = $"/images/employees/{sanitizedFileName}";
         }
         catch (Exception)
         {
@@ -149,7 +142,7 @@ namespace api.Controllers
         }
       }
 
-      await _employeeRepo.UpdateAsync(id, employee);
+      await _employeeRepo.UpdateAsync(id, employeeDto);
 
       return NoContent();
     }

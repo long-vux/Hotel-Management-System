@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Dtos.Customer;
-using api.Dtos.Comment;
 using api.Models;
 
 namespace api.Mappers
@@ -17,12 +12,10 @@ namespace api.Mappers
                 Id = customerModel.Id,
                 FirstName = customerModel.FirstName,
                 LastName = customerModel.LastName,
-                Email = customerModel.Email,
+                IdentityNumber = customerModel.IdentityNumber,
+                IdentityType = customerModel.IdentityType,
                 PhoneNumber = customerModel.PhoneNumber,
-                Address = customerModel.Address,
-                City = customerModel.City,
-                Country = customerModel.Country,
-                Comments = customerModel.Comments.Select(c => c.ToCommentDto()).ToList(),
+                Bookings = customerModel.Bookings.Select(b => b.ToBookingDto()).ToList(),
             };
         }
 
@@ -31,11 +24,20 @@ namespace api.Mappers
             {
                 FirstName = customerDto.FirstName,
                 LastName = customerDto.LastName,
-                Email = customerDto.Email,
+                IdentityNumber = customerDto.IdentityNumber,
+                IdentityType = customerDto.IdentityType,
                 PhoneNumber = customerDto.PhoneNumber,
-                Address = customerDto.Address,
-                City = customerDto.City,
-                Country = customerDto.Country,
+            };
+        }
+
+        public static Customer ToCustomerFromUpdateDto(this UpdateCustomerDto customerDto) {
+            return new Customer
+            {
+                FirstName = customerDto.FirstName,
+                LastName = customerDto.LastName,
+                IdentityNumber = customerDto.IdentityNumber,
+                IdentityType = customerDto.IdentityType,
+                PhoneNumber = customerDto.PhoneNumber,
             };
         }
     }

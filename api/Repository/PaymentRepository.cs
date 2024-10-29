@@ -29,56 +29,34 @@ namespace api.Repository
             return paymentModel;
         }
 
-        // public async Task<Employee?> DeleteAsync(int id)
-        // {
-        //     var booking = await _context.Bookings.FindAsync(id);
-        //     if (booking == null)
-        //         return null;
-        //     _context.Bookings.Remove(booking);
-        //     await _context.SaveChangesAsync();
-        // return payment;
-        // }
+        public async Task<Payment?> DeleteAsync(int id)
+        {
+            var payment = await _context.Payments.FindAsync(id);
 
-        // public async Task<List<Employee>> GetAllAsync(EmployeeQueryObject query)
-        // {
-        //     var bookings = _context.Bookings.AsQueryable();
-        //     var name = bookings.Select(e => e.GuestName);
+            if (payment == null)
+                return null;
 
-        //     if (query.Id != null)
-        //         bookings = bookings.Where(e => e.Id == query.Id);
-        //     if (!string.IsNullOrEmpty(query.Name))
-        //         bookings = bookings.Where(e => name.Contains(query.Name));
-        //     if (!string.IsNullOrEmpty(query.Email))
-        //         bookings = bookings.Where(e => e.Email.Contains(query.Email));
-        //     if (!string.IsNullOrEmpty(query.Phone))
-        //         bookings = bookings.Where(e => e.PhoneNumber.Contains(query.Phone));
+            _context.Payments.Remove(payment);
 
-        //     return await bookings.ToListAsync();
-        // }
+            await _context.SaveChangesAsync();
 
-        // public async Task<Employee?> GetByIdAsync(int id)
-        // {
-        //     return await _context.Bookings.FindAsync(id);
-        // }
+            return payment;
+        }
 
-        // public async Task<Employee?> UpdateAsync(int id, Employee employeeModel)
-        // {
-        //     var existingBooking = await _context.Bookings.FirstOrDefaultAsync(x => x.Id == id);
-        //     if (existingBooking == null)
-        //         return null;
+        public async Task<Payment?> UpdateAsync(int id, Payment paymentModel)
+        {
+            var existingPayment = await _context.Payments.FirstOrDefaultAsync(x => x.Id == id);
+            if (existingPayment == null)
+                return null;
 
-        //     existingBooking.GuestNumber = bookingModel.GuestNumber;
-        //     existingBooking.CheckInDate = bookingModel.CheckInDate;
-        //     existingBooking.CheckOutDate = bookingModel.CheckOutDate;
+            existingPayment.PaymentDate = paymentModel.PaymentDate;
+            existingPayment.PaymentMethod = paymentModel.PaymentMethod;
+            existingPayment.TotalAmount = paymentModel.TotalAmount;
 
-        //     if (!string.IsNullOrEmpty(bookingModel.ImagePath))
-        //     {
-        //         existingEmployee.ImagePath = employeeModel.ImagePath;
-        //     }
+            await _context.SaveChangesAsync();
 
-        //     await _context.SaveChangesAsync();
-        //     return existingEmployee;
-        // }
+            return existingPayment;
+        }
 
     }
 }

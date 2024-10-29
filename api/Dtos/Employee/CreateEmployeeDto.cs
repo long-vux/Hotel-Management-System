@@ -27,5 +27,7 @@ namespace api.Dtos.Employee
         public required bool IsWoman { get; set; } 
         [NotMapped]
         public required IFormFile Image { get; set; }
+        [Required(ErrorMessage = "Department is required")]
+        public required string Department { get; set; } = string.Empty;
     }
 }

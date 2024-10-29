@@ -8,8 +8,9 @@ namespace api.Models
         public required int TotalAmount { get; set; }
 
         // One-to-One with Booking
+        // Foreign Key for Booking
         public int BookingId { get; set; }
-        public required Booking Booking { get; set; }
+        public Booking Booking { get; set; } = null!;
     }
 }
 

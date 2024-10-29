@@ -2,7 +2,6 @@ using api.Data;
 using api.Dtos.Payment;
 using api.Interfaces;
 using api.Mappers;
-using api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -44,86 +43,45 @@ namespace api.Controllers
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var isBookingExists = await _bookingRepository.IsBookingExists(paymentDto.BookingId);
+      var payment = paymentDto.ToPaymentFromCreateDto();
 
-      if (!isBookingExists)
+      var booking = await _bookingRepository.GetByIdAsync(paymentDto.BookingId);
+      if (booking == null)
         return NotFound("Booking not found");
 
-      var payment = paymentDto.ToPaymentFromCreateDto();
-      
+      payment.Booking = booking;
+
       await _paymentRepo.CreateAsync(payment);
 
       return CreatedAtAction(nameof(GetById), new { id = payment.Id }, payment.ToPaymentDto());
     }
 
-    // [HttpPut("{id:int}")]
-    // public async Task<IActionResult> Update(int id, [FromForm] UpdatePaymentDto paymentDto)
-    // {
-    //   if (!ModelState.IsValid)
-    //     return BadRequest(ModelState);
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, [FromForm] UpdatePaymentDto paymentDto)
+    {
+      if (!ModelState.IsValid)
+        return BadRequest(ModelState);
 
-    //   // Retrieve existing employee from database to get current ImagePath
-    //   var existingEmployee = await _employeeRepo.GetByIdAsync(id);
-    //   if (existingEmployee == null)
-    //     return NotFound("Employee not found");
+      var existingPayment = await _paymentRepo.GetByIdAsync(id);
+      if (existingPayment == null)
+        return NotFound("Payment not found");
 
-    //   var employee = employeeDto.ToEmployeeFromUpdateDto();
+      var payment = paymentDto.ToPaymentFromUpdateDto();
 
-    //   if (employeeDto.Image != null)
-    //   {
-    //     // Validate the file type
-    //     var permittedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-    //     var ext = Path.GetExtension(employeeDto.Image.FileName).ToLowerInvariant();
-    //     if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
-    //     {
-    //       return BadRequest("Invalid image file type.");
-    //     }
+      await _paymentRepo.UpdateAsync(id, payment);
 
-    //     // Create unique file name
-    //     var uniqueFileName = $"{Guid.NewGuid()}_{employeeDto.Image.FileName}";
-    //     var imageDirectory = Path.Combine("wwwroot", "images", "employees");
-    //     if (!Directory.Exists(imageDirectory))
-    //     {
-    //       Directory.CreateDirectory(imageDirectory);
-    //     }
+      return NoContent();
+    }
 
-    //     var sanitizedFileName = uniqueFileName.Replace(" ", "_");
-    //     var imagePath = Path.Combine(imageDirectory, sanitizedFileName);
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var payment = await _paymentRepo.DeleteAsync(id);
+      
+      if (payment == null)
+        return NotFound();
 
-    //     try
-    //     {
-    //       // Save the file
-    //       using var stream = new FileStream(imagePath, FileMode.Create);
-    //       await employeeDto.Image.CopyToAsync(stream);
-
-    //       // Delete old image
-    //       if (!string.IsNullOrEmpty(existingEmployee.ImagePath))
-    //       {
-    //         var oldImagePath = Path.Combine("wwwroot", existingEmployee.ImagePath.TrimStart('/'));
-    //         if (System.IO.File.Exists(oldImagePath))
-    //           System.IO.File.Delete(oldImagePath);
-    //       }
-
-    //       employee.ImagePath = $"/images/employees/{sanitizedFileName}";
-    //     }
-    //     catch (Exception)
-    //     {
-    //       return BadRequest("Failed to upload image.");
-    //     }
-    //   }
-
-    //   await _employeeRepo.UpdateAsync(id, employee);
-
-    //   return NoContent();
-    // }
-
-    // [HttpDelete("{id:int}")]
-    // public async Task<IActionResult> Delete(int id)
-    // {
-    //   var employee = await _employeeRepo.DeleteAsync(id);
-    //   if (employee == null)
-    //     return NotFound();
-    //   return NoContent();
-    // }
+      return NoContent();
+    }
   }
 }

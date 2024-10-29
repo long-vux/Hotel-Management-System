@@ -23,7 +23,7 @@ namespace api.Mappers
                 PaymentDate = DateTime.Now,
                 PaymentMethod = paymentDto.PaymentMethod,
                 TotalAmount = paymentDto.TotalAmount,
-                BookingId = paymentDto.BookingId,
+                BookingId = paymentDto.BookingId
             };
         }
 

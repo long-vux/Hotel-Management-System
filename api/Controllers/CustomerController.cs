@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Customer;
 using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
@@ -16,7 +11,7 @@ namespace api.Controllers
     [ApiController]
     public class CustomerController(ApplicationDBContext context, ICustomerRepository customerRepo) : ControllerBase
     {
-        private readonly ApplicationDBContext _context = context; // _context already have data (customers table, ...)
+        private readonly ApplicationDBContext _context = context;
         private readonly ICustomerRepository _customerRepo = customerRepo;
 
         [HttpGet]
@@ -25,11 +20,10 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // _context.Customers -> customers data
             var customers = await _customerRepo.GetAllAsync(query);
 
             var customerDtos = customers.Select(s => s.ToCustomerDto()).ToList();
-            ;
+            
             return Ok(customerDtos);
         }
 
