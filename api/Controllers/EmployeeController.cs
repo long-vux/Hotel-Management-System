@@ -5,11 +5,13 @@ using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
+  [EnableCors("AllowSpecificOrigin")]
   public class EmployeeController(ApplicationDBContext context, IEmployeeRepository employeeRepo) : ControllerBase
   {
     private readonly ApplicationDBContext _context = context;

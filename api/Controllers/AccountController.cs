@@ -1,14 +1,16 @@
 using api.Dtos.Account;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
-    [Route("api/account")]
     [ApiController]
+    [Route("api/account")]
+    [EnableCors("AllowSpecificOrigin")]
     public class AccountController : ControllerBase // Change here
     {
         private readonly UserManager<AppUser> _userManager;

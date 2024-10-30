@@ -4,10 +4,12 @@ using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
 {
     [Route("api/customer")]
+    [EnableCors("AllowSpecificOrigin")]
     [ApiController]
     public class CustomerController(ApplicationDBContext context, ICustomerRepository customerRepo) : ControllerBase
     {
