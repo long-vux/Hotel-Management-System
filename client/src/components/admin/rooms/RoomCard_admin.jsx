@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import RoomDetails from './RoomDetails'
 import EditRoomModal from './EditRoom_Modal'
 import { Icon, IconButton } from '@mui/material' // Import MUI components
+import DeleteConfirmModal from './DeleteConfirmModal'
 
 const RoomCardAdmin = ({
   roomId,
@@ -16,6 +17,13 @@ const RoomCardAdmin = ({
   status,
   amenities
 }) => {
+
+  
+  // delete modal handler
+  const [openDelete, setOpenDelete] = React.useState(false)
+  const handleOpenDelete = () => setOpenDelete(true)
+  const handleCloseDelete = () => setOpenDelete(false)
+
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleOpen = () => setModalOpen(true)
@@ -68,7 +76,8 @@ const RoomCardAdmin = ({
                 />
               </IconButton>
               <IconButton>
-                <DeleteIcon />
+                <DeleteIcon onClick={handleOpenDelete}/>
+
               </IconButton>
             </div>
           </div>
@@ -87,7 +96,13 @@ const RoomCardAdmin = ({
         </div>
       </div>
 
-     
+      
+      <DeleteConfirmModal
+        open={openDelete}
+        handleClose={handleCloseDelete}
+        id={allocated}
+      />
+
       <RoomDetails
         open={modalOpen}
         handleClose={handleClose}

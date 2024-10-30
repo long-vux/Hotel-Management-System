@@ -26,6 +26,7 @@ const CustomerList = ({ guestData }) => {
       <div className='my-4 ml-3'>
         <Pagination totalPosts={guestData.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
+      
     </tbody>
 
   )
