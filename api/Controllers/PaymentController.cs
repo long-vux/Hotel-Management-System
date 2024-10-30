@@ -3,11 +3,13 @@ using api.Dtos.Payment;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
+  [EnableCors("AllowSpecificOrigin")]
   public class PaymentController(ApplicationDBContext context, IPaymentRepository paymentRepo, IBookingRepository bookingRepository) : ControllerBase
   {
     private readonly ApplicationDBContext _context = context;

@@ -61,6 +61,17 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigin",
+            builder => builder.WithOrigins("http://localhost:3000")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod());
+    });
+
+
+
+
 // Authentication & JWT configuration
 builder.Services.AddAuthentication(options =>
 {
@@ -122,6 +133,8 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.MapControllers();
 app.Run();

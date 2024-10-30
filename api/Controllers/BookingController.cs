@@ -3,11 +3,13 @@ using api.Dtos.Booking;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
+  [EnableCors("AllowSpecificOrigin")]
   public class BookingController(ApplicationDBContext context, IBookingRepository bookingRepo, ICustomerRepository customerRepo, IRoomRepository roomRepo) : ControllerBase
   {
     private readonly ApplicationDBContext _context = context;
