@@ -4,6 +4,7 @@ namespace api.Dtos.Room
     {
         public int Id { get; set; }
         public string? RoomName { get; set; } = string.Empty;
+        public string? RoomStatus { get; set; } = string.Empty;
         public int? RoomNumber { get; set; }
         public string? RoomType { get; set; } = string.Empty;
         public int? Capacity { get; set; }

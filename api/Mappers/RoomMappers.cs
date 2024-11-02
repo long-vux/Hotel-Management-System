@@ -11,6 +11,7 @@ namespace api.Mappers
             {
                 Id = roomModel.Id,
                 RoomName = roomModel.RoomName,
+                RoomStatus = roomModel.RoomStatus,
                 RoomNumber = roomModel.RoomNumber,
                 RoomType = roomModel.RoomType,
                 Capacity = roomModel.Capacity,
