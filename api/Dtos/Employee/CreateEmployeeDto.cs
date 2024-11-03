@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace api.Dtos.Employee
 {
@@ -15,6 +11,9 @@ namespace api.Dtos.Employee
         [Required(ErrorMessage = "Last name is required")]
         [StringLength(50, ErrorMessage = "Last name must be less than 50 characters")]
         public required string LastName { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Date of birth is required")]
+        [Range(typeof(DateTime), "01/01/1900", "01/01/2005", ErrorMessage = "Employee must be at least 18 years old")]
+        public required DateTime DateOfBirth { get; set; }
         [Required(ErrorMessage = "Salary is required")]
         public required string Salary { get; set; } = string.Empty;
         [Required(ErrorMessage = "Phone number is required")]

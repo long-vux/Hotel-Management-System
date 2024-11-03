@@ -12,6 +12,7 @@ namespace api.Mappers
                 Id = employeeModel.Id,
                 FirstName = employeeModel.FirstName,
                 LastName = employeeModel.LastName,
+                DateOfBirth = employeeModel.DateOfBirth,
                 Email = employeeModel.Email,
                 PhoneNumber = employeeModel.PhoneNumber,
                 Salary = employeeModel.Salary,
@@ -26,6 +27,7 @@ namespace api.Mappers
             {
                 FirstName = employeeDto.FirstName,
                 LastName = employeeDto.LastName,
+                DateOfBirth = employeeDto.DateOfBirth,
                 Email = employeeDto.Email,
                 PhoneNumber = employeeDto.PhoneNumber,
                 Salary = employeeDto.Salary,
