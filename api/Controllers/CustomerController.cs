@@ -44,7 +44,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateCustomerDto customerDto)
+        public async Task<IActionResult> Create([FromForm] CreateCustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

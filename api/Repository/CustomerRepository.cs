@@ -54,6 +54,7 @@ namespace api.Repository
 
             existingCustomer.FirstName = customerDto.FirstName;
             existingCustomer.LastName = customerDto.LastName;
+            existingCustomer.Email = customerDto.Email;
             existingCustomer.PhoneNumber = customerDto.PhoneNumber;
             existingCustomer.IdentityNumber = customerDto.IdentityNumber;
             existingCustomer.IdentityType = customerDto.IdentityType;

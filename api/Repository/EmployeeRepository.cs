@@ -66,6 +66,9 @@ namespace api.Repository
             if(employeeModel.DateOfBirth != null)
                 existingEmployee.DateOfBirth = employeeModel.DateOfBirth ?? existingEmployee.DateOfBirth;
 
+            if (!string.IsNullOrEmpty(employeeModel.Role))
+                existingEmployee.Role = employeeModel.Role;
+
             if (!string.IsNullOrEmpty(employeeModel.Email))
                 existingEmployee.Email = employeeModel.Email;
 

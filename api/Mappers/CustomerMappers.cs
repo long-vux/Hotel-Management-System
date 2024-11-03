@@ -12,6 +12,7 @@ namespace api.Mappers
                 Id = customerModel.Id,
                 FirstName = customerModel.FirstName,
                 LastName = customerModel.LastName,
+                Email = customerModel.Email,
                 IdentityNumber = customerModel.IdentityNumber,
                 IdentityType = customerModel.IdentityType,
                 PhoneNumber = customerModel.PhoneNumber,
@@ -24,6 +25,7 @@ namespace api.Mappers
             {
                 FirstName = customerDto.FirstName,
                 LastName = customerDto.LastName,
+                Email = customerDto.Email,
                 IdentityNumber = customerDto.IdentityNumber,
                 IdentityType = customerDto.IdentityType,
                 PhoneNumber = customerDto.PhoneNumber,
@@ -35,6 +37,7 @@ namespace api.Mappers
             {
                 FirstName = customerDto.FirstName,
                 LastName = customerDto.LastName,
+                Email = customerDto.Email,
                 IdentityNumber = customerDto.IdentityNumber,
                 IdentityType = customerDto.IdentityType,
                 PhoneNumber = customerDto.PhoneNumber,
