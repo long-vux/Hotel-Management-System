@@ -13,8 +13,8 @@ export default function BasicDatePicker() {
           <DatePicker 
             sx={{
               '& .MuiInputBase-root': {
-                backgroundColor: '#f5f5f5', // Change background color
-                height: '50px',
+                backgroundColor: 'white', // Change background color
+                height: '40px',
                 fontSize: '14px',
               },
             }} 

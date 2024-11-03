@@ -1,32 +1,44 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const dbHost = 'http://localhost:5214/'
 
-  const dbHost = "http://localhost:5214/"
+  // const userData = JSON.parse(sessionStorage.getItem('user'))
+  // console.log(userData)
 
-  console.log(dbHost);
-  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async e => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
-      const response = await axios.post(dbHost + 'api/account/login', { email, password }, {
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await axios.post(
+        dbHost + 'api/account/login',
+        { email, password },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }
-      });
+      )
 
       if (response.status === 200) {
-        console.log('Login successful');
+        sessionStorage.setItem('user', JSON.stringify(response.data))
+        setTimeout(() => {
+          sessionStorage.removeItem('user')
+          alert('Session expired. Please log in again.')
+          navigate('/login') // Redirect to login page after session expires
+        }, 24*60*60*1000) // 20 seconds in milliseconds
+        navigate('/admin/dashboard')
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     }
-  };
+  }
 
   return (
     <div className='flex flex-row justify-around gap-20 items-center h-[600px]'>

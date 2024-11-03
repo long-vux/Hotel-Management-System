@@ -2,7 +2,6 @@ import React from 'react'
 import EmployeeList from '../components/admin/employee/EmployeeList'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
-import EmployeeDetails from '../components/admin/employee/EmployeeDetails'
 import AddEmployeeModal from '../components/admin/employee/addEmployeeModal'
 
 const Employee = () => {

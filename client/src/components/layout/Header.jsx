@@ -3,7 +3,6 @@ import NavigationBar from './NavigationBar'
 import AddIcCallRoundedIcon from '@mui/icons-material/AddIcCallRounded'
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver'
 import BedIcon from '@mui/icons-material/Bed'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LoginIcon from '@mui/icons-material/Login'
 
 export default function Header () {

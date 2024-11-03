@@ -10,6 +10,7 @@ import AdminLayout from '../components/admin/layout/Layout';
 import GuestStay from '../Admin/GuestStay';
 
 const AdminRoutes = () => (
+
   <Routes>
     <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
     <Route path="/room" element={<AdminLayout><Room /></AdminLayout>} />

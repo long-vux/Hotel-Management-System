@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -10,6 +11,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
 const AddEmployeeModal = ({ open, handleClose }) => {
+  const DB_HOST = process.env.REACT_APP_DB_HOST;
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -22,13 +25,11 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     borderRadius: 2,
   };
 
-  // State for employee fields
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
-  const [status, setStatus] = useState('');
   const [department, setDepartment] = useState('');
   const [dob, setDob] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -36,7 +37,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
   const [salary, setSalary] = useState('');
   const [image, setImage] = useState(null);
 
-  // Drag and drop handlers
   const handleDragOver = (e) => {
     e.preventDefault();
   };
@@ -54,7 +54,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     }
   };
 
-  // File input handler for click-to-upload
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -63,6 +62,30 @@ const AddEmployeeModal = ({ open, handleClose }) => {
         setImage(event.target.result);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const employeeData = {
+        firstName,
+        lastName,
+        role,
+        email,
+        gender,
+        department,
+        dob,
+        phoneNumber,
+        address,
+        salary,
+        image, // Assuming the image is a base64 string
+      };
+      
+      const response = await axios.post(DB_HOST+'api/Employee', employeeData);
+      console.log(response.data);
+      handleClose();
+    } catch (error) {
+      console.error('Error saving employee:', error);
     }
   };
 
@@ -75,7 +98,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     >
       <Box sx={style}>
         <Typography id="modal-modal-description" className="flex gap-4">
-          {/* Avatar and Employee's name & role */}
           <div className="flex flex-col gap-1">
             <div
               onDrop={handleDrop}
@@ -94,114 +116,63 @@ const AddEmployeeModal = ({ open, handleClose }) => {
                 />
               ) : (
                 <span>
-                  Drag & Drop Image Here or{' '}
-                  <label className="text-blue-600 cursor-pointer">
-                    Click to Upload
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    style={{ display: 'none' }}
-                  />
+                  Drag & Drop Image Here
                 </span>
               )}
             </div>
+            {/* Button to trigger file input */}
+            <Button variant="outlined" component="label">
+              Upload Image
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+            </Button>
           </div>
 
-          {/* Employee's details information */}
+          {/* Employee details */}
           <div className="grid grid-cols-3 gap-4">
             <div className="flex flex-col gap-2">
-              <TextField
-                label="First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                variant="standard"
-              />
-              <TextField
-                label="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                variant="standard"
-              />
-              <TextField
-                label="Role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                variant="standard"
-              />
-              <TextField
-                label="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant="standard"
-              />
+              <TextField label="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} variant="standard" />
+              <TextField label="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} variant="standard" />
+              
+              <Autocomplete
+                  value={role}
+                  onChange={(event, newValue) => setRole(newValue)}
+                  disablePortal
+                  options={Role}
+                  className='w-2/3'
+                  renderInput={params => (
+                    <TextField {...params} label='Role' />
+                  )}
+                />
 
-              {/* Gender Selection */}
+              <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} variant="standard" />
               <FormControl variant="standard">
                 <InputLabel id="gender-label">Gender</InputLabel>
-                <Select
-                  labelId="gender-label"
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                >
+                <Select labelId="gender-label" value={gender} onChange={(e) => setGender(e.target.value)}>
                   <MenuItem value="Male">Male</MenuItem>
                   <MenuItem value="Female">Female</MenuItem>
                 </Select>
               </FormControl>
-
-              <TextField
-                label="Status"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                variant="standard"
-              />
             </div>
 
             <div className="flex flex-col gap-2">
-              <TextField
-                label="Department"
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                variant="standard"
-              />
-              <TextField
-                label="DOB"
-                type="date"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                variant="standard"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <TextField
-                label="Phone Number"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                variant="standard"
-              />
-              <TextField
-                label="Salary"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-                variant="standard"
-              />
+              <TextField label="Department" value={department} onChange={(e) => setDepartment(e.target.value)} variant="standard" />
+              <TextField label="DOB" type="date" value={dob} onChange={(e) => setDob(e.target.value)} variant="standard" InputLabelProps={{ shrink: true }} />
+              <TextField label="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} variant="standard" />
+              <TextField label="Salary" value={salary} onChange={(e) => setSalary(e.target.value)} variant="standard" />
             </div>
 
             <div className="flex flex-col h-full justify-between gap-2">
-              <TextField
-                label="Address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                variant="standard"
-              />
+              <TextField label="Address" value={address} onChange={(e) => setAddress(e.target.value)} variant="standard" />
               <div className="flex justify-end flex-row gap-2">
-                <Button
-                  variant="outlined"
-                  onClick={handleClose}
-                  className="hover:bg-blue-900 hover:text-white"
-                >
+                <Button variant="outlined" onClick={handleClose} className="hover:bg-blue-900 hover:text-white">
+                  Cancel
+                </Button>
+                <Button variant="contained" onClick={handleSubmit} className="hover:bg-blue-900 hover:text-white">
                   Save
                 </Button>
               </div>
