@@ -20,6 +20,7 @@ namespace api.Mappers
                 ImagePath = employeeModel.ImagePath,
                 Department = employeeModel.Department,
                 Role = employeeModel.Role,
+                Status = employeeModel.Status,
             };
         }
 
@@ -36,6 +37,7 @@ namespace api.Mappers
                 IsWoman = employeeDto.IsWoman,
                 ImagePath = string.Empty,
                 Department = employeeDto.Department,
+                Status = employeeDto.Status,
             };
         }
     }

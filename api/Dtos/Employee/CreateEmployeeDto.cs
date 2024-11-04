@@ -18,6 +18,8 @@ namespace api.Dtos.Employee
         public required string Salary { get; set; } = string.Empty;
         [Required(ErrorMessage = "Role is required")]
         public required string Role { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Status is required")]
+        public required string Status { get; set; } = string.Empty;
         [Required(ErrorMessage = "Phone number is required")]
         [Phone(ErrorMessage = "Invalid phone number")]
         public required string PhoneNumber { get; set; } = string.Empty;
