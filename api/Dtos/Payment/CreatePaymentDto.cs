@@ -11,5 +11,7 @@ namespace api.Dtos.Payment
         public required int TotalAmount { get; set; }
         [Required(ErrorMessage = "Booking id is required")]
         public required int BookingId { get; set; }
+        [Required(ErrorMessage = "Status is required")]
+        public required string Status { get; set; }
     }
 }

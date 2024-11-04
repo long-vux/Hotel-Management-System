@@ -12,6 +12,7 @@ namespace api.Dtos.Employee
         public required string PhoneNumber { get; set; } = string.Empty;
         public required string Email { get; set; } = string.Empty;
         public required bool IsWoman { get; set; } 
+        public required string Address { get; set; } = string.Empty;
         public required string ImagePath { get; set; } = string.Empty;
         public required string Department { get; set; } = string.Empty;
     }

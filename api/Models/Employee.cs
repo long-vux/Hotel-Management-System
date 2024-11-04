@@ -19,6 +19,7 @@ namespace api.Models
         public required bool IsWoman { get; set; } 
         public required string ImagePath { get; set; } = string.Empty; // Store the image file path, not the file itself
         public required string Department { get; set; } = string.Empty;
+        public required string Address { get; set; } = string.Empty;
     }
 }
 

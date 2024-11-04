@@ -2,11 +2,12 @@ namespace api.Dtos.Payment
 {
     public class PaymentDto
     {
-        public int Id { get; set; }
+        public required int Id { get; set; }
         public required DateTime PaymentDate { get; set; }
         public required string PaymentMethod { get; set; } = string.Empty;
         public required int TotalAmount { get; set; }
+        public required string Status { get; set; } = string.Empty;
         // Foreign key to Booking
-        public int BookingId { get; set; }
+        public required int BookingId { get; set; }
     }
 }

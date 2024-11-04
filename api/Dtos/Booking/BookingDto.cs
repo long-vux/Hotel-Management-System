@@ -7,6 +7,7 @@ namespace api.Dtos.Booking
         public required int GuestNumber { get; set; }
         public required DateTime CheckInDate { get; set; }
         public required DateTime CheckOutDate { get; set; }
+        public required string Status { get; set; }
 
         // One-to-Many with Customer
         public int CustomerId { get; set; }

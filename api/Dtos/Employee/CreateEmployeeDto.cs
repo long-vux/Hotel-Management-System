@@ -18,8 +18,6 @@ namespace api.Dtos.Employee
         public required string Salary { get; set; } = string.Empty;
         [Required(ErrorMessage = "Role is required")]
         public required string Role { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Status is required")]
-        public required string Status { get; set; } = string.Empty;
         [Required(ErrorMessage = "Phone number is required")]
         [Phone(ErrorMessage = "Invalid phone number")]
         public required string PhoneNumber { get; set; } = string.Empty;
@@ -28,6 +26,8 @@ namespace api.Dtos.Employee
         public required string Email { get; set; } = string.Empty;
         [Required(ErrorMessage = "Gender is required")]
         public required bool IsWoman { get; set; } 
+        [Required(ErrorMessage = "Address is required")]
+        public required string Address { get; set; } = string.Empty;
         [NotMapped]
         public required IFormFile Image { get; set; }
         [Required(ErrorMessage = "Department is required")]
