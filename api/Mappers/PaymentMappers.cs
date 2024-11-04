@@ -14,6 +14,7 @@ namespace api.Mappers
                 PaymentMethod = paymentModel.PaymentMethod,
                 TotalAmount = paymentModel.TotalAmount,
                 BookingId = paymentModel.BookingId,
+                Status = paymentModel.Status
             };
         }
 
@@ -23,6 +24,7 @@ namespace api.Mappers
                 PaymentDate = DateTime.Now,
                 PaymentMethod = paymentDto.PaymentMethod,
                 TotalAmount = paymentDto.TotalAmount,
+                Status = paymentDto.Status,
                 BookingId = paymentDto.BookingId
             };
         }
@@ -33,6 +35,7 @@ namespace api.Mappers
                 PaymentDate = paymentDto.PaymentDate,
                 PaymentMethod = paymentDto.PaymentMethod,
                 TotalAmount = paymentDto.TotalAmount,
+                Status = paymentDto.Status
             };
         }
     }

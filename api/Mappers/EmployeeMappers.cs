@@ -17,9 +17,11 @@ namespace api.Mappers
                 PhoneNumber = employeeModel.PhoneNumber,
                 Salary = employeeModel.Salary,
                 IsWoman = employeeModel.IsWoman,
+                Address = employeeModel.Address,
                 ImagePath = employeeModel.ImagePath,
                 Department = employeeModel.Department,
                 Role = employeeModel.Role,
+                Status = employeeModel.Status,
             };
         }
 
@@ -34,8 +36,10 @@ namespace api.Mappers
                 Salary = employeeDto.Salary,
                 Role = employeeDto.Role,
                 IsWoman = employeeDto.IsWoman,
+                Address = employeeDto.Address,
                 ImagePath = string.Empty,
                 Department = employeeDto.Department,
+                Status = "Active",
             };
         }
     }

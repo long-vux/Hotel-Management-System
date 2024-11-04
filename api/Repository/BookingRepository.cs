@@ -45,10 +45,14 @@ namespace api.Repository
             var existingBooking = await _context.Bookings.FirstOrDefaultAsync(x => x.Id == id);
             if (existingBooking == null)
                 return null;
-
-            existingBooking.GuestNumber = bookingDto.GuestNumber;
-            existingBooking.CheckInDate = bookingDto.CheckInDate;
-            existingBooking.CheckOutDate = bookingDto.CheckOutDate;
+            if (bookingDto.GuestNumber != 0)
+                existingBooking.GuestNumber = bookingDto.GuestNumber;
+            if (bookingDto.CheckInDate != DateTime.MinValue)
+                existingBooking.CheckInDate = bookingDto.CheckInDate;
+            if (bookingDto.CheckOutDate != DateTime.MinValue)
+                existingBooking.CheckOutDate = bookingDto.CheckOutDate;
+            if (bookingDto.Status != null)
+                existingBooking.Status = bookingDto.Status;
 
             await _context.SaveChangesAsync();
             return existingBooking;

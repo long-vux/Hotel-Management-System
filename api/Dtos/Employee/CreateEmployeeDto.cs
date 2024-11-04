@@ -26,6 +26,8 @@ namespace api.Dtos.Employee
         public required string Email { get; set; } = string.Empty;
         [Required(ErrorMessage = "Gender is required")]
         public required bool IsWoman { get; set; } 
+        [Required(ErrorMessage = "Address is required")]
+        public required string Address { get; set; } = string.Empty;
         [NotMapped]
         public required IFormFile Image { get; set; }
         [Required(ErrorMessage = "Department is required")]

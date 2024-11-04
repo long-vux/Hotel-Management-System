@@ -14,6 +14,7 @@ namespace api.Mappers
                 GuestNumber = bookingModel.GuestNumber,
                 CheckInDate = bookingModel.CheckInDate,
                 CheckOutDate = bookingModel.CheckOutDate,
+                Status = bookingModel.Status,
                 CustomerId = bookingModel.CustomerId,
                 RoomId = bookingModel.RoomId
             };
@@ -23,10 +24,11 @@ namespace api.Mappers
         {
             return new Booking
             {
-                BookingDate = bookingDto.BookingDate,
+                BookingDate = DateTime.Now,
                 GuestNumber = bookingDto.GuestNumber,
                 CheckInDate = bookingDto.CheckInDate,
-                CheckOutDate = bookingDto.CheckOutDate,
+                CheckOutDate = DateTime.MinValue, // TODO: Add check out date
+                Status = "Pending",
                 CustomerId = bookingDto.CustomerId,
                 RoomId = bookingDto.RoomId,
                 Customer = null!,

@@ -6,9 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
-    public class PaymentRepository(ApplicationDBContext context) : IPaymentRepository
+    public class PaymentRepository(ApplicationDBContext context, IBookingRepository bookingRepository) : IPaymentRepository
     {
         private readonly ApplicationDBContext _context = context;
+        private readonly IBookingRepository _bookingRepository = bookingRepository;
 
         public async Task<List<Payment>> GetAllAsync()
         {
@@ -49,15 +50,12 @@ namespace api.Repository
             if (existingPayment == null)
                 return null;
 
-            existingPayment.PaymentDate = paymentModel.PaymentDate;
-            existingPayment.PaymentMethod = paymentModel.PaymentMethod;
-            existingPayment.TotalAmount = paymentModel.TotalAmount;
+            existingPayment.Status = paymentModel.Status;
 
             await _context.SaveChangesAsync();
 
             return existingPayment;
         }
-
     }
 }
 

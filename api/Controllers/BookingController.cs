@@ -36,7 +36,7 @@ namespace api.Controllers
       var booking = await _bookingRepo.GetByIdAsync(id);
 
       if (booking == null)
-        return NotFound();
+        return NotFound("Booking not found.");
 
       return Ok(booking.ToBookingDto());
     }
@@ -51,7 +51,7 @@ namespace api.Controllers
       var room = await _roomRepo.GetByIdAsync(bookingDto.RoomId);
 
       if (customer == null || room == null)
-        return NotFound();
+        return NotFound("Customer or Room not found.");
 
       var booking = bookingDto.ToBookingFromCreateDto();
 
