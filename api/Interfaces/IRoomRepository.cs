@@ -12,5 +12,6 @@ namespace api.Interfaces
         Task<Room?> DeleteAsync(int id);
         Task<Room?> AddImageAsync(int id, string imagePath);
         Task<Room?> DeleteImageAsync(int id, string imagePath);
+        Task<int> RoomAvailable();
     }
 }

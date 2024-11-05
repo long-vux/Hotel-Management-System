@@ -80,6 +80,11 @@ namespace api.Repository
             await _context.SaveChangesAsync();
             return room;
         }
+
+        public async Task<int> RoomAvailable()
+        {
+            return await _context.Rooms.CountAsync(r => r.RoomStatus == "Available");
+        }
     }
 }
 

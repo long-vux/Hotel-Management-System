@@ -72,6 +72,24 @@ namespace api.Repository
             await _context.SaveChangesAsync();
             return booking;
         }
+
+        public async Task<int> TodayCheckIn()
+        {
+            var bookings = await _context.Bookings.Where(b => b.CheckInDate.Date == DateTime.Today && b.IsCheckIn).ToListAsync();
+            return bookings.Count;
+        }
+
+        public async Task<int> TodayCheckOut()
+        {
+            var bookings = await _context.Bookings.Where(b => b.CheckOutDate.Date == DateTime.Today && b.IsCheckout).ToListAsync();
+            return bookings.Count;
+        }
+
+        public async Task<int> Reservation()
+        {
+            var bookings = await _context.Bookings.Where(b => b.Status == "Confirmed").ToListAsync();
+            return bookings.Count;
+        }
     }
 }
 
