@@ -69,6 +69,9 @@ namespace api.Repository
             if (!string.IsNullOrEmpty(employeeModel.Role))
                 existingEmployee.Role = employeeModel.Role;
 
+            if (!string.IsNullOrEmpty(employeeModel.Status))
+                existingEmployee.Role = employeeModel.Status;
+
             if (!string.IsNullOrEmpty(employeeModel.Email))
                 existingEmployee.Email = employeeModel.Email;
 
