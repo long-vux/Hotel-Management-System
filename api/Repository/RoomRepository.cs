@@ -1,5 +1,6 @@
 using api.Data;
 using api.Dtos.Room;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,16 @@ namespace api.Repository
     {
         private readonly ApplicationDBContext _context = context;
 
-        public async Task<List<Room>> GetAllAsync()
+        public async Task<List<Room>> GetAllAsync(RoomQueryObject queryObject)
         {
-            return await _context.Rooms.Include(r => r.Bookings).ToListAsync();
+            var query = _context.Rooms.AsQueryable();
+
+            if (!string.IsNullOrEmpty(queryObject.RoomStatus))
+                query = query.Where(r => r.RoomStatus == queryObject.RoomStatus);
+            if (!string.IsNullOrEmpty(queryObject.RoomType))
+                query = query.Where(r => r.RoomType == queryObject.RoomType);
+
+            return await query.Include(r => r.Bookings).ToListAsync();
         }
 
         public async Task<Room?> GetByIdAsync(int id)

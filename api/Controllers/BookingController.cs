@@ -50,6 +50,13 @@ namespace api.Controllers
       var customer = await _customerRepo.GetByIdAsync(bookingDto.CustomerId);
       var room = await _roomRepo.GetByIdAsync(bookingDto.RoomId);
 
+
+      var totalAmount = 0;
+      if (bookingDto.CheckInDate != null && bookingDto.CheckOutDate != null)
+      {
+        totalAmount = room?.RoomPrice * (bookingDto.CheckOutDate.Value.Date - bookingDto.CheckInDate.Value.Date).Days ?? 0;
+      }
+
       if (customer == null || room == null)
         return NotFound("Customer or Room not found.");
 
@@ -57,9 +64,9 @@ namespace api.Controllers
 
       booking.Customer = customer;
       booking.Room = room;
+      booking.TotalAmount = totalAmount;
 
       await _bookingRepo.CreateAsync(booking);
-
 
       return CreatedAtAction(nameof(GetById), new { id = booking.Id }, booking.ToBookingDto());
     }

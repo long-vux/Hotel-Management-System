@@ -7,6 +7,5 @@ namespace api.Dtos.Booking
         public DateTime? CheckOutDate { get; set; } 
         public required int CustomerId { get; set; }
         public required int RoomId { get; set; }
-        public required int TotalAmount { get; set; }
     }
 }
