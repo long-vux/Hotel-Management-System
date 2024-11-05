@@ -28,8 +28,8 @@ namespace api.Mappers
             {
                 BookingDate = DateTime.Now,
                 GuestNumber = bookingDto.GuestNumber,
-                CheckInDate = bookingDto.CheckInDate,
-                CheckOutDate = DateTime.MinValue, // TODO: Add check out date
+                CheckInDate = bookingDto.CheckInDate ?? DateTime.MinValue,
+                CheckOutDate = bookingDto.CheckOutDate ?? DateTime.MinValue,
                 Status = "Pending",
                 IsCheckIn = false,
                 IsCheckout = false,

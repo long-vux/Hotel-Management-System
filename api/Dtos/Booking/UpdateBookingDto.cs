@@ -2,11 +2,11 @@ namespace api.Dtos.Booking
 {
     public class UpdateBookingDto
     {
-        public int GuestNumber { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public int? GuestNumber { get; set; }
+        public DateTime? CheckInDate { get; set; }
+        public DateTime? CheckOutDate { get; set; }
         public string? Status { get; set; } = string.Empty;
-        public bool IsCheckIn { get; set; }
-        public bool IsCheckout { get; set; }
+        public bool? IsCheckIn { get; set; }
+        public bool? IsCheckout { get; set; }
     }
 }
