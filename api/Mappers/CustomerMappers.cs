@@ -12,9 +12,9 @@ namespace api.Mappers
                 Id = customerModel.Id,
                 FirstName = customerModel.FirstName,
                 LastName = customerModel.LastName,
-                Email = customerModel.Email,
-                IdentityNumber = customerModel.IdentityNumber,
-                IdentityType = customerModel.IdentityType,
+                Email = customerModel.Email ?? string.Empty,
+                IdentityNumber = customerModel.IdentityNumber ?? string.Empty,
+                IdentityType = customerModel.IdentityType ?? string.Empty,
                 PhoneNumber = customerModel.PhoneNumber,
                 Bookings = customerModel.Bookings.Select(b => b.ToBookingDto()).ToList(),
             };
