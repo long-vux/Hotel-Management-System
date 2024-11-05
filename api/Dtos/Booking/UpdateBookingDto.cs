@@ -6,5 +6,7 @@ namespace api.Dtos.Booking
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public string? Status { get; set; } = string.Empty;
+        public bool IsCheckIn { get; set; }
+        public bool IsCheckout { get; set; }
     }
 }

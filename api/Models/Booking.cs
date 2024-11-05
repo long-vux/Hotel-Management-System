@@ -8,6 +8,9 @@ namespace api.Models
         public required DateTime CheckInDate { get; set; }
         public required DateTime CheckOutDate { get; set; }
         public required string Status { get; set; } = string.Empty; 
+        public required bool IsCheckIn { get; set; }
+        public required bool IsCheckout { get; set; }
+        
         // One-to-Many with Customer
         public int CustomerId { get; set; }
         public required Customer Customer { get; set; }

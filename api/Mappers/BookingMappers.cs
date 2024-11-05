@@ -14,6 +14,8 @@ namespace api.Mappers
                 GuestNumber = bookingModel.GuestNumber,
                 CheckInDate = bookingModel.CheckInDate,
                 CheckOutDate = bookingModel.CheckOutDate,
+                IsCheckIn = bookingModel.IsCheckIn,
+                IsCheckout = bookingModel.IsCheckout,
                 Status = bookingModel.Status,
                 CustomerId = bookingModel.CustomerId,
                 RoomId = bookingModel.RoomId
@@ -29,6 +31,8 @@ namespace api.Mappers
                 CheckInDate = bookingDto.CheckInDate,
                 CheckOutDate = DateTime.MinValue, // TODO: Add check out date
                 Status = "Pending",
+                IsCheckIn = false,
+                IsCheckout = false,
                 CustomerId = bookingDto.CustomerId,
                 RoomId = bookingDto.RoomId,
                 Customer = null!,
