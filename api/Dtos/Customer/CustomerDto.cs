@@ -7,10 +7,10 @@ namespace api.Dtos.Customer
         public int Id { get; set; }
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public required string Email { get; set; }
-        public required string PhoneNumber { get; set; }
-        public required string IdentityNumber { get; set; }
-        public required string IdentityType { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string IdentityNumber { get; set; } = string.Empty;
+        public string IdentityType { get; set; } = string.Empty;
         public ICollection<BookingDto> Bookings { get; set; } = [];
     } 
 }
