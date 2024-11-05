@@ -11,5 +11,8 @@ namespace api.Interfaces
         Task<Booking?> UpdateAsync(int id, UpdateBookingDto bookingDto);
         Task<Booking?> DeleteAsync(int id);
         Task<bool> IsBookingExists(int id);
+        Task<int> TodayCheckIn();
+        Task<int> TodayCheckOut();
+        Task<int> Reservation();
     }
 }

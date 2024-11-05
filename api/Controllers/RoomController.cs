@@ -174,5 +174,12 @@ namespace api.Controllers
       await _roomRepo.DeleteImageAsync(id, imagePath);
       return NoContent();
     }
+
+    [HttpGet("room-available")]
+     public async Task<IActionResult> RoomAvailable()
+    {
+      var count = await _roomRepo.RoomAvailable();
+      return Ok(count);
+    }
   }
 }

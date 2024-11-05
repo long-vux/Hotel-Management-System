@@ -83,5 +83,26 @@ namespace api.Controllers
         return NotFound();
       return NoContent();
     }
+
+    [HttpGet("today-check-in")]
+    public async Task<IActionResult> TodayCheckIn()
+    {
+      var count = await _bookingRepo.TodayCheckIn();
+      return Ok(count);
+    }
+
+    [HttpGet("today-check-out")]
+    public async Task<IActionResult> TodayCheckOut()
+    {
+      var count = await _bookingRepo.TodayCheckOut();
+      return Ok(count);
+    }
+
+    [HttpGet("reservation")]
+    public async Task<IActionResult> Reservation()
+    {
+      var count = await _bookingRepo.Reservation();
+      return Ok(count);
+    }
   }
 }
