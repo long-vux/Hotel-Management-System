@@ -34,9 +34,9 @@ namespace api.Repository
         {
             var customers = _context.Customers.Include(c => c.Bookings).AsQueryable();
             
-            if(!string.IsNullOrEmpty(query.Name))
+            if(!string.IsNullOrEmpty(query.PhoneNumber))
             {
-                customers = customers.Where(c => c.FirstName.Contains(query.Name) || c.LastName.Contains(query.Name));
+                customers = customers.Where(c => c.PhoneNumber.Contains(query.PhoneNumber));
             }
             return await customers.ToListAsync();
         }

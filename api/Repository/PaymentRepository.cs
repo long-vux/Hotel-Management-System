@@ -3,7 +3,6 @@ using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace api.Repository
 {
     public class PaymentRepository(ApplicationDBContext context, IBookingRepository bookingRepository) : IPaymentRepository
@@ -13,7 +12,7 @@ namespace api.Repository
 
         public async Task<List<Payment>> GetAllAsync()
         {
-            return await _context.Payments.ToListAsync();
+            return await _context.Payments.OrderByDescending(x => x.PaymentDate).ToListAsync();
         }
 
         public async Task<Payment?> GetByIdAsync(int id)
