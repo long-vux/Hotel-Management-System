@@ -22,6 +22,8 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Console.WriteLine($"Generated SQL Query: {query.Name} hehe");
+
             var customers = await _customerRepo.GetAllAsync(query);
 
             var customerDtos = customers.Select(s => s.ToCustomerDto()).ToList();

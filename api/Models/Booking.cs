@@ -10,7 +10,8 @@ namespace api.Models
         public required string Status { get; set; } = string.Empty; 
         public required bool IsCheckIn { get; set; }
         public required bool IsCheckout { get; set; }
-        
+        public int TotalAmount { get; set; }
+
         // One-to-Many with Customer
         public int CustomerId { get; set; }
         public required Customer Customer { get; set; }

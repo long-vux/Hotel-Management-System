@@ -4,7 +4,7 @@ using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
-
+using api.Helpers;
 
 namespace api.Controllers
 {
@@ -17,12 +17,12 @@ namespace api.Controllers
     private readonly IRoomRepository _roomRepo = roomRepo;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] RoomQueryObject queryObject)
     {
       if (!ModelState.IsValid)
         return BadRequest(ModelState);
 
-      var rooms = await _roomRepo.GetAllAsync();
+      var rooms = await _roomRepo.GetAllAsync(queryObject);
       var roomDtos = rooms.Select(s => s.ToRoomDto()).ToList();
 
       return Ok(roomDtos);

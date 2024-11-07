@@ -31,16 +31,25 @@ namespace api.Repository
         public async Task<List<Employee>> GetAllAsync(EmployeeQueryObject query)
         {
             var employees = _context.Employees.AsQueryable();
-            var name = employees.Select(e => e.FirstName + " " + e.LastName);
+            var queryString = query.QueryString;
 
-            if (query.Id != null)
-                employees = employees.Where(e => e.Id == query.Id);
-            if (!string.IsNullOrEmpty(query.Name))
-                employees = employees.Where(e => name.Contains(query.Name));
-            if (!string.IsNullOrEmpty(query.Email))
-                employees = employees.Where(e => e.Email.Contains(query.Email));
-            if (!string.IsNullOrEmpty(query.Phone))
-                employees = employees.Where(e => e.PhoneNumber.Contains(query.Phone));
+            if (!string.IsNullOrEmpty(queryString))
+            {
+                employees = employees.Where(e =>
+                    (e.FirstName + " " + e.LastName).Contains(queryString) ||
+                    e.Role.Contains(queryString) ||
+                    e.Status.Contains(queryString) ||
+                    e.Department.Contains(queryString) ||
+                    e.PhoneNumber.Contains(queryString) ||
+                    e.Email.Contains(queryString) ||
+                    e.Address.Contains(queryString)
+                );
+
+                if (DateTime.TryParse(queryString, out DateTime parsedDate))
+                {
+                    employees = employees.Where(e => e.DateOfBirth.Date == parsedDate.Date);
+                }
+            }
 
             return await employees.ToListAsync();
         }
@@ -56,14 +65,13 @@ namespace api.Repository
             if (existingEmployee == null)
                 return null;
 
-            // Update only the fields that are provided
             if (!string.IsNullOrEmpty(employeeModel.FirstName))
                 existingEmployee.FirstName = employeeModel.FirstName;
 
             if (!string.IsNullOrEmpty(employeeModel.LastName))
                 existingEmployee.LastName = employeeModel.LastName;
 
-            if(employeeModel.DateOfBirth != null)
+            if (employeeModel.DateOfBirth != null)
                 existingEmployee.DateOfBirth = employeeModel.DateOfBirth ?? existingEmployee.DateOfBirth;
 
             if (!string.IsNullOrEmpty(employeeModel.Role))
@@ -78,10 +86,10 @@ namespace api.Repository
             if (!string.IsNullOrEmpty(employeeModel.PhoneNumber))
                 existingEmployee.PhoneNumber = employeeModel.PhoneNumber;
 
-            if (employeeModel.Salary != null) // Assuming Salary can be null
+            if (employeeModel.Salary != null)
                 existingEmployee.Salary = employeeModel.Salary;
 
-            if (employeeModel.IsWoman != null) // Assuming IsWoman is a nullable boolean
+            if (employeeModel.IsWoman != null)
                 existingEmployee.IsWoman = employeeModel.IsWoman ?? false;
 
             if (!string.IsNullOrEmpty(employeeModel.ImagePath))

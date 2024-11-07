@@ -17,8 +17,10 @@ namespace api.Mappers
                 IsCheckIn = bookingModel.IsCheckIn,
                 IsCheckout = bookingModel.IsCheckout,
                 Status = bookingModel.Status,
+                TotalAmount = bookingModel.TotalAmount,
                 CustomerId = bookingModel.CustomerId,
                 RoomId = bookingModel.RoomId
+
             };
         }
 
