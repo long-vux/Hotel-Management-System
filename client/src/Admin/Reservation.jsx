@@ -1,7 +1,11 @@
-import React from 'react'
-import ReservationList from '../components/admin/reservation/ReservationList';
-import BasicDatePicker from '../components/admin/reservation/BasicDatePicker';
-import StatusFiltering from '../components/admin/reservation/Status_filtering';
+import React, { useState, useEffect } from 'react'
+import ReservationList from '../components/admin/reservation/ReservationList'
+import BasicDatePicker from '../components/admin/reservation/BasicDatePicker'
+import StatusFiltering from '../components/admin/reservation/Status_filtering'
+
+import axios from 'axios'
+import AddBookingModal from '../components/admin/reservation/addBookingModal'
+
 const status = ['Pending', 'Confirmed', 'Cancelled']
 
 const reservationData = [
@@ -15,7 +19,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS002',
@@ -27,7 +31,7 @@ const reservationData = [
     status: status[1],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS003',
@@ -39,7 +43,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS004',
@@ -51,7 +55,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS005',
@@ -63,10 +67,10 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
-    id: 'RS006',  
+    id: 'RS006',
     guestName: 'Draco Malfoy',
     email: 'draco@gmail.com',
     phoneNumber: '081234567890',
@@ -75,7 +79,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS007',
@@ -87,7 +91,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS008',
@@ -99,7 +103,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS009',
@@ -111,7 +115,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS010',
@@ -123,7 +127,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS011',
@@ -135,7 +139,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS012',
@@ -147,7 +151,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS013',
@@ -159,7 +163,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS014',
@@ -171,7 +175,7 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   },
   {
     id: 'RS015',
@@ -183,14 +187,36 @@ const reservationData = [
     status: status[0],
     checkIn: 'Sep 11',
     checkOut: 'Sep 12',
-    createdAt: 'Sep 10 1:00 PM',
+    createdAt: 'Sep 10 1:00 PM'
   }
 ]
 
 const Reservation = () => {
+  const DB_HOST = process.env.REACT_APP_DB_HOST
+
+  const [booking, setBooking] = useState(null)
+  const [isBookingLoading, setIsBookingLoading] = useState(null)
+
+  useEffect(() => {
+    const fetchBooking = async () => {
+      try {
+        const response = await axios.get(`${DB_HOST}api/Booking`)
+        setBooking(response.data)
+      } catch (error) {
+        console.error('Error fetching customer:', error)
+      } finally {
+        setIsBookingLoading(false)
+      }
+    }
+
+    fetchBooking()
+  }, [])
+
   return (
     <div className='w-full h-[505px] flex flex-col mb-[130px]'>
-      <h1 id='quick-action' className='text-[24px] font-bold'>Reservation</h1>
+      <h1 id='quick-action' className='text-[24px] font-bold'>
+        Reservation
+      </h1>
       <div className='w-full flex flex-row items-center justify-between'>
         <div className='flex flex-row items-center gap-[10px] '>
           <span className='text-[16px]'>Show</span>
@@ -198,29 +224,65 @@ const Reservation = () => {
           <BasicDatePicker />
           <StatusFiltering filterBy={'Status'} />
         </div>
-        <input type="text" placeholder='Search Customer' className='w-[20%] h-[40px] text-[14px] text-bold border border-gray-500 rounded-full px-[15px]' />
+        <input
+          type='text'
+          placeholder='Search Customer'
+          className='w-[20%] h-[40px] text-[14px] text-bold border border-gray-500 rounded-full px-[15px]'
+        />
       </div>
-      <div class="ml-1">
-        <table class="text-left bg-white rounded-md w-full">
-          <thead class="">
+      <div class='ml-1'>
+        <table class='text-left bg-white rounded-md w-full'>
+          <thead class=''>
             <tr className='text-[16px]'>
-              <th scope="col" class="pl-4 py-2">ID</th>
-              <th scope="col" class="px-4 py-2">Guest Name</th>
-              <th scope="col" class="px-4 py-2">Email</th>
-              <th scope="col" class="px-4 py-2">Phone Number</th>
-              <th scope="col" class="px-4 py-2">Room Type</th>  
-              <th scope="col" class="px-4 py-2">Total Amount</th>
-              <th scope="col" class="px-4 py-2">Status</th>
-              <th scope="col" class="px-4 py-2">Check in / out dates</th>
-              <th scope="col" class="px-4 py-2">Created At</th>
-              <th scope="col" class="px-9 py-2">Action</th>
+              <th scope='col' class='pl-4 py-2'>
+                ID
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Guest Name
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Phone Number
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Number of Guests{' '}
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Room Type
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Check in / out dates
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Created At
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Total Amount
+              </th>
+              <th scope='col' class='px-4 py-2'>
+                Status
+              </th>
+              <th scope='col' class='px-9 py-2'>
+                Action
+              </th>
             </tr>
           </thead>
-          <ReservationList reservationData={reservationData} />
+          {!isBookingLoading ? (
+            <ReservationList reservationData={reservationData} data={booking} />
+          ) : (
+            <tbody>
+              <tr>
+                <td colSpan='6' className='text-center p-4'>
+                  Loading...
+                </td>
+              </tr>
+            </tbody>
+          )}
         </table>
       </div>
+
+      <AddBookingModal/>
     </div>
   )
 }
 
-export default Reservation  
+export default Reservation

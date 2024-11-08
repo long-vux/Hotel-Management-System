@@ -4,12 +4,12 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
 import axios from 'axios'
-const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname, id }) => {
+const CustomerDeleteModal = ({ open, handleClose, data }) => {
   const DB_HOST = process.env.REACT_APP_DB_HOST
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`${DB_HOST}api/Employee/${id}`)
+      const response = await axios.delete(`${DB_HOST}api/customer/${data.id}`)
       handleClose()
       window.location.reload()
       return response
@@ -44,7 +44,7 @@ const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname, id }) => {
           component='h2'
           sx={{ textAlign: 'center', fontWeight: 'bold' }}
         >
-          You're about to delete {Firstname} {Lastname}
+          You're about to delete {data.firstName} {data.lastName}
         </Typography>
         <Typography
           id='modal-modal-description'
@@ -52,7 +52,7 @@ const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname, id }) => {
           sx={{ mt: 1, textAlign: 'center' }}
           color='text.secondary'
         >
-          This will permanently delete this employee from the catalog.
+          This will permanently delete this customer from the catalog.
           <span>Are you sure?</span>
         </Typography>
 
@@ -69,4 +69,4 @@ const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname, id }) => {
   )
 }
 
-export default DeleteConfirmModal
+export default CustomerDeleteModal

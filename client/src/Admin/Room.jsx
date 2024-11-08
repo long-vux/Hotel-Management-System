@@ -3,7 +3,7 @@ import RoomCardListAdmin from '../components/admin/rooms/RoomCardList_admin'
 import RoomFiltering from '../components/admin/rooms/Room_filtering'
 import AddRoomModalButton from '../components/admin/rooms/AddRoom_Modal_Button'
 import axios from 'axios'
-
+import { Button } from '@mui/material'
 const Room = () => {
   const [rooms, setRooms] = useState([])
   const DB_HOST = process.env.REACT_APP_DB_HOST
@@ -30,6 +30,7 @@ const Room = () => {
           <RoomFiltering filterBy={'Type'} />
           <RoomFiltering filterBy={'Status'} />
           <RoomFiltering filterBy={'Price'} />
+          <Button variant='contained'>Search</Button>
         </div>
       </div>
       <RoomCardListAdmin rooms={rooms} />

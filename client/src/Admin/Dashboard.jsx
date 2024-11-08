@@ -162,7 +162,6 @@ const guestData = [
 ]
 
 const Dashboard = () => {
-
   // For quick action
   const [value, setValue] = React.useState(0)
   const chartRef = useRef(null) // Reference to hold the Chart instance
@@ -222,10 +221,10 @@ const Dashboard = () => {
 
         <div className='flex flex-col gap-[10px]'>
           <div className='w-full flex rounded-md '>
-            <CardOverview />
-            <CardOverview />
-            <CardOverview />
-            <CardOverview />
+            <CardOverview isCheckin={true} />{' '}
+            <CardOverview isCheckout={true} />{' '}
+            <CardOverview isRoomAvailable={true} />{' '}
+            <CardOverview isReservation={true} />{' '}
           </div>
 
           <div id='images' className='flex items-center gap-[10px] pl-1'>

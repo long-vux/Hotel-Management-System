@@ -19,6 +19,9 @@ const AddRoomModalButton = () => {
   const DB_HOST = process.env.REACT_APP_DB_HOST
 
   const [open, setOpen] = useState(false) // Modal visibility state
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  
   const [images, setImages] = useState([]) // Uploaded images state
   const [roomType, setRoomType] = useState('') // Selected room type
   const [roomNumber, setRoomNumber] = useState('') // Room number
@@ -44,9 +47,6 @@ const AddRoomModalButton = () => {
     position: 'absolute',
     width: 1
   })
-
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
 
   const modalStyle = {
     position: 'absolute',

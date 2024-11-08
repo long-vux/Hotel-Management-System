@@ -2,28 +2,29 @@ import React, { useState } from 'react'
 import CustomerRow from './CustomerRow'
 import Pagination from '../../layout/Pagination'
 
-const CustomerList = ({ guestData }) => {
+const CustomerList = ({ Customer_Data, Booking_Data }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage, setPostsPerPage] = useState(10)
 
   const lastPostIndex = currentPage * postsPerPage
   const firstPostIndex = lastPostIndex - postsPerPage
-  const currentPosts = guestData.slice(firstPostIndex, lastPostIndex)
+  const currentPosts = Customer_Data.slice(firstPostIndex, lastPostIndex)
+
+  
+  
 
   return (
     <tbody>
-      {currentPosts.map((guest, index) => (
+      {currentPosts.map((customer, index) => (
+        
         <CustomerRow
           key={index}
-          guestName={guest.guestName}
-          checkIn={guest.checkIn}
-          checkOut={guest.checkOut}
-          roomType={guest.roomType}
-          allocatedRoom={guest.allocatedRoom}
+          Customer_data = {customer}
+          Booking_data = {Booking_Data}
         />
       ))}
       <div className='my-4 ml-4'>
-        <Pagination totalPosts={guestData.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+        <Pagination totalPosts={Customer_Data.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
     </tbody>
 

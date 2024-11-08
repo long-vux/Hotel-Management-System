@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Select from '@mui/material/Select'
 import InputLabel from '@mui/material/InputLabel'
@@ -12,7 +12,7 @@ import {
   Autocomplete,
   Button
 } from '@mui/material'
-const AddEmployeeModal = ({ open, handleClose }) => {
+const EditEmployeeModal = ({ open, handleClose, data }) => {
   const DB_HOST = process.env.REACT_APP_DB_HOST
 
   const style = {
@@ -27,59 +27,27 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     borderRadius: 2
   }
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [role, setRole] = useState('')
-  const [email, setEmail] = useState('')
-  const [gender, setGender] = useState('')
-  const [department, setDepartment] = useState('')
-  const [dob, setDob] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [address, setAddress] = useState('')
-  const [salary, setSalary] = useState('')
   const [image, setImage] = useState(null)
-
-  const handleDragOver = e => {
-    e.preventDefault()
-  }
-
-  const handleDrop = e => {
-    e.preventDefault()
-    const files = Array.from(e.dataTransfer.files)
-    const imageFile = files[0]
-    if (imageFile) {
-      const reader = new FileReader()
-      reader.onload = event => {
-        setImage(event.target.result)
-      }
-      reader.readAsDataURL(imageFile)
-    }
-  }
-
-  const logFormData = formData => {
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value)
-    }
-  }
-  // const handleFileChange = e => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = event => {
-  //       setImage(event.target.result); // Set the Data URL for the image
-  //     };
-  //     reader.readAsDataURL(file); // Read the file as a Data URL
-  //   }
-  // };
+  const [firstName, setFirstName] = useState(data.firstName)
+  const [lastName, setLastName] = useState(data.lastName)
+  const [email, setEmail] = useState(data.email)
+  const [gender, setGender] = useState(data.isWoman ? 'Woman' : 'Male')
+  const [status, setStatus] = useState(data.status)
+  const [department, setDepartment] = useState(data.department)
+  const [dob, setDob] = useState(data.dateOfBirth)
+  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
+  const [address, setAddress] = useState(data.address)
+  const [role, setRole] = useState(data.role)
+  const [salary, setSalary] = useState(data.salary)
+  const [employeeID, setEmployeeID] = useState(data.id)
 
   const handleFileChange = e => {
     const file = e.target.files[0]
     if (file) {
-      setImage(file) // Store the file object directly
-      const preview = URL.createObjectURL(file) // Create a URL for the selected file for preview
-      // Optionally, you can use preview if you want to display it
+      setImage(file)
     }
   }
+
   const handleSubmit = async () => {
     const formData = new FormData()
     const formattedDob = dob
@@ -91,6 +59,7 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     formData.append('LastName', lastName)
     formData.append('Email', email)
     formData.append('Role', role)
+    formData.append('Status', status)
     formData.append('IsWoman', gender === 'Female') // Use boolean for IsWoman
     formData.append('Department', department)
     formData.append('DateOfBirth', formattedDob) // Use ISO date format
@@ -107,11 +76,15 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     }
 
     try {
-      const response = await axios.post(`${DB_HOST}api/Employee`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' } // Ensure multipart/form-data is set
-      })
+      const response = await axios.put(
+        `${DB_HOST}api/Employee/${data.id}`,
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' } // Ensure multipart/form-data is set
+        }
+      )
 
-      console.log('Employee data submitted:', response.data)
+      console.log('Employee data is updated:', response.data)
       handleClose()
       window.location.reload()
     } catch (error) {
@@ -167,6 +140,8 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     'Valet and Transportation'
   ]
 
+  const status_options = ['Active', 'Inactive', 'On leave']
+
   return (
     <Modal
       open={open}
@@ -178,27 +153,26 @@ const AddEmployeeModal = ({ open, handleClose }) => {
         <Typography id='modal-modal-description' className='flex gap-4'>
           <div className='flex flex-col gap-1'>
             <div
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
               className={`border-2 border-dashed rounded-md p-4 flex items-center justify-center cursor-pointer ${
                 image ? 'h-48' : 'h-32'
               }`}
               style={{ minHeight: '200px' }}
             >
-              {image ? (
-                <img
-                  src={URL.createObjectURL(image)}
-                  className='rounded-md'
-                  alt='Employee Avatar'
-                  style={{ maxHeight: '100%', maxWidth: '100%' }}
-                />
-              ) : (
-                <span>Avatar</span>
-              )}
+              <img
+                src={
+                  image
+                    ? URL.createObjectURL(image)
+                    : DB_HOST + data.imagePath.slice(1)
+                }
+                className='rounded-md'
+                alt='Employee Avatar'
+                style={{ maxHeight: '100%', maxWidth: '100%' }}
+              />
             </div>
             {/* Button to trigger file input */}
             <Button
               variant='outlined'
+              sx={{ fontSize: '12px' }}
               component='label'
             >
               Upload Image
@@ -296,6 +270,21 @@ const AddEmployeeModal = ({ open, handleClose }) => {
                 onChange={e => setSalary(e.target.value)}
                 variant='standard'
               />
+              <FormControl variant='standard' fullWidth>
+                <InputLabel id='status-label'>Status</InputLabel>
+                <Select
+                  labelId='status-label'
+                  value={status}
+                  onChange={e => setStatus(e.target.value)}
+                  label='status'
+                >
+                  {status_options.map(dept => (
+                    <MenuItem key={dept} value={dept}>
+                      {dept}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
 
             <div className='flex flex-col h-full justify-between gap-2'>
@@ -329,4 +318,4 @@ const AddEmployeeModal = ({ open, handleClose }) => {
   )
 }
 
-export default AddEmployeeModal
+export default EditEmployeeModal
