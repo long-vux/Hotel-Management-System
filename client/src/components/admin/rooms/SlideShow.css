@@ -1,0 +1,65 @@
+/* Slideshow.css */
+
+.slideshow-container {
+  position: relative;
+  max-width: 800px; /* Set a max width */
+  margin: auto;
+  overflow: hidden; /* Hide overflow */
+}
+
+.slideshow-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content; /* Set height for the slideshow */
+}
+
+.slideshow-slide img {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
+
+button.prev,
+button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  width: 40px; /* Set width */
+  height: 40px; /* Set height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+button.prev {
+  left: 10px; /* Position for left button */
+}
+
+button.next {
+  right: 10px; /* Position for right button */
+}
+
+.dots {
+  text-align: center;
+  padding: 5px;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #717171;
+}

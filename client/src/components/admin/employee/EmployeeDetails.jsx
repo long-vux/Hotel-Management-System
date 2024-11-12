@@ -5,25 +5,43 @@ import Modal from '@mui/material/Modal'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 
+//   dateOfBirth
+// :
+// "2004-05-02T00:00:00"
+// department
+// :
+// "IT"
+// email
+// :
+// "nguyennguyen8343@gmail.com"
+// firstName
+// :
+// "TẠ"
+// id
+// :
+// 4
+// imagePath
+// :
+// "/images/employees/50e4212e-c962-476c-9725-689c985b5bf4_ảnh3x4.png"
+// isWoman
+// :
+// false
+// lastName
+// :
+// "NGUYÊN"
+// phoneNumber
+// :
+// "0918988154"
+// role
+// :
+// "Dev"
+// salary
+// :
+// "10000000000000"
 const EmployeeDetails = ({
   open,
   handleClose,
-  handleEdit,
-  handleSave,
-  isEdit,
-  EmployeeID,
-  FirstName,
-  LastName,
-  Gender,
-  DateOfBirth,
-  Email,
-  PhoneNumber,
-  Address,
-  Avartar,
-  EmployeeStatus,
-  Salary,
-  Role,
-  Department
+  data
 }) => {
   const style = {
     position: 'absolute',
@@ -38,17 +56,20 @@ const EmployeeDetails = ({
   }
 
   // State for editable fields
-  const [firstName, setFirstName] = useState(FirstName)
-  const [lastName, setLastName] = useState(LastName)
-  const [email, setEmail] = useState(Email)
-  const [gender, setGender] = useState(Gender)
-  const [status, setStatus] = useState(EmployeeStatus)
-  const [department, setDepartment] = useState(Department)
-  const [dob, setDob] = useState(DateOfBirth)
-  const [phoneNumber, setPhoneNumber] = useState(PhoneNumber)
-  const [address, setAddress] = useState(Address)
-  const [salary, setSalary] = useState(Salary)
+  const [firstName, setFirstName] = useState(data.firstName)
+  const [lastName, setLastName] = useState(data.lastName)
+  const [email, setEmail] = useState(data.email)
+  const [gender, setGender] = useState(data.isWoman)
+  const [status, setStatus] = useState('Active')
+  const [department, setDepartment] = useState(data.department)
+  const [dob, setDob] = useState(data.dateOfBirth)
+  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
+  const [address, setAddress] = useState(data.address)
+  const [role, setRole] = useState(data.role)
+  const [salary, setSalary] = useState(data.salary)
+  const [employeeID, setEmployeeID] = useState(data.id)
 
+  const DB_URL = process.env.REACT_APP_DB_HOST
   return (
     <Modal
       open={open}
@@ -60,12 +81,25 @@ const EmployeeDetails = ({
         <Typography id='modal-modal-description' className='flex gap-4'>
           {/* Avatar and Employee's name & role */}
           <div className='flex flex-col gap-1'>
-            <img src='https://placehold.co/200x200' className='rounded-md' alt='Employee Avatar' />
+            <div
+              className={`border-2 border-dashed rounded-md p-4 flex items-center justify-center cursor-pointer h-48 w-20'`}
+              style={{ minHeight: '200px' }}
+            >
+              <img
+                src={DB_URL + data.imagePath}
+                className='rounded-md'
+                alt='Employee Avatar'
+                onError={e => {
+                  e.target.src = '/fallback-image.png' // Replace with your desired fallback image
+                }}
+                style={{ maxHeight: '100%', maxWidth: '100%' }}
+              />{' '}
+            </div>
             <div className='w-full center flex-col'>
               <div className='text-[20px] font-bold'>
                 {firstName} {lastName}
               </div>
-              <div className='text-[16px]'>{Role}</div>
+              <div className='text-[16px]'>{role}</div>
             </div>
           </div>
 
@@ -74,7 +108,7 @@ const EmployeeDetails = ({
             <div className='flex flex-col gap-2'>
               <TextField
                 label='ID'
-                value={EmployeeID}
+                value={employeeID}
                 variant='standard'
                 disabled
               />
@@ -82,25 +116,25 @@ const EmployeeDetails = ({
               <TextField
                 label='Gender'
                 value={gender === 0 ? 'Male' : 'Female'}
-                onChange={(e) => setGender(e.target.value)}
+                onChange={e => setGender(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
 
               <TextField
                 label='Email'
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
 
               <TextField
                 label='Status'
                 value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={e => setStatus(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
             </div>
 
@@ -108,33 +142,33 @@ const EmployeeDetails = ({
               <TextField
                 label='Department'
                 value={department}
-                onChange={(e) => setDepartment(e.target.value)}
+                onChange={e => setDepartment(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
 
               <TextField
                 label='DOB'
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
+                value={dob.split('T')[0]}
+                onChange={e => setDob(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
 
               <TextField
                 label='Phone number'
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={e => setPhoneNumber(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
 
               <TextField
                 label='Salary'
                 value={salary}
-                onChange={(e) => setSalary(e.target.value)}
+                onChange={e => setSalary(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
             </div>
 
@@ -142,21 +176,11 @@ const EmployeeDetails = ({
               <TextField
                 label='Address'
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={e => setAddress(e.target.value)}
                 variant='standard'
-                disabled={!isEdit}
+                disabled
               />
-              <div className='flex justify-end flex-row gap-2'>
-                {isEdit ? (
-                  <Button variant='contained' color='primary' onClick={handleSave}>
-                    Save
-                  </Button>
-                ) : (
-                  <Button variant='outlined' onClick={handleEdit} className='hover:bg-blue-900 hover:text-white'>
-                    Edit
-                  </Button>
-                )}
-              </div>
+             
             </div>
           </div>
         </Typography>

@@ -3,8 +3,21 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
+import axios from 'axios'
+const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname, id }) => {
+  const DB_HOST = process.env.REACT_APP_DB_HOST
 
-const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname }) => {
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`${DB_HOST}api/Employee/${id}`)
+      handleClose()
+      window.location.reload()
+      return response
+    } catch (error) {
+      console.error('There was an error with handleDelete()', error)
+    }
+  }
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -33,7 +46,12 @@ const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname }) => {
         >
           You're about to delete {Firstname} {Lastname}
         </Typography>
-        <Typography id='modal-modal-description' className='center flex-col' sx={{ mt: 1, textAlign: 'center' }} color='text.secondary'>
+        <Typography
+          id='modal-modal-description'
+          className='center flex-col'
+          sx={{ mt: 1, textAlign: 'center' }}
+          color='text.secondary'
+        >
           This will permanently delete this employee from the catalog.
           <span>Are you sure?</span>
         </Typography>
@@ -42,7 +60,7 @@ const DeleteConfirmModal = ({ open, handleClose, Firstname, Lastname }) => {
           <Button variant='outlined' color='error' onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant='contained' color='error'>
+          <Button variant='contained' color='error' onClick={handleDelete}>
             Delete
           </Button>
         </Box>

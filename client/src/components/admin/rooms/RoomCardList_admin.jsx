@@ -10,28 +10,12 @@ const RoomCardListAdmin = ({ rooms }) => {
   const firstPostIndex = lastPostIndex - postsPerPage
   const currentPosts = rooms.slice(firstPostIndex, lastPostIndex)
 
-  // roomId: 'RM001',
-  // roomNo: '#001',
-  // image: '/assets/hotel_room/room1.jpg',
-  // title: 'Deluxe Family Room',
-  // price: 200,
-  // type: '2 king beds',
-  // status: 'Available',
-  // capacity: 4
+  
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
       {currentPosts.map((room, index) => (
         <RoomCardAdmin
-          roomId = {room.roomId}
-          key={index}
-          image={room.image}
-          title={room.title}
-          allocated={room.roomNo}
-          price={room.price}
-          type={room.type}
-          status={room.status}
-          capacity = {room.capacity}
-          amenities = {room.amenities}
+         room = {room}
         />
       ))}
 

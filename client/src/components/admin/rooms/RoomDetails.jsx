@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import CloseIcon from '@mui/icons-material/Close'
+import Slideshow from './Slideshow'
 const style = {
   position: 'fixed',
   top: '50%',
@@ -23,26 +24,15 @@ const style = {
   outline: 'none'
 }
 
-const imageStyle = {
-  width: '100%',
-  height: '300px',
-  objectFit: 'cover',
-  borderRadius: 5
-}
 
 const RoomDetails = ({
   open,
   handleClose,
-  imageUrls,
-  title,
-  allocated,
-  price,
-  type,
-  status,
-  roomId,
-  capacity,
-  amenities
+  room
 }) => {
+
+  const images = room.imagePaths
+
   return (
     <Modal
       open={open}
@@ -66,26 +56,22 @@ const RoomDetails = ({
           id='modal-modal-description flex '
           sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}
         >
-          <img src={imageUrls} style={imageStyle} />
+          {/* <img src={imageUrls} style={imageStyle} /> */}
+          <Slideshow images={images} interval={5000} />
           <div sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             <div className='flex justify-between'>
-              <h1 className='text-[20px] mb-2 font-bold'>{title}</h1>
-              <p className='text-[18px] mb-2'>{allocated}</p>
+              <h1 className='text-[20px] mb-2 font-bold'>{room.roomName}</h1>
+              <p className='text-[18px] mb-2 font-bold'>#00{room.roomNumber}</p>
             </div>
             <div className='flex justify-between'>
-              <p className='text-[18px] mb-2'>Price: {price}</p>
-              <p className='text-[18px] mb-2'>Type: {type}</p>
+              <p className='text-[18px] mb-2'>Price: {room.roomPrice}</p>
+              <p className='text-[18px] mb-2'>Type: {room.roomType}</p>
             </div>
             <div className='flex justify-between'>
-              <p className='text-[18px] mb-2'>status: {status}</p>
-              <p className='text-[18px] mb-2'>capacity: {capacity}</p>
+              <p className='text-[18px] mb-2'>status: {room.roomStatus}</p>
+              <p className='text-[18px] mb-2'>capacity: {room.capacity}</p>
             </div>
-            <div>
-
-            Amenities: {amenities.join(', ')}
-            </div>
-
-           
+            <div>Amenities: {room.amenities.join(', ')}</div>
           </div>
         </Typography>
       </Box>
