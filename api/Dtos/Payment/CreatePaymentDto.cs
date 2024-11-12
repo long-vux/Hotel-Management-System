@@ -5,13 +5,9 @@ namespace api.Dtos.Payment
 {
     public class CreatePaymentDto
     {
-        [Required(ErrorMessage = "Payment method is required")]
-        public required string PaymentMethod { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Total amount is required")]
-        public required int TotalAmount { get; set; }
-        [Required(ErrorMessage = "Booking id is required")]
-        public required int BookingId { get; set; }
-        [Required(ErrorMessage = "Status is required")]
-        public required string Status { get; set; }
+        public string PaymentMethod { get; set; } = string.Empty;
+        public int TotalAmount { get; set; }
+        public int BookingId { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 }

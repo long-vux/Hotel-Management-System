@@ -1,0 +1,14 @@
+# Get all bookings
+GET http://localhost:5214/api/Booking
+
+# Get booking by id
+GET http://localhost:5214/api/bookings/1
+
+# Create a new booking
+POST http://localhost:5214/api/bookings
+Content-Type: application/json
+
+{
+    "paymentDate": "2024-11-06",
+    "amount": 100
+}

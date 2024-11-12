@@ -22,9 +22,9 @@ namespace api.Mappers
             return new Payment
             {
                 PaymentDate = DateTime.Now,
-                PaymentMethod = paymentDto.PaymentMethod,
+                PaymentMethod = paymentDto.PaymentMethod ?? string.Empty,
                 TotalAmount = paymentDto.TotalAmount,
-                Status = paymentDto.Status,
+                Status = paymentDto.Status ?? string.Empty,
                 BookingId = paymentDto.BookingId
             };
         }
