@@ -68,6 +68,7 @@ const CustomerRow = ({ Customer_data, Booking_data }) => {
   return (
     <>
       <tr className='bg-white text-black border-b border-gray-300'>
+       
         <th scope='row' className='px-4 pt-3 pb-1 font-medium'>
           {Customer_data.firstName} {Customer_data.lastName}
         </th>
@@ -82,10 +83,10 @@ const CustomerRow = ({ Customer_data, Booking_data }) => {
         </td>
         <td className='px-4'>
           {customerBooking
-            ? customerBooking.isCheckOut
+            ? customerBooking.isCheckout
               ? customerBooking.checkOutDate.replace('T', ' ')
               : '-'
-            : '-'}
+            : 'no booking'}
         </td>
     
 

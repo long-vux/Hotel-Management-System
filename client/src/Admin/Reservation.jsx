@@ -201,7 +201,12 @@ const Reservation = () => {
     const fetchBooking = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/Booking`)
-        setBooking(response.data)
+        if (response.data) {
+          const sortedBookings = [...response.data].sort((a, b) => b.id - a.id); // Sort by ID in descending order
+          setBooking(sortedBookings);
+        } else {
+          console.error("Error fetching bookings: Invalid response data.");
+        }
       } catch (error) {
         console.error('Error fetching customer:', error)
       } finally {

@@ -7,7 +7,9 @@ import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { useLocation } from 'react-router-dom'
 import Chart from 'chart.js/auto'
+import RoomManagement from '../components/admin/dashboard/CustomTabPanel'
 
+// https://mui.com/x/react-charts/
 function CustomTabPanel (props) {
   const { children, value, index, ...other } = props
   const location = useLocation()
@@ -221,8 +223,7 @@ const Dashboard = () => {
 
         <div className='flex flex-col gap-[10px]'>
           <div className='w-full flex rounded-md '>
-            <CardOverview isCheckin={true} />{' '}
-            <CardOverview isCheckout={true} />{' '}
+            <CardOverview isCheckin={true} /> <CardOverview isCheckout={true} />{' '}
             <CardOverview isRoomAvailable={true} />{' '}
             <CardOverview isReservation={true} />{' '}
           </div>
@@ -304,183 +305,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className='w-[40%] mt-[5px] ml-[5px]'>
-        <img
-          src={
-            process.env.PUBLIC_URL + '/assets/hotel_facilities/building1.jpg'
-          }
-          alt='room'
-          className='w-full h-[100px] border-1 border-gray-300 object-cover mb-2'
-        />
-        <div className='flex flex-col gap-[4px]'>
-          <Box
-            sx={{
-              width: '100%',
-              backgroundColor: 'white',
-              padding: 1,
-              borderRadius: 2
-            }}
-          >
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label='basic tabs example'
-              >
-                <Tab label='Check in' {...a11yProps(0)} />
-                <Tab label='Check out' {...a11yProps(1)} />
-              </Tabs>
-            </Box>
-
-            <CustomTabPanel value={value} index={0}>
-              <div className=' flex flex-col gap-[13px] w-full h-full rounded-md'>
-                <div className='flex flex-col text-[14px] font-bold'>
-                  <h1>Phone number</h1>
-                  <div className='w-full flex flex-row gap-[10px]'>
-                    <input
-                      type='text'
-                      className='w-[60%] h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                    <button className='w-[40%] h-[30px] bg-[#1D4567] text-white rounded-md'>
-                      Search for reservation
-                    </button>
-                  </div>
-                </div>
-                <div className='flex flex-row text-[14px] font-bold gap-[10px]'>
-                  <div className='w-[20%] flex flex-col'>
-                    <h1>Room No.</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                  <div className='w-[40%] flex flex-col'>
-                    <h1>Room Type</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                  <div className='w-[40%] flex flex-col'>
-                    <h1>Number of Guests</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                </div>
-                <div className='flex flex-row text-[14px] font-bold gap-[10px]'>
-                  <div className='w-[50%] flex flex-col'>
-                    <h1>First Name</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                  <div className='w-[50%] flex flex-col'>
-                    <h1>Last Name</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                </div>
-                <div className='flex flex-row text-[14px] font-bold gap-[10px]'>
-                  <div className='flex flex-col'>
-                    <h1>Room Type</h1>
-                    <select className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'>
-                      <option value='' disabled selected>
-                        Select Room Type
-                      </option>
-                      <option value='single'>Single Room</option>
-                      <option value='double'>Double Room</option>
-                      <option value='suite'>Suite</option>
-                      <option value='deluxe'>Deluxe Room</option>
-                    </select>
-                  </div>
-                  <div className='w-[40%] flex flex-col'>
-                    <h1>ID No.</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                  <div className='w-[40%] flex flex-col'>
-                    <h1>DOB</h1>
-                    <input
-                      type='date'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                </div>
-                <div className='flex flex-col text-[14px] font-bold'>
-                  <h1>Email</h1>
-                  <input
-                    type='text'
-                    className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                  />
-                </div>
-                <div className='flex flex-col'>
-                  <div className='flex flex-row text-[14px] justify-between font-bold'>
-                    <h1>Total charge</h1>
-                    <span className='text-[18px] font-bold'>2999$</span>
-                  </div>
-                  <div className='w-full h-[1px] bg-gray-400 pt-0'></div>
-                </div>
-                <div className='flex justify-end '>
-                  <button className='w-[100px] font-bold h-[30px] bg-[#1D4567] text-white rounded-md'>
-                    Check in
-                  </button>
-                </div>
-              </div>
-            </CustomTabPanel>
-            {/* Check out */}
-            <CustomTabPanel value={value} index={1}>
-              <div className=' flex flex-col gap-[13px] w-full h-full rounded-md'>
-                <div className='flex flex-col text-[14px] font-bold'></div>
-                <div className='flex flex-row text-[14px] font-bold gap-[10px]'>
-                  <div className='flex flex-col'>
-                    <h1>Room No.</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                  <div className='flex flex-col'>
-                    <h1>Room Type</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                </div>
-                <div className='flex flex-row text-[14px] font-bold gap-[10px]'>
-                  <div className=' flex flex-col'>
-                    <h1>Guest name</h1>
-                    <input
-                      type='text'
-                      className='w-full h-[30px] border-[1px] border-gray-400 rounded-md p-1'
-                    />
-                  </div>
-                </div>
-
-                <div className='flex flex-col'>
-                  <div className='flex flex-row text-[14px] justify-between font-bold'>
-                    <h1>Total charge</h1>
-                    <span className='text-[18px] font-bold'>2999$</span>
-                  </div>
-                  <div className='w-full h-[1px] bg-gray-400 pt-0'></div>
-                </div>
-                <div className='flex justify-end '>
-                  <button className='w-[100px] font-bold h-[30px] bg-[#1D4567] text-white rounded-md'>
-                    Check out
-                  </button>
-                </div>
-              </div>{' '}
-            </CustomTabPanel>
-          </Box>
-        </div>
-      </div>
+      <RoomManagement />
     </div>
   )
 }

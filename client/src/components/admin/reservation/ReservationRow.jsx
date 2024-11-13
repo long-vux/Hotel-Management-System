@@ -45,12 +45,10 @@ const ReservationRow = ({ data }) => {
     fetchRoom()
   }, [data.roomId])
 
-  
-
   return (
     <>
       <tr className='bg-white text-black border border-b-gray-100 hover:bg-gray-100'>
-        <td className='px-4'>#{data.id}</td>
+        <td className='px-4 '>#{data.id}</td>
         <td className='px-4'>
           {customer
             ? `${customer.firstName} ${customer.lastName}`
@@ -82,7 +80,6 @@ const ReservationRow = ({ data }) => {
                 sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }}
                 color='success'
               />
-
             </IconButton>
             <IconButton onClick={handleOpenDelete}>
               <CancelIcon sx={{ color: 'red' }} />
