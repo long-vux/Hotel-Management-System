@@ -28,15 +28,5 @@ namespace api.Mappers
                 BookingId = paymentDto.BookingId
             };
         }
-
-        public static Payment ToPaymentFromUpdateDto(this UpdatePaymentDto paymentDto) {
-            return new Payment
-            {
-                PaymentDate = paymentDto.PaymentDate,
-                PaymentMethod = paymentDto.PaymentMethod,
-                TotalAmount = paymentDto.TotalAmount,
-                Status = paymentDto.Status
-            };
-        }
     }
 }

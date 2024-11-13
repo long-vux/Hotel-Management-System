@@ -1,3 +1,4 @@
+using api.Dtos.Payment;
 using api.Models;
 
 namespace api.Interfaces
@@ -7,7 +8,7 @@ namespace api.Interfaces
         Task<List<Payment>> GetAllAsync();
         Task<Payment?> GetByIdAsync(int id);
         Task<Payment> CreateAsync(Payment paymentModel);
-        Task<Payment?> UpdateAsync(int id, Payment paymentModel);
+        Task<Payment?> UpdateAsync(int id, UpdatePaymentDto paymentDto);
         Task<Payment?> DeleteAsync(int id);
     }
 }

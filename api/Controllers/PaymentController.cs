@@ -68,9 +68,7 @@ namespace api.Controllers
       if (existingPayment == null)
         return NotFound("Payment not found");
 
-      var payment = paymentDto.ToPaymentFromUpdateDto();
-
-      await _paymentRepo.UpdateAsync(id, payment);
+      await _paymentRepo.UpdateAsync(id, paymentDto);
 
       return NoContent();
     }

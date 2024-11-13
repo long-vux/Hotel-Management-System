@@ -1,4 +1,5 @@
 using api.Data;
+using api.Dtos.Payment;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -23,9 +24,9 @@ namespace api.Repository
         public async Task<Payment> CreateAsync(Payment paymentModel)
         {
             await _context.Payments.AddAsync(paymentModel);
-            
+
             await _context.SaveChangesAsync();
-            
+
             return paymentModel;
         }
 
@@ -43,13 +44,21 @@ namespace api.Repository
             return payment;
         }
 
-        public async Task<Payment?> UpdateAsync(int id, Payment paymentModel)
+        public async Task<Payment?> UpdateAsync(int id, UpdatePaymentDto paymentDto)
         {
             var existingPayment = await _context.Payments.FirstOrDefaultAsync(x => x.Id == id);
             if (existingPayment == null)
                 return null;
 
-            existingPayment.Status = paymentModel.Status;
+            if (paymentDto.PaymentDate != null)
+                existingPayment.PaymentDate = paymentDto.PaymentDate ?? existingPayment.PaymentDate;
+
+            if (!string.IsNullOrEmpty(paymentDto.PaymentMethod))
+                existingPayment.PaymentMethod = paymentDto.PaymentMethod;
+            if (!string.IsNullOrEmpty(paymentDto.TotalAmount.ToString()))
+                existingPayment.TotalAmount = paymentDto.TotalAmount;
+            if (!string.IsNullOrEmpty(paymentDto.Status))
+                existingPayment.Status = paymentDto.Status;
 
             await _context.SaveChangesAsync();
 
