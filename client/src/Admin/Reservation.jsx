@@ -202,8 +202,7 @@ const Reservation = () => {
       try {
         const response = await axios.get(`${DB_HOST}api/Booking`)
         if (response.data) {
-          const sortedBookings = [...response.data].sort((a, b) => b.id - a.id); // Sort by ID in descending order
-          setBooking(sortedBookings);
+          setBooking(response.data.reverse());
         } else {
           console.error("Error fetching bookings: Invalid response data.");
         }
@@ -276,7 +275,7 @@ const Reservation = () => {
           ) : (
             <tbody>
               <tr>
-                <td colSpan='6' className='text-center p-4'>
+                <td colSpan='10 ' className='text-center p-4 w-full'>
                   Loading...
                 </td>
               </tr>

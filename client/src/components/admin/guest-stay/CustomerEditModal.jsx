@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import Grid from '@mui/material/Grid'
-import axios from 'axios'
-import FormControl from '@mui/material/FormControl'
+import React, { useState, useEffect } from 'react';
+import Grid from '@mui/material/Grid';
+import axios from 'axios';
+import FormControl from '@mui/material/FormControl';
 import {
   MenuItem,
   Box,
   Typography,
   Modal,
   TextField,
-  Autocomplete,
   InputLabel,
   Select,
-  Button
-} from '@mui/material'
+  Button,
+} from '@mui/material';
 
 const CustomerEditModal = ({ open, handleClose, data }) => {
   const style = {
@@ -29,31 +28,59 @@ const CustomerEditModal = ({ open, handleClose, data }) => {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 2
-  }
+    gap: 2,
+  };
 
   // States for customer information
-  const [firstName, setFirstName] = useState(data.firstName)
-  const [lastName, setLastName] = useState(data.lastName)
-  const [email, setEmail] = useState(data.email)
-  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
-  const [identityNumber, setIdentityNumber] = useState(data.identityNumber)
-  const [identityType, setIdentityType] = useState(data.identityType)
+  const [firstName, setFirstName] = useState(data.firstName);
+  const [lastName, setLastName] = useState(data.lastName);
+  const [email, setEmail] = useState(data.email);
+  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
+  const [identityNumber, setIdentityNumber] = useState(data.identityNumber);
+  const [identityType, setIdentityType] = useState(data.identityType);
 
   // When the modal opens, update state with the passed customer data
   useEffect(() => {
     if (data) {
-      setFirstName(data.firstName)
-      setLastName(data.lastName)
-      setEmail(data.email)
-      setPhoneNumber(data.phoneNumber)
-      setIdentityNumber(data.identityNumber)
-      setIdentityType(data.identityType)
+      setFirstName(data.firstName);
+      setLastName(data.lastName);
+      setEmail(data.email);
+      setPhoneNumber(data.phoneNumber);
+      setIdentityNumber(data.identityNumber);
+      setIdentityType(data.identityType);
     }
-  }, [open, data])
+  }, [open, data]);
+
+  // Validate fields before saving
+  const validateFields = () => {
+    if (!firstName || !lastName || !email || !phoneNumber || !identityNumber || !identityType) {
+      alert('Please fill in all required fields.');
+      return false;
+    }
+
+    // Simple email regex for validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return false;
+    }
+
+    // Simple phone number regex (adjust as necessary)
+    const phoneRegex = /^\d{10,15}$/; // Example: requires 10 to 15 digits
+    if (!phoneRegex.test(phoneNumber)) {
+      alert('Please enter a valid phone number (10 to 15 digits).');
+      return false;
+    }
+
+    return true;
+  };
 
   // Handle form submit to update customer information
   const handleSave = async () => {
+    if (!validateFields()) {
+      return; // Prevent saving if validation fails
+    }
+
     try {
       const updatedCustomer = {
         firstName,
@@ -61,23 +88,23 @@ const CustomerEditModal = ({ open, handleClose, data }) => {
         email,
         phoneNumber,
         identityNumber,
-        identityType
-      }
+        identityType,
+      };
 
       // Send PUT request to update customer info
       const response = await axios.put(
         `${process.env.REACT_APP_DB_HOST}api/customer/${data.id}`,
         updatedCustomer
-      )
-      console.log('Customer updated:', response.data)
-      handleClose()
-      window.location.reload()
+      );
+      console.log('Customer updated:', response.data);
+      handleClose();
+      window.location.reload();
     } catch (error) {
-      console.error('Error updating customer data:', error)
+      console.error('Error updating customer data:', error);
     }
-  }
+  };
 
-  const IDType = ['ID', 'Passport']
+  const IDType = ['ID', 'Passport'];
 
   return (
     <Modal
@@ -170,15 +197,13 @@ const CustomerEditModal = ({ open, handleClose, data }) => {
           >
             Close
           </Button>
-          <Button variant='contained' color='primary' onClick={handleSave}             sx={{ ml: 2 }}
->
+          <Button variant='contained' color='primary' onClick={handleSave} sx={{ ml: 2 }}>
             Save
           </Button>
-        
         </Box>
       </Box>
     </Modal>
-  )
-}
+  );
+};
 
-export default CustomerEditModal
+export default CustomerEditModal;

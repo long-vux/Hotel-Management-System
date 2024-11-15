@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import Select from '@mui/material/Select'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
+import React, { useState } from 'react';
+import axios from 'axios';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import {
   MenuItem,
   Box,
   Typography,
   Modal,
   TextField,
-  Autocomplete,
-  Button
-} from '@mui/material'
+  Button,
+} from '@mui/material';
+
 const AddEmployeeModal = ({ open, handleClose }) => {
-  const DB_HOST = process.env.REACT_APP_DB_HOST
+  const DB_HOST = process.env.REACT_APP_DB_HOST;
 
   const style = {
     position: 'absolute',
@@ -24,103 +24,122 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     boxShadow: 24,
     p: 2,
     border: 'none',
-    borderRadius: 2
-  }
+    borderRadius: 2,
+  };
 
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [role, setRole] = useState('')
-  const [email, setEmail] = useState('')
-  const [gender, setGender] = useState('')
-  const [department, setDepartment] = useState('')
-  const [dob, setDob] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [address, setAddress] = useState('')
-  const [salary, setSalary] = useState('')
-  const [image, setImage] = useState(null)
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [role, setRole] = useState('');
+  const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('');
+  const [department, setDepartment] = useState('');
+  const [dob, setDob] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [salary, setSalary] = useState('');
+  const [image, setImage] = useState(null);
 
-  const handleDragOver = e => {
-    e.preventDefault()
-  }
-
-  const handleDrop = e => {
-    e.preventDefault()
-    const files = Array.from(e.dataTransfer.files)
-    const imageFile = files[0]
-    if (imageFile) {
-      const reader = new FileReader()
-      reader.onload = event => {
-        setImage(event.target.result)
-      }
-      reader.readAsDataURL(imageFile)
-    }
-  }
-
-  const logFormData = formData => {
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value)
-    }
-  }
-  // const handleFileChange = e => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = event => {
-  //       setImage(event.target.result); // Set the Data URL for the image
-  //     };
-  //     reader.readAsDataURL(file); // Read the file as a Data URL
-  //   }
-  // };
-
-  const handleFileChange = e => {
-    const file = e.target.files[0]
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
     if (file) {
-      setImage(file) // Store the file object directly
-      const preview = URL.createObjectURL(file) // Create a URL for the selected file for preview
-      // Optionally, you can use preview if you want to display it
+      setImage(file); // Store the file object directly
     }
-  }
+  };
+
+  const validateFields = () => {
+    if (!firstName) {
+      alert('First name is required.');
+      return false;
+    }
+    if (!lastName) {
+      alert('Last name is required.');
+      return false;
+    }
+    if (!email) {
+      alert('Email is required.');
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return false;
+    }
+    if (!role) {
+      alert('Role is required.');
+      return false;
+    }
+    if (!gender) {
+      alert('Gender is required.');
+      return false;
+    }
+    if (!department) {
+      alert('Department is required.');
+      return false;
+    }
+    if (!dob) {
+      alert('Date of birth is required.');
+      return false;
+    }
+    if (!phoneNumber) {
+      alert('Phone number is required.');
+      return false;
+    }
+    const phoneRegex = /^\d{10,15}$/; // Adjust regex for valid phone numbers
+    if (!phoneRegex.test(phoneNumber)) {
+      alert('Please enter a valid phone number (10 to 15 digits).');
+      return false;
+    }
+    if (!salary || salary <= 0) {
+      alert('Salary must be a positive number.');
+      return false;
+    }
+    if (!image) {
+      alert('Please upload an image.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async () => {
-    const formData = new FormData()
-    const formattedDob = dob
-      ? new Date(dob).toISOString() // You can send the date as a full ISO string
-      : ''
+    if (!validateFields()) {
+      return; // Prevent submission if validation fails
+    }
+
+    const formData = new FormData();
+    const formattedDob = dob ? new Date(dob).toISOString() : '';
 
     // Append employee data to the FormData object
-    formData.append('FirstName', firstName)
-    formData.append('LastName', lastName)
-    formData.append('Email', email)
-    formData.append('Role', role)
-    formData.append('IsWoman', gender === 'Female') // Use boolean for IsWoman
-    formData.append('Department', department)
-    formData.append('DateOfBirth', formattedDob) // Use ISO date format
-    formData.append('PhoneNumber', phoneNumber) // Ensure field names match server expectations
-    formData.append('Address', address)
-    formData.append('Salary', salary)
+    formData.append('FirstName', firstName);
+    formData.append('LastName', lastName);
+    formData.append('Email', email);
+    formData.append('Role', role);
+    formData.append('IsWoman', gender === 'Female'); // Use boolean for IsWoman
+    formData.append('Department', department);
+    formData.append('DateOfBirth', formattedDob); // Use ISO date format
+    formData.append('Phone Number', phoneNumber); // Ensure field names match server expectations
+    formData.append('Address', address);
+    formData.append('Salary', salary);
 
     // Append image data if exists
     if (image) {
-      formData.append('Image', image) // Append the actual file object directly
-    } else {
-      // If the image is not provided, append an empty value or handle it based on your API requirements
-      formData.append('Image', '') // Optional, depending on backend requirements
+      formData.append('Image', image); // Append the actual file object directly
     }
 
     try {
       const response = await axios.post(`${DB_HOST}api/Employee`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' } // Ensure multipart/form-data is set
-      })
+        headers: { 'Content-Type': 'multipart/form-data' }, // Ensure multipart/form-data is set
+      });
 
-      console.log('Employee data submitted:', response.data)
-      handleClose()
-      window.location.reload()
+      console.log('Employee data submitted:', response.data);
+      handleClose();
+      window.location.reload();
     } catch (error) {
       console.error(
         'Error saving employee:',
         error.response ? error.response.data : error.message
-      )
+      );
     }
-  }
+  };
 
   const Roles = [
     'General Manager',
@@ -142,8 +161,8 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     'Cook',
     'Room Service Attendant',
     'Spa Manager',
-    'Spa Therapist'
-  ]
+    'Spa Therapist',
+  ];
   const Departments = [
     'Front Office',
     'Housekeeping',
@@ -164,8 +183,8 @@ const AddEmployeeModal = ({ open, handleClose }) => {
     'Purchasing',
     'Public Relations',
     'Recreation and Entertainment',
-    'Valet and Transportation'
-  ]
+    'Valet and Transportation',
+  ];
 
   return (
     <Modal
@@ -178,8 +197,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
         <Typography id='modal-modal-description' className='flex gap-4'>
           <div className='flex flex-col gap-1'>
             <div
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
               className={`border-2 border-dashed rounded-md p-4 flex items-center justify-center cursor-pointer ${
                 image ? 'h-48' : 'h-32'
               }`}
@@ -196,7 +213,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
                 <span>Avatar</span>
               )}
             </div>
-            {/* Button to trigger file input */}
             <Button
               variant='outlined'
               component='label'
@@ -211,7 +227,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
             </Button>
           </div>
 
-          {/* Employee details */}
           <div className='grid grid-cols-3 gap-4'>
             <div className='flex flex-col gap-2'>
               <TextField
@@ -226,7 +241,6 @@ const AddEmployeeModal = ({ open, handleClose }) => {
                 onChange={e => setLastName(e.target.value)}
                 variant='standard'
               />
-
               <FormControl variant='standard' fullWidth>
                 <InputLabel id='role-label'>Role</InputLabel>
                 <Select
@@ -261,7 +275,7 @@ const AddEmployeeModal = ({ open, handleClose }) => {
             </div>
 
             <div className='flex flex-col gap-2'>
-              <FormControl variant='standard' fullWidth>
+              <FormControl variant='standard' full Width>
                 <InputLabel id='department-label'>Department</InputLabel>
                 <Select
                   labelId='department-label'
@@ -326,7 +340,7 @@ const AddEmployeeModal = ({ open, handleClose }) => {
         </Typography>
       </Box>
     </Modal>
-  )
-}
+  );
+};
 
-export default AddEmployeeModal
+export default AddEmployeeModal;

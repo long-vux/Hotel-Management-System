@@ -139,6 +139,7 @@ const RoomManagement = () => {
     try {
       const formData = new FormData()
       formData.append('IsCheckIn', true)
+      formData.append('Status', "Checked In")
       formData.append('CheckInDate', new Date().toISOString())
 
       await axios.put(`${DB_HOST}api/Booking/${booking.id}`, formData)
@@ -164,8 +165,14 @@ const RoomManagement = () => {
   }
 
   const handleCheckin = async () => {
+    // Validation for Check-In
     if (!customer || !booking) {
       alert('Please search for a reservation first.')
+      return
+    }
+
+    if (!idType || !idNumber) {
+      alert('Please fill in all required fields: ID Type, ID Number')
       return
     }
     try {
@@ -174,6 +181,7 @@ const RoomManagement = () => {
       await createPayment()
       alert('Check-in successful!')
       clearCheckInFields() // Clear the form after successful check-in
+      window.location.reload(true)
     } catch (error) {
       console.error('Error during check-in:', error)
       alert('An error occurred during check-in. Please try again.')
@@ -259,14 +267,21 @@ const RoomManagement = () => {
   }, [checkoutBooking])
 
   const handleCheckout = async () => {
+    // Validation for Check-Out
     if (!checkoutBooking || !payment) {
       alert('Please search for a customer and booking first.')
+      return
+    }
+
+    if (!paymentMethod) {
+      alert('Please select a payment method.')
       return
     }
     try {
       // Booking update
       const bookingData = new FormData()
       bookingData.append('IsCheckOut', true)
+      bookingData.append('Status', "Checked Out")
       bookingData.append('CheckOutDate', new Date().toISOString())
 
       await axios.put(
@@ -278,8 +293,8 @@ const RoomManagement = () => {
       const paymentData = new FormData()
       paymentData.append('PaymentDate', new Date().toISOString())
       paymentData.append('PaymentMethod', paymentMethod)
-      console.log("This is payment methid when updating: ", paymentMethod);
-      
+      console.log('This is payment methid when updating: ', paymentMethod)
+
       paymentData.append('TotalAmount', checkoutBooking.totalAmount)
       paymentData.append('Status', 'Successfully') // or "Paid"
 
@@ -287,6 +302,7 @@ const RoomManagement = () => {
 
       alert('Checkout successful!')
       clearCheckoutFields() // Clear checkout form after successful checkout
+      window.location.reload(true)
     } catch (error) {
       console.error('Error during checkout:', error)
       alert('An error occurred during checkout. Please try again.')

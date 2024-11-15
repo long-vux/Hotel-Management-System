@@ -10,8 +10,8 @@ import {
 } from '@mui/icons-material'
 
 const Sidebar = () => {
-  const activeStyle = 'bg-[#dbe9f5] border-r-4 border-black'
-  const inactiveStyle = 'text-gray-700'
+  const activeStyle = 'bg-[#F5F7F8] border-r-4 border-black  duration-500 ease-in-out'
+  const inactiveStyle = 'text-gray-700  duration-500 ease-in-out'
 
   return (
     <div className='sidebar h-full flex flex-col justify-between'>
@@ -21,7 +21,7 @@ const Sidebar = () => {
             exact
             to='/admin/dashboard'
             className={({ isActive }) =>
-              `flex items-center gap-4 p-2 hover:bg-[#dbe9f5]  ${
+              `flex items-center gap-4 p-2 hover:bg-[#F5F7F8]  ${
                 isActive ? activeStyle : inactiveStyle
               } `
             }
@@ -35,7 +35,7 @@ const Sidebar = () => {
             exact
             to='/admin/guest-stay'
             className={({ isActive }) =>
-              `flex items-center hover:bg-[#dbe9f5]  gap-4 p-2 ${
+              `flex items-center hover:bg-[#F5F7F8]  gap-4 p-2 ${
                 isActive ? activeStyle : inactiveStyle
               } `
             }
@@ -48,7 +48,7 @@ const Sidebar = () => {
           <NavLink
             to='/admin/reservation'
             className={({ isActive }) =>
-              `hover:bg-[#dbe9f5] flex items-center gap-4 p-2 ${
+              `hover:bg-[#F5F7F8] flex items-center gap-4 p-2 ${
                 isActive ? activeStyle : inactiveStyle
               } `
             }
@@ -61,7 +61,7 @@ const Sidebar = () => {
           <NavLink
             to='/admin/room'
             className={({ isActive }) =>
-              `hover:bg-[#dbe9f5] flex items-center gap-4 p-2 ${
+              `hover:bg-[#F5F7F8] flex items-center gap-4 p-2 ${
                 isActive ? activeStyle : inactiveStyle
               } `
             }
@@ -74,7 +74,7 @@ const Sidebar = () => {
           <NavLink
             to='/admin/employee'
             className={({ isActive }) =>
-              `hover:bg-[#dbe9f5] flex items-center gap-4 p-2 ${
+              `hover:bg-[#F5F7F8] flex items-center gap-4 p-2 ${
                 isActive ? activeStyle : inactiveStyle
               } `
             }
@@ -87,7 +87,7 @@ const Sidebar = () => {
           <NavLink
             to='/admin/payment'
             className={({ isActive }) =>
-              `hover:bg-[#dbe9f5] flex items-center gap-4 p-2 ${
+              `hover:bg-[#F5F7F8] flex items-center gap-4 p-2 ${
                 isActive ? activeStyle : inactiveStyle
               } `
             }
@@ -99,7 +99,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             to='/admin/logout'
-            className='hover:bg-[#dbe9f5] flex items-center gap-4 p-2'
+            className='hover:bg-[#F5F7F8] flex items-center gap-4 p-2'
           >
             <Logout />
             <span>Log out</span>

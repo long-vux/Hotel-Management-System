@@ -47,8 +47,61 @@ const EditEmployeeModal = ({ open, handleClose, data }) => {
       setImage(file)
     }
   }
+  const validateFields = () => {
+    if (!firstName) {
+      alert('First name is required.');
+      return false;
+    }
+    if (!lastName) {
+      alert('Last name is required.');
+      return false;
+    }
+    if (!email) {
+      alert('Email is required.');
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return false;
+    }
+    if (!role) {
+      alert('Role is required.');
+      return false;
+    }
+    if (!gender) {
+      alert('Gender is required.');
+      return false;
+    }
+    if (!department) {
+      alert('Department is required.');
+      return false;
+    }
+    if (!dob) {
+      alert('Date of birth is required.');
+      return false;
+    }
+    if (!phoneNumber) {
+      alert('Phone number is required.');
+      return false;
+    }
+    const phoneRegex = /^\d{10,15}$/; // Adjust regex for valid phone numbers
+    if (!phoneRegex.test(phoneNumber)) {
+      alert('Please enter a valid phone number (10 to 15 digits).');
+      return false;
+    }
+    if (!salary || salary <= 0) {
+      alert('Salary must be a positive number.');
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async () => {
+    if (!validateFields()) {
+      return; // Prevent submission if validation fails
+    }
+
     const formData = new FormData()
     const formattedDob = dob
       ? new Date(dob).toISOString() // You can send the date as a full ISO string

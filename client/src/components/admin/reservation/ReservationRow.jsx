@@ -75,15 +75,13 @@ const ReservationRow = ({ data }) => {
         <td className='px-4'>{data.status}</td>
         <td className='px-4'>
           <div className='flex flex-row gap-[10px] items-center'>
-            <IconButton onClick={handleApprove}>
-              <Checkbox
-                sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }}
-                color='success'
-              />
-            </IconButton>
-            <IconButton onClick={handleOpenDelete}>
-              <CancelIcon sx={{ color: 'red' }} />
-            </IconButton>
+            {data.status === 'Pending' ? (
+              <IconButton onClick={handleOpenDelete}>
+                <CancelIcon sx={{ color: 'red' }} />
+              </IconButton>
+            ) : (
+              <span>-</span>
+            )}
           </div>
         </td>
       </tr>
@@ -91,7 +89,7 @@ const ReservationRow = ({ data }) => {
       <DeleteConfirmModal
         open={openDelete}
         handleClose={handleCloseDelete}
-        guestName={data.status}
+        id={data.id}
       />
     </>
   )

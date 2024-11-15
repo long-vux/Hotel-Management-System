@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -10,50 +10,60 @@ import {
   TextField,
   Fab,
   Button,
-  Grid
-} from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
-import axios from 'axios'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+  Grid,
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const AddBookingModal = () => {
-  const DB_HOST = process.env.REACT_APP_DB_HOST
+  const DB_HOST = process.env.REACT_APP_DB_HOST;
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const [roomData, setRoomData] = useState({})
-  const [roomType, setRoomType] = useState('')
-  const [roomNumber, setRoomNumber] = useState('')
-  const [selectedImage, setSelectedImage] = useState(null)
-  const [selectedRoomId, setSelectedRoomId] = useState(null)
+  const [roomData, setRoomData] = useState({});
+  const [roomType, setRoomType] = useState('');
+  const [roomNumber, setRoomNumber] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const [selectedRoomCapacity, setSelectedRoomCapacity] = useState(0); // Added for room capacity
+
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [numberOfGuests, setNumberOfGuests] = useState('');
+  const [customerId, setCustomerId] = useState(0);
 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const response = await axios.get(`${DB_HOST}api/Room`)
+        const response = await axios.get(`${DB_HOST}api/Room`);
 
         // Organize room data by roomType
         const roomData = response.data.reduce((acc, room) => {
-          const { id, roomType, roomNumber, imagePaths } = room
+          const { id, roomType, roomNumber, imagePaths, capacity } = room; // Include capacity
           if (!acc[roomType]) {
-            acc[roomType] = []
+            acc[roomType] = [];
           }
-          acc[roomType].push({ id, roomNumber, imagePaths })
-          return acc
-        }, {})
+          acc[roomType].push({ id, roomNumber, imagePaths, capacity }); // Store capacity
+          return acc;
+        }, {});
 
-        setRoomData(roomData)
+        setRoomData(roomData);
       } catch (error) {
-        console.error('Error fetching rooms:', error)
+        console.error('Error fetching rooms:', error);
       }
-    }
+    };
 
-    fetchRoom()
-  }, [DB_HOST])
+    fetchRoom();
+  }, [DB_HOST]);
 
   const style = {
     position: 'absolute',
@@ -69,123 +79,127 @@ const AddBookingModal = () => {
     width: 'fit-content',
     display: 'flex',
     flexDirection: 'column',
-    gap: 2
-  }
-
-  const [checkInDate, setCheckInDate] = useState(null)
-  const [checkOutDate, setCheckOutDate] = useState(null)
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [numberOfGuests, setNumberOfGuests] = useState('')
-  const [customerId, setCustomerId] = useState(0)
+    gap: 2,
+  };
 
   const handleRoomTypeChange = event => {
-    setRoomType(event.target.value)
-    setRoomNumber('')
-    setSelectedImage(null) // Reset image when room type changes
-    setSelectedRoomId(null) // Reset room ID when room type changes
-  }
+    setRoomType(event.target.value);
+    setRoomNumber('');
+    setSelectedImage(null); // Reset image when room type changes
+    setSelectedRoomId(null); // Reset room ID when room type changes
+    setSelectedRoomCapacity(0); // Reset room capacity
+  };
 
   const handleRoomNumberChange = event => {
-    const selectedRoomNumber = event.target.value
-    setRoomNumber(selectedRoomNumber)
+    const selectedRoomNumber = event.target.value;
+    setRoomNumber(selectedRoomNumber);
 
     // Find the room with the selected roomNumber to get its id and images
     const selectedRoom = roomData[roomType]?.find(
       room => room.roomNumber === selectedRoomNumber
-    )
+    );
 
     if (selectedRoom) {
-      setSelectedRoomId(selectedRoom.id) // Set the room ID
-      setSelectedImage(selectedRoom.imagePaths?.[0] || null) // Load the first image if available
+      setSelectedRoomId(selectedRoom.id); // Set the room ID
+      setSelectedImage(selectedRoom.imagePaths?.[0] || null); // Load the first image if available
+      setSelectedRoomCapacity(selectedRoom.capacity); // Set the room capacity
     } else {
-      setSelectedImage(null)
-      setSelectedRoomId(null) // Clear room ID if no room is selected
+      setSelectedImage(null);
+      setSelectedRoomId(null); // Clear room ID if no room is selected
+      setSelectedRoomCapacity(0); // Reset room capacity if no room is selected
     }
-  }
+  };
 
   const checkCustomerByPhone = async phoneNumber => {
     try {
-      // Step 1: Fetch all customers and check if any customer exists with the given phone number
-      const response = await axios.get(
-        `${DB_HOST}api/customer?phoneNumber=${phoneNumber}`
-      )
+      const response = await axios.get(`${DB_HOST}api/customer?phoneNumber=${phoneNumber}`);
 
-      // If the response contains the customer data
       if (response.data && response.data.length > 0) {
-        const customer = response.data[0]
-        setCustomerId(customer.id)
-        await createBooking() // Make sure to await createBooking
+        const customer = response.data[0];
+        setCustomerId(customer.id);
+        await createBooking();
       } else {
-        // Step 2: Create a new customer if no existing customer was found
-        const customerData = new FormData()
-        customerData.append('FirstName', firstName)
-        customerData.append('LastName', lastName)
-        customerData.append('Email', email)
-        customerData.append('PhoneNumber', phoneNumber)
+        const customerData = new FormData();
+        customerData.append('FirstName', firstName);
+        customerData.append('LastName', lastName);
+        customerData.append('Email', email);
+        customerData.append('PhoneNumber', phoneNumber);
 
-        const newCustomerResponse = await axios.post(
-          `${DB_HOST}api/customer`,
-          customerData
-        )
+        const newCustomerResponse = await axios.post(`${DB_HOST}api/customer`, customerData);
 
         if (newCustomerResponse.data && newCustomerResponse.data.id) {
-          // Check for id
-          const newCustomerId = newCustomerResponse.data.id // Explicitly get the ID
-          setCustomerId(newCustomerId)
-          await createBooking() // Await here as well
+          const newCustomerId = newCustomerResponse.data.id;
+          setCustomerId(newCustomerId);
+          await createBooking();
         } else {
-          console.error(
-            'Invalid new customer response:',
-            newCustomerResponse.data
-          ) // Log the invalid response
+          console.error('Invalid new customer response:', newCustomerResponse.data);
         }
       }
     } catch (error) {
-      console.error('Error checking customer:', error)
+      console.error('Error checking customer:', error);
     }
-  }
+  };
 
   const createBooking = async () => {
     try {
-      const bookingData = new FormData()
-      bookingData.append('GuestNumber', numberOfGuests)
-      bookingData.append('CheckInDate', checkInDate.toISOString()) // ISO 8601 format
-      console.log('CheckInDate', checkInDate.toISOString())
+      const bookingData = new FormData();
+      bookingData.append('GuestNumber', numberOfGuests);
+      bookingData.append('CheckInDate', checkInDate.toISOString());
+      bookingData.append('CheckOutDate', checkOutDate.toISOString());
+      bookingData.append('CustomerId', customerId);
+      bookingData.append('RoomId', selectedRoomId);
 
-      bookingData.append('CheckOutDate', checkOutDate.toISOString())
-      bookingData.append('CustomerId', customerId) // Use the customerId from state
-      console.log('CustomerId', customerId)
-
-      bookingData.append('RoomId', selectedRoomId)
-      console.log('RoomId', selectedRoomId)
-
-      const newBookingResponse = await axios.post(
-        `${DB_HOST}api/Booking`,
-        bookingData
-      )
+      const newBookingResponse = await axios.post(`${DB_HOST}api/Booking`, bookingData);
 
       if (newBookingResponse.status === 201) {
-        handleClose()
-              window.location.reload()
-
-        return newBookingResponse
+        handleClose();
+        window.location.reload();
       } else {
-        console.error(
-          'Error creating booking (non-201 status):',
-          newBookingResponse
-        )
+        console.error('Error creating booking (non-201 status):', newBookingResponse);
       }
     } catch (e) {
+      console.error('Error creating booking:', e);
     }
-  }
+  };
 
-  // Handle Submit
+  const validateFields = () => {
+    if (!firstName || !lastName || !phoneNumber || !numberOfGuests || !roomType || !roomNumber || !checkInDate || !checkOutDate) {
+      alert('Please fill in all required fields.');
+      return false;
+    }
+
+    if (numberOfGuests > selectedRoomCapacity) {
+      alert('Out of capacity for the selected room. The room capacity is ');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return false;
+    }
+
+    const phoneRegex = /^\d{10,15}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      alert('Please enter a valid phone number (10 to 15 digits).');
+      return false;
+    }
+
+    if (checkInDate && checkOutDate && checkInDate.isAfter(checkOutDate)) {
+      alert('Check-in date must be before check-out date.');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async () => {
-    checkCustomerByPhone(phoneNumber)
-  }
+    if (!validateFields()) {
+      return; // Prevent submission if validation fails
+    }
+    checkCustomerByPhone(phoneNumber);
+  };
+
   return (
     <>
       <Fab
@@ -327,7 +341,7 @@ const AddBookingModal = () => {
                       width: '100%',
                       height: 'auto',
                       maxWidth: '400px',
-                      borderRadius: 8
+                      borderRadius: 8,
                     }}
                     className='object-cover'
                   />
@@ -346,7 +360,7 @@ const AddBookingModal = () => {
               required
               variant='outlined'
               sx={{
-                width: '500px'
+                width: '500px',
               }}
               type='number'
               value={numberOfGuests}
@@ -359,7 +373,7 @@ const AddBookingModal = () => {
         </Box>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default AddBookingModal
+export default AddBookingModal;
