@@ -13,6 +13,11 @@ const Sidebar = () => {
   const activeStyle = 'bg-[#F5F7F8] border-r-4 border-black  duration-500 ease-in-out'
   const inactiveStyle = 'text-gray-700  duration-500 ease-in-out'
 
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('user')
+  }
+
   return (
     <div className='sidebar h-full flex flex-col justify-between'>
       <ul className=' h-full m-4 text-[16px] flex flex-col gap-1'>
@@ -96,9 +101,9 @@ const Sidebar = () => {
             <span>Payment</span>
           </NavLink>
         </li>
-        <li>
+        <li onClick={handleLogout} className='cursor-pointer'>
           <NavLink
-            to='/admin/logout'
+            to='/login'
             className='hover:bg-[#F5F7F8] flex items-center gap-4 p-2'
           >
             <Logout />

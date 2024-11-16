@@ -13,7 +13,7 @@ const GuestStay = () => {
   const DB_HOST = process.env.REACT_APP_DB_HOST;
 
   useEffect(() => {
-    const fetchCustomers = async () => {
+    const fetchCustomer = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/customer`);
         setCustomer(response.data.reverse());
@@ -58,15 +58,15 @@ const GuestStay = () => {
     );
   });
 
-  const handleSearch = async (e) => {
-    e.preventDefault()
-    try {
-      const response = await axios.get(`${DB_HOST}api/customer`)
-      setCustomers(response.data)
-    } catch (error) {
-      console.error('Error fetching booking:', error)
-    }
-  }
+  // const handleSearch = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const response = await axios.get(`${DB_HOST}api/customer`)
+  //     setCustomers(response.data)
+  //   } catch (error) {
+  //     console.error('Error fetching booking:', error)
+  //   }
+  // }
 
   return (
     <div className='w-full h-[505px] flex flex-col mb-[110px]'>
