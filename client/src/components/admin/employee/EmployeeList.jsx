@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Pagination from '../../layout/Pagination'
 import EmployeeRow from './EmployeeRow'
 
+// Pagination
 const EmployeeList = ({ employeeData = [] }) => {  // Provide default empty array to avoid undefined
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(10)

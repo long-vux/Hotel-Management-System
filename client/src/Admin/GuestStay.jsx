@@ -3,53 +3,45 @@ import BasicDatePicker from '../components/admin/guest-stay/BasicDatePicker'
 import CustomerList from '../components/admin/guest-stay/CustomerList'
 import axios from 'axios'
 
+
+
 const GuestStay = () => {
-  const [customers, setCustomers] = useState([])
-  const [bookings, setBookings] = useState([])
+  const [customer, setCustomer] = useState([])
+  const [booking, setBooking] = useState([])
   const [isCustomerLoading, setIsCustomerLoading] = useState(true)
   const [isBookingLoading, setIsBookingLoading] = useState(true)
 
-  const DB_HOST = process.env.REACT_APP_DB_HOST
+  const DB_HOST = process.env.REACT_APP_DB_HOST;
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/customer`)
-        setCustomers(response.data)
+        setCustomer(response.data)
       } catch (error) {
-        console.error('Error fetching customer:', error)
+        console.error('Error fetching customer:', error);
       } finally {
-        setIsCustomerLoading(false)
+        setIsCustomerLoading(false);
       }
-    }
+    };
 
-    fetchCustomers()
+    fetchCustomer()
   }, [])
 
   useEffect(() => {
     const fetchCustomerBooking = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/booking`)
-        setBookings(response.data)
+        setBooking(response.data)
       } catch (error) {
-        console.error('Error fetching booking:', error)
+        console.error('Error fetching booking:', error);
       } finally {
-        setIsBookingLoading(false)
+        setIsBookingLoading(false);
       }
-    }
+    };
 
     fetchCustomerBooking()
   }, [])
-
-  const handleSearch = async (e) => {
-    e.preventDefault()
-    try {
-      const response = await axios.get(`${DB_HOST}api/customer`)
-      setCustomers(response.data)
-    } catch (error) {
-      console.error('Error fetching booking:', error)
-    }
-  }
 
   return (
     <div className='w-full h-[505px] flex flex-col mb-[110px]'>
@@ -66,6 +58,8 @@ const GuestStay = () => {
           type='text'
           placeholder='Search Customer'
           className='w-[20%] h-[40px] text-[14px] text-bold border border-gray-500 rounded-full px-[15px]'
+          value={searchQuery} // Bind search query to input
+          onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
         />
       </div>
       <div className='ml-1'>
@@ -82,8 +76,8 @@ const GuestStay = () => {
           </thead>
           {!isCustomerLoading && !isBookingLoading ? (
             <CustomerList
-              Customer_Data={customers}
-              Booking_Data={bookings}
+              Customer_Data={customer}
+              Booking_Data={booking}
             />
           ) : (
             <tbody>
@@ -95,7 +89,7 @@ const GuestStay = () => {
         </table>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default GuestStay
+export default GuestStay;

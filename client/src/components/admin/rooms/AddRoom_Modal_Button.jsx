@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -7,37 +7,73 @@ import {
   Fab,
   Autocomplete,
   Button,
-  InputAdornment
-} from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { styled } from '@mui/material/styles'
-import axios from 'axios'
+  InputAdornment,
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+import axios from 'axios';
 
 // Modal button component for adding a room
 const AddRoomModalButton = () => {
-  const DB_HOST = process.env.REACT_APP_DB_HOST
+  const DB_HOST = process.env.REACT_APP_DB_HOST;
 
-  const [open, setOpen] = useState(false) // Modal visibility state
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-  
-  const [images, setImages] = useState([]) // Uploaded images state
-  const [roomType, setRoomType] = useState('') // Selected room type
-  const [roomNumber, setRoomNumber] = useState('') // Room number
-  const [title, setTitle] = useState('') // Room title
-  const [rate, setRate] = useState('') // Rate per night
-  const [capacity, setCapacity] = useState('') // Room capacity
-  const [selectedAmenities, setSelectedAmenities] = useState([]) // Selected amenities
+  const [open, setOpen] = useState(false); // Modal visibility state
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const roomTypes = ['Single Room', 'Double Room', 'Suite', 'Penthouse']
+  const [images, setImages] = useState([]); // Uploaded images state
+  const [roomType, setRoomType] = useState(''); // Selected room type
+  const [roomNumber, setRoomNumber] = useState(''); // Room number
+  const [title, setTitle] = useState(''); // Room title
+  const [rate, setRate] = useState(''); // Rate per night
+  const [capacity, setCapacity] = useState(''); // Room capacity
+  const [selectedAmenities, setSelectedAmenities] = useState([]); // Selected amenities
+
+  const roomTypes = [
+    'Single Room',
+    'Double Room',
+    'Twin Room',
+    'Deluxe Room',
+    'Suite',
+    'Studio Room',
+    'Family Room',
+    'Executive Room',
+    'Presidential Suite',
+    'Accessible Room',
+  ];
   const amenitiesOptions = [
     { title: 'Wi-Fi' },
     { title: 'Air Conditioning' },
     { title: 'Swimming Pool' },
     { title: 'Breakfast Included' },
-    { title: 'Gym Access' }
-  ]
+    { title: 'Gym Access' },
+    { title: 'Parking' },
+    { title: 'Room Service' },
+    { title: 'Laundry Service' },
+    { title: 'Mini Bar' },
+    { title: '24-Hour Reception' },
+    { title: 'Flat-Screen TV' },
+    { title: 'Tea/Coffee Maker' },
+    { title: 'Hair Dryer' },
+    { title: 'Iron and Ironing Board' },
+    { title: 'Safe Deposit Box' },
+    { title: 'Spa and Wellness Center' },
+    { title: 'Concierge Service' },
+    { title: 'Business Center' },
+    { title: 'Pet-Friendly' },
+    { title: 'Balcony or Terrace' },
+    { title: 'In-Room Dining' },
+    { title: 'Bathrobe and Slippers' },
+    { title: 'Complimentary Bottled Water' },
+    { title: 'Netflix/Streaming Services' },
+    { title: 'Electric Kettle' },
+    { title: 'Desk and Chair' },
+    { title: 'Blackout Curtains' },
+    { title: 'Luxury Toiletries' },
+    { title: 'Refrigerator' },
+    { title: 'Soundproofing' },
+  ];
 
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -45,8 +81,8 @@ const AddRoomModalButton = () => {
     height: 1,
     overflow: 'hidden',
     position: 'absolute',
-    width: 1
-  })
+    width: 1,
+  });
 
   const modalStyle = {
     position: 'absolute',
@@ -60,44 +96,80 @@ const AddRoomModalButton = () => {
     boxShadow: 24,
     p: 4,
     maxHeight: '80vh',
-    overflowY: 'auto'
-  }
+    overflowY: 'auto',
+  };
 
   // Handle image uploads and store as preview data
-  const handleImageUpload = event => {
-    const newImages = Array.from(event.target.files).map(file => {
-      return { file, preview: URL.createObjectURL(file) }
-    })
-    setImages([...images, ...newImages])
-  }
+  const handleImageUpload = (event) => {
+    const newImages = Array.from(event.target.files).map((file ) => {
+      return { file, preview: URL.createObjectURL(file) };
+    });
+    setImages([...images, ...newImages]);
+  };
+
+  const validateFields = () => {
+    if (!roomType) {
+      alert('Please select a room type.');
+      return false;
+    }
+    if (!roomNumber) {
+      alert('Room number is required.');
+      return false;
+    }
+    if (!title) {
+      alert('Title is required.');
+      return false;
+    }
+    if (!rate || rate <= 0) {
+      alert('Rate must be a positive number.');
+      return false;
+    }
+    if (!capacity || capacity <= 0) {
+      alert('Capacity must be a positive integer.');
+      return false;
+    }
+    if (selectedAmenities.length === 0) {
+      alert('Please select at least one amenity.');
+      return false;
+    }
+    if (images.length === 0) {
+      alert('Please upload at least one image.');
+      return false;
+    }
+    return true;
+  };
 
   const handleSave = async () => {
-    const formData = new FormData()
-    formData.append('RoomName', title)
-    formData.append('RoomNumber', roomNumber)
-    formData.append('RoomType', roomType)
-    formData.append('Capacity', capacity)
-    formData.append('RoomPrice', rate)
+    if (!validateFields()) {
+      return; // Prevent submission if validation fails
+    }
+
+    const formData = new FormData();
+    formData.append('RoomName', title);
+    formData.append('RoomNumber', roomNumber);
+    formData.append('RoomType', roomType);
+    formData.append('Capacity', capacity);
+    formData.append('RoomPrice', rate);
 
     selectedAmenities.forEach(amenity =>
       formData.append('Amenities', amenity.title)
-    )
+    );
 
     images.forEach(
       image => formData.append('ImagePaths', image.file) // assuming `image.file` contains the file object
-    )
+    );
 
     try {
       const response = await axios.post(DB_HOST + 'api/Room', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      })
-      console.log('Room data submitted:', response.data)
-      handleClose()
-      window.location.reload()
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      console.log('Room data submitted:', response.data);
+      handleClose();
+      window.location.reload();
     } catch (error) {
-      console.error('Error submitting room data:', error)
+      console.error('Error submitting room data:', error);
     }
-  }
+  };
 
   return (
     <div className='center h-100 font-inter'>
@@ -144,7 +216,7 @@ const AddRoomModalButton = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position='start'>#</InputAdornment>
-                    )
+                    ),
                   }}
                 />
               </div>
@@ -172,7 +244,7 @@ const AddRoomModalButton = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position='start'>$</InputAdornment>
-                    )
+                    ),
                   }}
                 />
                 <TextField
@@ -187,7 +259,7 @@ const AddRoomModalButton = () => {
               </div>
 
               <Autocomplete
-                className='w-full'
+                className='w -full'
                 multiple
                 id='tags-outlined'
                 options={amenitiesOptions}
@@ -224,7 +296,7 @@ const AddRoomModalButton = () => {
                   <div key={index} className='flex gap-2 items-center'>
                     <img
                       src={image.preview}
-                      alt={image.name}
+                      alt={image.file.name}
                       className='w-24 h-24 object-cover'
                     />
                     <span>{image.file.name}</span>
@@ -244,7 +316,7 @@ const AddRoomModalButton = () => {
         </Box>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default AddRoomModalButton
+export default AddRoomModalButton;
