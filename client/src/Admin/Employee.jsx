@@ -315,7 +315,7 @@ const Employee = () => {
   const [employeesData, setEmployeesData] = React.useState([])
 
   const DB_HOST = process.env.REACT_APP_DB_HOST
-
+  console.log(process.env.REACT_APP_DB_HOST)
   useEffect(() => {
     const fetchEmployees = async () => {
       try {

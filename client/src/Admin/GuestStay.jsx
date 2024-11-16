@@ -3,21 +3,19 @@ import BasicDatePicker from '../components/admin/guest-stay/BasicDatePicker'
 import CustomerList from '../components/admin/guest-stay/CustomerList'
 import axios from 'axios'
 
-
-
 const GuestStay = () => {
-  const [customer, setCustomer] = useState([])
-  const [booking, setBooking] = useState([])
+  const [customers, setCustomers] = useState([])
+  const [bookings, setBookings] = useState([])
   const [isCustomerLoading, setIsCustomerLoading] = useState(true)
   const [isBookingLoading, setIsBookingLoading] = useState(true)
 
   const DB_HOST = process.env.REACT_APP_DB_HOST
 
   useEffect(() => {
-    const fetchCustomer = async () => {
+    const fetchCustomers = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/customer`)
-        setCustomer(response.data)
+        setCustomers(response.data)
       } catch (error) {
         console.error('Error fetching customer:', error)
       } finally {
@@ -25,14 +23,14 @@ const GuestStay = () => {
       }
     }
 
-    fetchCustomer()
+    fetchCustomers()
   }, [])
 
   useEffect(() => {
     const fetchCustomerBooking = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/booking`)
-        setBooking(response.data)
+        setBookings(response.data)
       } catch (error) {
         console.error('Error fetching booking:', error)
       } finally {
@@ -42,6 +40,16 @@ const GuestStay = () => {
 
     fetchCustomerBooking()
   }, [])
+
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios.get(`${DB_HOST}api/customer`)
+      setCustomers(response.data)
+    } catch (error) {
+      console.error('Error fetching booking:', error)
+    }
+  }
 
   return (
     <div className='w-full h-[505px] flex flex-col mb-[110px]'>
@@ -54,6 +62,7 @@ const GuestStay = () => {
           <BasicDatePicker />
         </div>
         <input
+          onChange={handleSearch}
           type='text'
           placeholder='Search Customer'
           className='w-[20%] h-[40px] text-[14px] text-bold border border-gray-500 rounded-full px-[15px]'
@@ -73,8 +82,8 @@ const GuestStay = () => {
           </thead>
           {!isCustomerLoading && !isBookingLoading ? (
             <CustomerList
-              Customer_Data={customer}
-              Booking_Data={booking}
+              Customer_Data={customers}
+              Booking_Data={bookings}
             />
           ) : (
             <tbody>
