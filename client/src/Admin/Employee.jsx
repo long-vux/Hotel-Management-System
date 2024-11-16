@@ -17,8 +17,8 @@ const Employee = () => {
   const [selectedStatus, setSelectedStatus] = React.useState(null); // State for selected status
   const [selectedRole, setSelectedRole] = React.useState(null); // State for selected role
 
-  const DB_HOST = process.env.REACT_APP_DB_HOST;
-
+  const DB_HOST = process.env.REACT_APP_DB_HOST
+  console.log(process.env.REACT_APP_DB_HOST)
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
