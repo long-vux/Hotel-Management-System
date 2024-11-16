@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react'
-import BasicDatePicker from '../components/admin/guest-stay/BasicDatePicker'
-import CustomerList from '../components/admin/guest-stay/CustomerList'
-import axios from 'axios'
-
-const GuestStay = () => {
-  const [customers, setCustomers] = useState([])
-  const [bookings, setBookings] = useState([])
-  const [isCustomerLoading, setIsCustomerLoading] = useState(true)
-  const [isBookingLoading, setIsBookingLoading] = useState(true)
-=======
 import React, { useState, useEffect } from 'react';
 import BasicDatePicker from '../components/admin/guest-stay/BasicDatePicker';
 import CustomerList from '../components/admin/guest-stay/CustomerList';
@@ -21,20 +9,14 @@ const GuestStay = () => {
   const [isCustomerLoading, setIsCustomerLoading] = useState(true);
   const [isBookingLoading, setIsBookingLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
->>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
 
   const DB_HOST = process.env.REACT_APP_DB_HOST;
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-<<<<<<< HEAD
-        const response = await axios.get(`${DB_HOST}api/customer`)
-        setCustomers(response.data)
-=======
         const response = await axios.get(`${DB_HOST}api/customer`);
         setCustomer(response.data.reverse());
->>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
       } catch (error) {
         console.error('Error fetching customer:', error);
       } finally {
@@ -42,24 +24,14 @@ const GuestStay = () => {
       }
     };
 
-<<<<<<< HEAD
-    fetchCustomers()
-  }, [])
-=======
     fetchCustomer();
   }, []);
->>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
 
   useEffect(() => {
     const fetchCustomerBooking = async () => {
       try {
-<<<<<<< HEAD
-        const response = await axios.get(`${DB_HOST}api/booking`)
-        setBookings(response.data)
-=======
         const response = await axios.get(`${DB_HOST}api/booking`);
         setBooking(response.data);
->>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
       } catch (error) {
         console.error('Error fetching booking:', error);
       } finally {
@@ -107,7 +79,6 @@ const GuestStay = () => {
           <BasicDatePicker />
         </div>
         <input
-          onChange={handleSearch}
           type='text'
           placeholder='Search Customer'
           className='w-[20%] h-[40px] text-[14px] text-bold border border-gray-500 rounded-full px-[15px]'
@@ -129,13 +100,8 @@ const GuestStay = () => {
           </thead>
           {!isCustomerLoading && !isBookingLoading ? (
             <CustomerList
-<<<<<<< HEAD
-              Customer_Data={customers}
-              Booking_Data={bookings}
-=======
               Customer_Data={filteredCustomers} // Use filtered customers
               Booking_Data={booking}
->>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
             />
           ) : (
             <tbody>
