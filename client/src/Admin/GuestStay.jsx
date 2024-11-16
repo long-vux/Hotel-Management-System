@@ -1,23 +1,40 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react'
 import BasicDatePicker from '../components/admin/guest-stay/BasicDatePicker'
 import CustomerList from '../components/admin/guest-stay/CustomerList'
 import axios from 'axios'
 
-
-
 const GuestStay = () => {
-  const [customer, setCustomer] = useState([])
-  const [booking, setBooking] = useState([])
+  const [customers, setCustomers] = useState([])
+  const [bookings, setBookings] = useState([])
   const [isCustomerLoading, setIsCustomerLoading] = useState(true)
   const [isBookingLoading, setIsBookingLoading] = useState(true)
+=======
+import React, { useState, useEffect } from 'react';
+import BasicDatePicker from '../components/admin/guest-stay/BasicDatePicker';
+import CustomerList from '../components/admin/guest-stay/CustomerList';
+import axios from 'axios';
+
+const GuestStay = () => {
+  const [customer, setCustomer] = useState([]);
+  const [booking, setBooking] = useState([]);
+  const [isCustomerLoading, setIsCustomerLoading] = useState(true);
+  const [isBookingLoading, setIsBookingLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+>>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
 
   const DB_HOST = process.env.REACT_APP_DB_HOST;
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
+<<<<<<< HEAD
         const response = await axios.get(`${DB_HOST}api/customer`)
-        setCustomer(response.data)
+        setCustomers(response.data)
+=======
+        const response = await axios.get(`${DB_HOST}api/customer`);
+        setCustomer(response.data.reverse());
+>>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
       } catch (error) {
         console.error('Error fetching customer:', error);
       } finally {
@@ -25,14 +42,24 @@ const GuestStay = () => {
       }
     };
 
-    fetchCustomer()
+<<<<<<< HEAD
+    fetchCustomers()
   }, [])
+=======
+    fetchCustomer();
+  }, []);
+>>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
 
   useEffect(() => {
     const fetchCustomerBooking = async () => {
       try {
+<<<<<<< HEAD
         const response = await axios.get(`${DB_HOST}api/booking`)
-        setBooking(response.data)
+        setBookings(response.data)
+=======
+        const response = await axios.get(`${DB_HOST}api/booking`);
+        setBooking(response.data);
+>>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
       } catch (error) {
         console.error('Error fetching booking:', error);
       } finally {
@@ -40,8 +67,34 @@ const GuestStay = () => {
       }
     };
 
-    fetchCustomerBooking()
-  }, [])
+    fetchCustomerBooking();
+  }, []);
+
+  // Filter customers based on search query
+  const filteredCustomers = customer.filter((cust) => {
+    const fullName = `${cust.firstName} ${cust.lastName}`.toLowerCase();
+    const email = cust.email.toLowerCase();
+    const phoneNumber = cust.phoneNumber.toLowerCase();
+    const identityNumber = cust.identityNumber.toLowerCase();
+    
+    // Check if any of the fields include the search query
+    return (
+      fullName.includes(searchQuery.toLowerCase()) ||
+      email.includes(searchQuery.toLowerCase()) ||
+      phoneNumber.includes(searchQuery.toLowerCase()) ||
+      identityNumber.includes(searchQuery.toLowerCase())
+    );
+  });
+
+  const handleSearch = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios.get(`${DB_HOST}api/customer`)
+      setCustomers(response.data)
+    } catch (error) {
+      console.error('Error fetching booking:', error)
+    }
+  }
 
   return (
     <div className='w-full h-[505px] flex flex-col mb-[110px]'>
@@ -76,8 +129,13 @@ const GuestStay = () => {
           </thead>
           {!isCustomerLoading && !isBookingLoading ? (
             <CustomerList
-              Customer_Data={customer}
+<<<<<<< HEAD
+              Customer_Data={customers}
+              Booking_Data={bookings}
+=======
+              Customer_Data={filteredCustomers} // Use filtered customers
               Booking_Data={booking}
+>>>>>>> c4ebcfc0acfc3d5bde1c33a0dda184f90f9a3bd4
             />
           ) : (
             <tbody>
