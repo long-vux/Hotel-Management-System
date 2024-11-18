@@ -16,9 +16,15 @@ const Layout = ({ children }) => {
 
   const userData = JSON.parse(sessionStorage.getItem('user'));
   
+
   if (!userData) {
     return null; // Or a loading indicator while redirecting
+  }else{
+    console.log(userData);
+    
   }
+
+  
 
   return (
     <div

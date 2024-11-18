@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const dbHost = 'http://localhost:5214/'
 
-  // const userData = JSON.parse(sessionStorage.getItem('user'))
-  // console.log(userData)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

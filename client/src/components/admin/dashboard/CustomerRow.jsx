@@ -18,6 +18,7 @@ const CustomerRow = ({ guestName, checkIn, checkOut, roomType, allocatedRoom, du
             <td class="px-4">
                 {allocatedRoom}
             </td>
+            
             <td class="px-4">
                 {dueAmount}
             </td>

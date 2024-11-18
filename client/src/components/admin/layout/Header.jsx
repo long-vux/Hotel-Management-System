@@ -2,6 +2,8 @@ import React from 'react'
 
 const Header = ({userData}) => {
 
+  console.log("This is userData",userData);
+  
   return (
     <div className='w-full m-0 h-[60px] text-black flex justify-between items-center pl-[30px] pr-[6px]'>
       <div className='font-italiana text-[26px]'>The Grand</div>

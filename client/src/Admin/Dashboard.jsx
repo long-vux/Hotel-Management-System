@@ -41,7 +41,6 @@ const Dashboard = () => {
     getRoomImages()
   }, [DB_HOST])
 
-  console.log(roomImages)
 
   return (
     <div className='w-full  flex flex-row justify-between font-inter gap-[8px]'>

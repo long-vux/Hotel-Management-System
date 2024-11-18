@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Tabs, Tab } from '@mui/material'
+import { Box, Tabs, Tab, Alert } from '@mui/material'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
@@ -48,6 +48,7 @@ const RoomManagement = () => {
   const [booking, setBooking] = useState(null)
   const [roomType, setRoomType] = useState('')
   const [roomNo, setRoomNo] = useState('')
+  const [room, setRoom] = useState(null)
 
   // Check-out state
   const [checkoutPhoneNumber, setCheckoutPhoneNumber] = useState('')
@@ -55,6 +56,7 @@ const RoomManagement = () => {
   const [checkoutBooking, setCheckoutBooking] = useState(null)
   const [checkoutRoomType, setCheckoutRoomType] = useState('')
   const [checkoutRoomNo, setCheckoutRoomNo] = useState('')
+  const [checkoutRoomId, setCheckoutRoomId] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('')
   const [payment, setPayment] = useState(null)
 
@@ -75,6 +77,7 @@ const RoomManagement = () => {
         response_customer.data.length > 0
       ) {
         const customerData = response_customer.data[0]
+
         setCustomer(customerData)
         setFirstName(customerData.firstName)
         setLastName(customerData.lastName)
@@ -83,8 +86,14 @@ const RoomManagement = () => {
         setIdType(customerData.identityType)
 
         // Find the latest non-checked-out booking
-        const latestBooking = customerData.bookings.find(b => !b.isCheckOut)
-        setBooking(latestBooking)
+        const latestBooking = customerData.bookings.find(b => !b.isCheckIn)
+
+        if (latestBooking) {
+          setBooking(latestBooking)
+        } else {
+          alert('This customer has no reservation at the moment.')
+          return;
+        }
       } else {
         alert('No customer found with the provided phone number.')
         clearCheckInFields() // Clear fields if no customer found
@@ -107,6 +116,7 @@ const RoomManagement = () => {
           if (response.data) {
             setRoomType(response.data.roomType)
             setRoomNo(response.data.roomNumber)
+            setRoom(response.data)
           }
         } catch (error) {
           console.error('Error searching for the room:', error)
@@ -139,7 +149,7 @@ const RoomManagement = () => {
     try {
       const formData = new FormData()
       formData.append('IsCheckIn', true)
-      formData.append('Status', "Checked In")
+      formData.append('Status', 'Checked In')
       formData.append('CheckInDate', new Date().toISOString())
 
       await axios.put(`${DB_HOST}api/Booking/${booking.id}`, formData)
@@ -175,6 +185,23 @@ const RoomManagement = () => {
       alert('Please fill in all required fields: ID Type, ID Number')
       return
     }
+
+    if (booking.isCheckIn) {
+      alert('This booking has already been checked in.')
+      return
+    }
+
+    const currentDate = new Date()
+
+    // Convert booking dates to Date objects
+    const checkInDate = new Date(booking.checkInDate)
+    const checkOutDate = new Date(booking.checkOutDate)
+
+    // Check if the current date is within the booking period
+    if (currentDate >= checkInDate && currentDate <= checkOutDate) {
+      await updateRoomStatus(room.id, 'Unavailable')
+    }
+
     try {
       await updateCustomerInfo()
       await updateBookingInfo()
@@ -185,6 +212,17 @@ const RoomManagement = () => {
     } catch (error) {
       console.error('Error during check-in:', error)
       alert('An error occurred during check-in. Please try again.')
+    }
+  }
+
+  const updateRoomStatus = async (id, status) => {
+    try {
+      const formData = new FormData()
+      formData.append('RoomStatus', status)
+      const response = await axios.put(`${DB_HOST}api/Room/${id}`, formData)
+      console.log('This is room update', response.data)
+    } catch (error) {
+      console.error('Error updating room status:', error)
     }
   }
 
@@ -215,7 +253,7 @@ const RoomManagement = () => {
 
         // Find the latest checked-in booking that hasn't been checked out yet
         const latestCheckInBooking = customerData.bookings.find(
-          booking => booking.isCheckIn && !booking.isCheckOut
+          booking => booking.isCheckIn && !booking.isCheckout
         )
 
         if (latestCheckInBooking) {
@@ -244,6 +282,7 @@ const RoomManagement = () => {
           if (response.data) {
             setCheckoutRoomType(response.data.roomType)
             setCheckoutRoomNo(response.data.roomNumber)
+            setCheckoutRoomId(response.data.id)
           }
         } catch (error) {
           console.error('Error fetching room details:', error)
@@ -277,11 +316,22 @@ const RoomManagement = () => {
       alert('Please select a payment method.')
       return
     }
+
+    if (
+      checkoutBooking.isCheckout == true &&
+      checkoutBooking.isCheckIn == true
+    ) {
+      alert('This booking has already been checked in and checked out.')
+      return
+    }
+
+    await updateRoomStatus(checkoutRoomId, 'Available')
+
     try {
       // Booking update
       const bookingData = new FormData()
       bookingData.append('IsCheckOut', true)
-      bookingData.append('Status', "Checked Out")
+      bookingData.append('Status', 'Checked Out')
       bookingData.append('CheckOutDate', new Date().toISOString())
 
       await axios.put(
