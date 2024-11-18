@@ -5,11 +5,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace api.Controllers
 {
     [ApiController]
@@ -40,18 +35,12 @@ namespace api.Controllers
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email != null && u.Email.ToLower() == email.ToLower());
 
             if (user == null)
-            {
-                _logger.LogWarning("Login attempt failed: Email not registered - {Email}", email);
                 return Unauthorized("Email not registered");
-            }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
             if (!result.Succeeded)
-            {
-                _logger.LogWarning("Login attempt failed: Incorrect password - {Email}", email);
                 return Unauthorized("Password is incorrect");
-            }
 
             var token = await _tokenService.CreateToken(user);
 
@@ -71,12 +60,16 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            if (registerDto.Password != registerDto.ConfirmPassword)
+                return BadRequest("Passwords do not match");
+
             var appUser = new AppUser
             {
                 UserName = registerDto.Email ?? string.Empty,
                 Email = registerDto.Email ?? string.Empty,
                 FirstName = registerDto.FirstName ?? string.Empty,
                 LastName = registerDto.LastName ?? string.Empty,
+                PhoneNumber = registerDto.PhoneNumber ?? string.Empty,
                 Role = "Employee"
             };
 
@@ -96,6 +89,7 @@ namespace api.Controllers
                 Email = appUser.Email,
                 FirstName = appUser.FirstName,
                 LastName = appUser.LastName,
+                PhoneNumber = appUser.PhoneNumber,
                 Token = token,
                 Role = appUser.Role
             });
