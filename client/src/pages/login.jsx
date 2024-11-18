@@ -8,6 +8,8 @@ const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
   const navigate = useNavigate()
 
   const handleSubmit = async e => {
@@ -34,7 +36,12 @@ const Login = () => {
         navigate('/admin/dashboard')
       }
     } catch (error) {
-      console.error('Error:', error)
+      if (error.response.status === 401) {
+        setError(error.response.data)
+      } else {
+        setError(error.response.data.errors.Email[0] || error.response.data.errors.Password[0])
+      }
+      console.error('Error:', error.response)
     }
   }
 
@@ -57,7 +64,7 @@ const Login = () => {
               className='border border-1 border-gray-300 rounded-md p-2'
             />
           </div>
-          <div className='flex flex-col mb-4'>
+          <div className='flex flex-col mb-2'>
             <label className='text-sm font-bold mb-1'>Password</label>
             <input
               type='password'
@@ -66,6 +73,12 @@ const Login = () => {
               className='border border-1 border-gray-300 rounded-md p-2'
             />
           </div>
+
+          {error && (
+            <div className=' mb-4'>
+              <p className='text-red-500'>{error}</p>
+            </div>
+          )}
 
           <button
             type='submit'

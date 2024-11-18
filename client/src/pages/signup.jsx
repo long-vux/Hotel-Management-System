@@ -11,7 +11,7 @@ const Signup = () => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const handleSubmit = async e => {
@@ -32,7 +32,23 @@ const Signup = () => {
         navigate('/login')
       }
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error.response)
+      if (error.response.data !== '')
+        setError(error.response.data)
+      else if (error.response.status === 401) {
+        setError(error.response.data)
+      } else if (error.response.status === 400) {
+        setError(
+          error.response.data.errors.FirstName?.[0] ||
+          error.response.data.errors.LastName?.[0] ||
+          error.response.data.errors.Email?.[0] ||
+          error.response.data.errors.PhoneNumber?.[0] ||
+          error.response.data.errors.Password?.[0] ||
+          error.response.data.errors.ConfirmPassword?.[0]
+        )
+      } else if (error.response.status === 500) {
+        setError(error.response.data[0].description)
+      }
     }
   }
 
@@ -58,7 +74,7 @@ const Signup = () => {
 
           <div className='flex flex-col mb-4' >
             <label className='text-sm font-bold mb-1'>Phone Number</label>
-            <input type="text" value={phoneNumber}  className='border border-1 border-gray-300 rounded-md p-2' onChange={e => setPhoneNumber(e.target.value)} />
+            <input type="text" value={phoneNumber} className='border border-1 border-gray-300 rounded-md p-2' onChange={e => setPhoneNumber(e.target.value)} />
           </div>
           <div className='flex flex-row gap-4'>
             <div className='flex flex-col mb-4 w-1/2'>
@@ -70,6 +86,11 @@ const Signup = () => {
               <input type="password" value={confirmPassword} className='border border-1 border-gray-300 rounded-md p-2' onChange={e => setConfirmPassword(e.target.value)} />
             </div>
           </div>
+          {error && (
+            <div className='mb-4'>
+              <p className='text-red-500'>{error}</p>
+            </div>
+          )}
           <button className='bg-[#1D4567] text-white p-2 rounded-md hover:bg-white hover:text-[#1D4567] hover:outline hover:outline-1 hover:outline-[#1D4567] hover:font-bold' onClick={handleSubmit}><span className='font-bold'>Sign up</span></button>
         </div>
         <span className='flex justify-center text-sm gap-2'>Already have an account?  <a href="/login" className='font-bold underline'>Login</a></span>
