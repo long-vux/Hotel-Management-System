@@ -16,14 +16,12 @@ const PaymentList = ({ paymentData = [] }) => { // Default to empty array if und
 
   return (
     <>
-      <tbody>
         {currentPosts.map((payment, index) => (
           <PaymentRow
             key={index}
             data={payment}
           />
         ))}
-      </tbody>
 
       <div className='mb-4 mt-2 ml-3'>
         <Pagination
