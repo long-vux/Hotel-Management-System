@@ -16,6 +16,7 @@ namespace api.Dtos.Account
         [EmailAddress]
         public required string? Email { get; set; }
         [Required]
+        [Phone]
         public required string? PhoneNumber { get; set; }
         [Required]
         public required string Password { get; set; }
