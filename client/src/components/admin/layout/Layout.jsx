@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
         <Header userData={userData} />
       </header>
       <aside className='bg-white rounded-md ml-2 row-start-2 col-start-1 col-end-2'>
-        <Sidebar />
+        <Sidebar userData={userData}  />
       </aside>
       <main className='rounded-md mr-2 row-start-2 col-start-2 col-end-3'>
         {children}

@@ -47,7 +47,7 @@ const AddBookingModal = () => {
         const response = await axios.get(`${DB_HOST}api/Room`);
 
         // Organize room data by roomType
-        const roomData = response.data.reduce((acc, room) => {
+        const roomData = response.data.data.reduce((acc, room) => {
           const { id, roomType, roomNumber, imagePaths, capacity } = room; // Include capacity
           if (!acc[roomType]) {
             acc[roomType] = [];

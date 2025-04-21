@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
-  const dbHost = 'http://localhost:5214/'
+  const dbHost = process.env.REACT_APP_DB_HOST
 
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')

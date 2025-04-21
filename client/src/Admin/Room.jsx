@@ -15,7 +15,8 @@ const Room = () => {
     const fetchRooms = async () => {
       try {
         const response = await axios.get(`${DB_HOST}api/Room`);
-        setRooms(response.data);
+        setRooms(response.data.data);
+        console.log(response.data.data)
       } catch (error) {
         console.error('Error fetching rooms:', error);
       }
@@ -23,7 +24,7 @@ const Room = () => {
     fetchRooms();
   }, [DB_HOST]);
 
-  const roomStatusOptions = ['Available', 'Unavailable'];
+  const roomStatusOptions = ['Available', 'Maintenance', 'Booked'];
   const roomTypeOptions = [];
 
   rooms.forEach(room => {

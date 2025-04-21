@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const DeleteConfirmModal = ({ open, handleClose, id }) => {
   const style = {
@@ -24,6 +25,7 @@ const DeleteConfirmModal = ({ open, handleClose, id }) => {
     try {
       const response = await axios.delete(`${DB_HOST}api/Room/${id}`);
       handleClose();
+      toast.success('Room deleted successfully!');
       window.location.reload();
       return response;
     } catch (error) {

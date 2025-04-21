@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Login = () => {
-  const dbHost = 'http://localhost:5214/'
+  const dbHost = process.env.REACT_APP_DB_HOST
 
 
   const [email, setEmail] = useState('')
@@ -27,6 +28,7 @@ const Login = () => {
       )
 
       if (response.status === 200) {
+        toast.success('Login successful')
         sessionStorage.setItem('user', JSON.stringify(response.data))
         setTimeout(() => {
           sessionStorage.removeItem('user')
@@ -42,6 +44,7 @@ const Login = () => {
         setError(error.response.data.errors.Email[0] || error.response.data.errors.Password[0])
       }
       console.error('Error:', error.response)
+      toast.error('Login failed. Please check your credentials.')
     }
   }
 

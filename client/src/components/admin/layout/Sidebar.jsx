@@ -9,11 +9,9 @@ import {
   Logout
 } from '@mui/icons-material'
 
-const Sidebar = () => {
+const Sidebar = ({userData}) => {
   const activeStyle = 'bg-[#F5F7F8] border-r-4 border-black  duration-500 ease-in-out'
   const inactiveStyle = 'text-gray-700  duration-500 ease-in-out'
-
-
   const handleLogout = () => {
     sessionStorage.removeItem('user')
   }
@@ -75,19 +73,21 @@ const Sidebar = () => {
             <span>Room</span>
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to='/admin/employee'
-            className={({ isActive }) =>
-              `hover:bg-[#F5F7F8] flex items-center gap-4 p-2 ${
-                isActive ? activeStyle : inactiveStyle
-              } `
-            }
-          >
-            <PeopleOutline />
-            <span>Employee</span>
-          </NavLink>
-        </li>
+        {userData.role === 'Admin' && (
+          <li>
+            <NavLink
+              to='/admin/employee'
+              className={({ isActive }) =>
+                `hover:bg-[#F5F7F8] flex items-center gap-4 p-2 ${
+                  isActive ? activeStyle : inactiveStyle
+                } `
+              }
+            >
+              <PeopleOutline />
+              <span>Employee</span>
+            </NavLink>
+          </li>
+        )}
         <li>
           <NavLink
             to='/admin/payment'

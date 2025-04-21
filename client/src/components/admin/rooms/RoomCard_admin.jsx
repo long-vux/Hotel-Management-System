@@ -7,7 +7,7 @@ import { IconButton } from '@mui/material' // Import MUI components
 import DeleteConfirmModal from './DeleteConfirmModal'
 
 const RoomCardAdmin = ({ room }) => {
-  const API_URL = process.env.REACT_APP_DB_HOST
+  const ROOT_URL = process.env.REACT_APP_ROOT_URL
 
   const [openModal, setOpenModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
@@ -41,7 +41,7 @@ const RoomCardAdmin = ({ room }) => {
     <div className='room-card-admin text-[20px] hover:shadow-xl transition-duration duration-100 font-inter flex gap-2 flex-col p-2 rounded-[5px] bg-white relative'>
       <div className='img-container h-[150px] cursor-pointer'>
         <img
-          src={API_URL + room.imagePaths[0]} // Get the first img from image list
+          src={ROOT_URL + room.imagePaths[0]} // Get the first img from image list
           alt={room.roomName}
           onClick={handleOpenModal}
           className='room-card-admin__image object-cover w-full h-full rounded-[5px]'
@@ -97,19 +97,19 @@ const RoomCardAdmin = ({ room }) => {
       <DeleteConfirmModal
         open={openDeleteModal}
         handleClose={handleCloseDeleteModal}
-        id={room.id} // Assuming you want to delete by room number
+        id={room.roomId} // Assuming you want to delete by room number
       />
 
       <RoomDetails
         open={openModal}
         handleClose={handleCloseModal}
         room={room}
-      />
+      />  
 
       <EditRoomModal
         open={openEditModal}
         handleClose={handleCloseEditModal}
-        id={room.id}
+        id={room.roomId}
       />
     </div>
   )

@@ -13,6 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
+import {toast } from 'react-toastify';
 
 // Modal button component for adding a room
 const AddRoomModalButton = () => {
@@ -137,40 +138,42 @@ const AddRoomModalButton = () => {
       return false;
     }
     return true;
-  };
-
-  const handleSave = async () => {
+  };const handleSave = async () => {
     if (!validateFields()) {
       return; // Prevent submission if validation fails
     }
-
+  
     const formData = new FormData();
-    formData.append('RoomName', title);
-    formData.append('RoomNumber', roomNumber);
-    formData.append('RoomType', roomType);
-    formData.append('Capacity', capacity);
-    formData.append('RoomPrice', rate);
-
-    selectedAmenities.forEach(amenity =>
-      formData.append('Amenities', amenity.title)
-    );
-
-    images.forEach(
-      image => formData.append('ImagePaths', image.file) // assuming `image.file` contains the file object
-    );
-
+  
+    // Create the RoomDTO object
+    const roomDTO = {
+      roomName: title,
+      roomNumber: roomNumber,
+      roomType: roomType,
+      capacity: capacity,
+      roomPrice: rate,
+      amenities: selectedAmenities.map(amenity => amenity.title),
+      roomStatus: 'Available',
+    };
+  
+    // Convert RoomDTO object to JSON string and append to FormData
+    formData.append('room', JSON.stringify(roomDTO));
+  
+    // Add images to FormData
+    images.forEach(image => formData.append('ImagePaths', image.file));
+  
     try {
       const response = await axios.post(DB_HOST + 'api/Room', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Room data submitted:', response.data);
+      toast.success('Room added successfully!');
       handleClose();
       window.location.reload();
     } catch (error) {
       console.error('Error submitting room data:', error);
     }
-  };
-
+};
   return (
     <div className='center h-100 font-inter'>
       <Fab

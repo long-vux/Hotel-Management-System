@@ -11,9 +11,11 @@ import {
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
 
 const EditRoomModal = ({ open, handleClose, id }) => {
-  const [roomData, setRoomData] = useState({});
+  // const [roomData, setRoomData] = useState({});
   const [images, setImages] = useState([]); // Uploaded images state
   const [roomType, setRoomType] = useState(''); // Selected room type
   const [roomNumber, setRoomNumber] = useState(''); // Room number
@@ -25,7 +27,7 @@ const EditRoomModal = ({ open, handleClose, id }) => {
 
 
   const API_URL = process.env.REACT_APP_DB_HOST;
-
+  const ROOT_URL = process.env.REACT_APP_ROOT_URL;
   // Arrays for room types and amenities options
   const roomTypes = ['Single Room', 'Double Room', 'Suite', 'Penthouse'];
   const amenitiesOptions = [
@@ -50,8 +52,7 @@ const EditRoomModal = ({ open, handleClose, id }) => {
     const fetchRoomData = async () => {
       try {
         const response = await axios.get(`${API_URL}api/Room/${id}`);
-        const data = response.data;
-        setRoomData(data);
+        const data = response.data.data;
 
         // Populate form fields with the fetched room data
         setRoomType(data.roomType || '');
@@ -68,9 +69,9 @@ const EditRoomModal = ({ open, handleClose, id }) => {
         setImages(
           data.imagePaths
             ? data.imagePaths.map(path => ({
-                name: path.split('/').pop(),
-                url: API_URL + path
-              }))
+              name: path.split('/').pop(),
+              url: ROOT_URL + path
+            }))
             : []
         );
       } catch (error) {
@@ -90,41 +91,67 @@ const EditRoomModal = ({ open, handleClose, id }) => {
       name: file.name,
       url: URL.createObjectURL(file) // This creates a temporary URL for preview
     }));
-  
+
     setImages(prevImages => [...prevImages, ...newImages]);
   };
-  
-  // Save room data
-  const handleSave = async () => {
-    const formData = new FormData();
-    formData.append('RoomName', title);
-    formData.append('RoomNumber', roomNumber);
-    formData.append('RoomStatus', status);
-    formData.append('RoomType', roomType);
-    formData.append('Capacity', capacity);
-    formData.append('RoomPrice', rate);
-  
-    selectedAmenities.forEach(amenity =>
-      formData.append('Amenities', amenity.title)
-    );
-  
-    images.forEach(image => formData.append('imagePaths', image.file)); // Append the `file` property
-  
+
+  const handleDeleteRoomImage = async (imagePath) => {
     try {
-      if (id) {
-        await axios.put(`${API_URL}api/Room/${id}`, formData);
-        console.log('Room data updated');
+      const originalImagePath = imagePath; // Lưu lại URL gốc để so sánh
+      imagePath = imagePath.replace('http://localhost:8080', '');
+
+      // Perform the delete request to the backend
+      const response = await axios.delete(`${API_URL}api/Room/${id}/images`, {
+        params: { imagePath },
+      });
+
+      if (response.data.success) {
+        // Update the images state immediately
+        setImages(prevImages => prevImages.filter(image => image.url !== originalImagePath));
+        toast.success('Image deleted successfully!');
       } else {
-        await axios.post(`${API_URL}api/Room`, formData);
-        console.log('Room data submitted');
+        toast.error('Failed to delete image!');
       }
-      handleClose(); // Close the modal
-      window.location.reload();
     } catch (error) {
-      console.error('Error submitting room data:', error);
+      console.error('Error deleting image:', error.response?.data || error.message);
+      toast.error('Failed to delete image!');
     }
   };
-  
+
+
+  const handleSave = async () => {
+
+    const formData = new FormData();
+
+    // Tạo object RoomDTO
+    const roomDTO = {
+      roomName: title,
+      roomNumber: roomNumber,
+      roomType: roomType,
+      capacity: capacity,
+      roomPrice: rate,
+      roomStatus: status,
+      amenities: selectedAmenities.map(amenity => amenity.title),
+    };
+
+    // Chuyển object RoomDTO thành JSON string
+    formData.append('room', JSON.stringify(roomDTO));
+
+    // Thêm ảnh vào FormData (nếu có ảnh mới)
+    images.forEach(image => formData.append('ImagePaths', image.file));
+
+    try {
+      const response = await axios.put(`${API_URL}api/Room/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      console.log('Room updated:', response.data);
+      handleClose();
+      toast.success('Room updated successfully!');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating room:', error);
+    }
+  };
 
   const modalStyle = {
     position: 'absolute',
@@ -276,7 +303,14 @@ const EditRoomModal = ({ open, handleClose, id }) => {
                         className='w-50 h-50 object-cover'
                       />
                     </td>
-                    <td className='border px-4 py-2'>{image.name}</td>
+
+
+                    <td className='border px-4 py-2'>
+                      <button className='flex justify-center items-center' onClick={() => handleDeleteRoomImage(image.url)}>
+                        <DeleteIcon className='text-red-500' />
+                      </button>
+                    </td>
+
                   </tr>
                 ))}
               </tbody>

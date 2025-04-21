@@ -32,7 +32,6 @@ const RoomDetails = ({
 }) => {
 
   const images = room.imagePaths
-
   return (
     <Modal
       open={open}

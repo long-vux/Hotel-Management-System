@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SlideShow.css'; // Import your styles
-const API_URL = process.env.REACT_APP_DB_HOST
+const ROOT_URL = process.env.REACT_APP_ROOT_URL
 
 const Slideshow = ({ images, interval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,6 +10,8 @@ const Slideshow = ({ images, interval = 3000 }) => {
     objectFit: 'cover',
     borderRadius: 5
   }
+
+  console.log('images',images)
   
   // Automatically change slide every 'interval' milliseconds
   useEffect(() => {
@@ -30,7 +32,7 @@ const Slideshow = ({ images, interval = 3000 }) => {
   return (
     <div className="slideshow-container">
       <div className="slideshow-slide" key={currentIndex}>
-        <img src={API_URL+images[currentIndex]} alt={`Slide ${currentIndex + 1}`} style={imageStyle} />
+        <img src={ROOT_URL+images[currentIndex]} alt={`Slide ${currentIndex + 1}`} style={imageStyle} />
       </div>
       <button className="prev" onClick={goToPreviousSlide}>&#10094;</button>
       <button className="next" onClick={goToNextSlide}>&#10095;</button>

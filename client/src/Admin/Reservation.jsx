@@ -18,9 +18,11 @@ const Reservation = () => {
   useEffect(() => {
     const fetchBooking = async () => {
       try {
-        const response = await axios.get(`${DB_HOST}api/Booking`);
+        const apiUrl = `${DB_HOST}api/Booking`;
+        console.log('url:', apiUrl);
+        const response = await axios.get(apiUrl);
         if (response.data) {
-          setBooking(response.data.reverse());
+          setBooking(response.data.data.reverse());
         } else {
           console.error('Error fetching bookings: Invalid response data.');
         }

@@ -15,8 +15,8 @@ const GuestStay = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axios.get(`${DB_HOST}api/customer`);
-        setCustomer(response.data.reverse());
+        const response = await axios.get(`${DB_HOST}api/Customer`);
+        setCustomer(response.data.data.reverse());
       } catch (error) {
         console.error('Error fetching customer:', error);
       } finally {
@@ -30,8 +30,8 @@ const GuestStay = () => {
   useEffect(() => {
     const fetchCustomerBooking = async () => {
       try {
-        const response = await axios.get(`${DB_HOST}api/booking`);
-        setBooking(response.data);
+        const response = await axios.get(`${DB_HOST}api/Booking`);
+        setBooking(response.data.data);
       } catch (error) {
         console.error('Error fetching booking:', error);
       } finally {
